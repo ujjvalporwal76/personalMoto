@@ -1,0 +1,29 @@
+.home-product-row {
+    display: flex;
+}
+
+.home-product-heading {
+  line-height: 34px;
+  font-weight: 700;
+  color: #020309;
+  margin: 20px;
+  font-size: 22px;
+}
+
+.home-product-section {
+  justify-content: center;
+  position: relative;
+  margin: 100px 30px;
+
+  padding: 10px;
+}
+
+.home-product-header {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
+
+.show-home-product-link {
+  margin: 10px 20px;
+}

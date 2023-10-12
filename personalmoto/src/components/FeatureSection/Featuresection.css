@@ -1,0 +1,26 @@
+.feauted-product-heading{
+
+    line-height: 34px;
+    font-weight: 700;
+    color: #020309;
+    margin: 20px;
+    
+    font-size: 22px;
+}
+
+.feature-product-section{
+    display:contents;
+    justify-content: center;    
+    width: 60%;
+}
+
+.feaute-product-header{
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.show-feature-product-link{
+    margin: 10px 20px;
+}
+
