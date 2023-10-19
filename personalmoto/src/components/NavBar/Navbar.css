@@ -33,6 +33,32 @@ body {
   height: 100%;
   margin: auto 2px;
 }
+.nav-item h5 {
+  padding: 20px 28px 8px;
+  margin: 0;
+  border-top: 1px solid #f2f3f6;
+  font-size: 14px;
+  color: #002539;
+  font-weight: 600;
+  line-height: 1.2em;
+}
+.dropdown-menu {
+  padding: 25px 28px 12px;
+  font-size: 13px;
+  line-height: 18px;
+}
+.dropdown-menu-item {
+  margin: 7px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
 @media (min-width: 320px) {
   .navbar-brand {
     width: 80%;
@@ -63,10 +89,10 @@ body {
 }
 
 @media (min-width: 576px) {
-    .nav-item {
-      margin: 10px;
-    }
+  .nav-item {
+    margin: 10px;
   }
+}
 @media (min-width: 992px) {
   .navbar {
     display: grid;

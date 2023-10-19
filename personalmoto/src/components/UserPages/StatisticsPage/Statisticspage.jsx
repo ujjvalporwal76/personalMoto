@@ -6,7 +6,10 @@ import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { DateRangePicker } from "react-date-range";
 import { addDays, format } from "date-fns";
-
+import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
+import axios from "../../../axios/axios.config";
+// import useRefreshToken from "../../../Hooks/useRefreshToken";
+// import axios from "axios";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -35,8 +38,10 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const url = "http://localhost:5000/api/pages/myaccount-statistics";
+
 function Statisticspage() {
+  const axiosPrivate = useAxiosPrivate();
+  // const refresh = useRefreshToken();
   const navigate = useNavigate();
   const [dropdown, setdropdown] = useState(0);
   const path = useLocation();
@@ -54,13 +59,9 @@ function Statisticspage() {
   const [helpBox, setHelpbox] = useState(false);
   const [showStats, setShowStats] = useState("views");
 
-  // const [token, setToken] = useState(
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTIzYTliNmExMjk4ZWUzMjMwYjcxODIiLCJpYXQiOjE2OTY4MzYwMzd9.TTOlDn9CvUspHxEG4X-K5a25bMttG9c1fq0zNVgeWP8"
-  // );
   const userAuthenticate = async () => {
     try {
-      const res = await fetch(url, {
-        method: "GET",
+      const response = await axiosPrivate.get("/pages/myaccount-statistics", {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -68,20 +69,15 @@ function Statisticspage() {
           "Access-Control-Allow-Credentials": "true",
           // "Access-Control-Expose-Headers": "Authorization",
         },
-        credentials: "include",
+        withCredentials: true,
       });
 
-      const data = await res.json();
+      const data = response.data;
       setUserData({ ...data });
-      // console.log(userData.tokens[0].token);
       console.log(data);
-      if (res.status === 401) {
+      if (response.status === 401) {
         navigate("/login");
       }
-
-      // if (!res.status === 200) {
-      //   throw new Error(res.error);
-      // }
     } catch (error) {
       console.log(error);
       navigate("/login");
@@ -137,6 +133,7 @@ function Statisticspage() {
         <div className="user-pages-header-box">
           <div className="user-pages-header">
             <h1>{userData.email}</h1>
+            {/* <button onClick={() => refresh()}>refresh</button> */}
             <div className="user-wallet-topup">
               <div className="user-wallet-box">
                 <div className="user-wallet">

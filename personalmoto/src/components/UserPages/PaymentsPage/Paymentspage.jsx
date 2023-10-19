@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { LiaWalletSolid } from "react-icons/lia";
 
 import "../StatisticsPage/Statisticspage.css";
@@ -9,16 +9,17 @@ import "./Paymentspage.css";
 import Navbar from "../../NavBar/Navbar";
 import Createaccountbanner from "../../CreateAccountBanner/Createaccountbanner";
 import Homefooter from "../../HomeFooter/Homefooter";
-
-import Searchformlistitem from "../../SearchForm/Searchformlistitem";
-
+import axios from "axios";
+const url = "http://localhost:5000/api/pay/topup";
 function Paymentspage() {
+  const navigate = useNavigate();
   const [dropdown, setdropdown] = useState(0);
   const path = useLocation();
-  const [sliderValue, setSliderValue] = useState(3000);
+  const [sliderValue, setSliderValue] = useState(149);
   const paymentsId = useParams();
   const [show, setShow] = useState(false);
   const [modalForm, setModalForm] = useState(false);
+  const [selectTopup, setSelectedTopup] = useState("4");
   const [modalForm1Values, setModalForm1Values] = useState({
     firstName: "",
     lastName: "",
@@ -26,6 +27,7 @@ function Paymentspage() {
     postalCode: "",
     email: "",
     phoneNumber: "",
+    toPay: "",
   });
 
   const [modalForm2Values, setModalForm2Values] = useState({
@@ -43,8 +45,17 @@ function Paymentspage() {
   const [isModalForm1Submit, setIsModalForm1Submit] = useState(false);
   const [modalForm2Errors, setModalForm2Errors] = useState({});
   const [isModalForm2Submit, setIsModalForm2Submit] = useState(false);
+  const [topUpValues, setTopUpValues] = useState({
+    depositValue: 149,
+    buyPoints: 149,
+    freePoints: 0.0,
+    rangeLeft: 50,
+    rangeRight: 149,
+    toPay: 149,
+  });
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   function handletopupdropdown() {
     setdropdown(!dropdown);
   }
@@ -70,30 +81,66 @@ function Paymentspage() {
     setModalForm2Values({ ...modalForm2Values, [name]: value });
   }
 
-  function handleModalForm1Submit(e) {
+  const handleModalForm1Submit = async (e) => {
     e.preventDefault();
     setModalForm1Errors(modalForm1Validate(modalForm1Values));
     setIsModalForm1Submit(true);
-  }
-  function handleModalForm2Submit(e) {
+    const response = await axios.post(url, modalForm1Values, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": "true",
+      },
+      withCredentials: true,
+    });
+
+    const data = await response.data;
+
+    console.log(data);
+    if (response.status === 201) {
+      window.alert("payment done succefully");
+      window.location = data.url;
+      console.log(data);
+    } else if (response.status > 400 || !data) {
+      window.alert("Error in making your payment");
+      navigate("/payment/fail");
+    }
+  };
+  const handleModalForm2Submit = async (e) => {
     e.preventDefault();
     setModalForm2Errors(modalForm2Validate(modalForm2Values));
     setIsModalForm2Submit(true);
-  }
+    const response = await axios.post(url, modalForm2Values, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": "true",
+      },
+      withCredentials: true,
+    });
+
+    const data = await response.data;
+    console.log(data);
+    if (response.status === 201) {
+      window.alert("payment done succefully");
+      navigate("/payment/success");
+      console.log(data);
+    } else if (response.status > 400 || !data) {
+      window.alert("Error in making your payment");
+      navigate("/payment/fail");
+    }
+  };
 
   useEffect(() => {
-    console.log(modalForm1Errors);
+    // console.log(modalForm1Errors);
     if (Object.keys(modalForm1Errors).length === 0 && isModalForm1Submit) {
-     console.log(modalForm1Values)
+      console.log(modalForm1Values);
     }
   });
   useEffect(() => {
-    console.log(modalForm2Errors);
+    // console.log(modalForm2Errors);
     if (Object.keys(modalForm2Errors).length === 0 && isModalForm2Submit) {
       console.log(modalForm2Values);
     }
   });
-
 
   function modalForm2Validate(values) {
     let errors = {};
@@ -139,6 +186,77 @@ function Paymentspage() {
     }
     return errors;
   }
+
+  function handleToPayAmount() {
+    setModalForm1Values({
+      ...modalForm1Values,
+      toPay: sliderValue,
+    });
+  }
+
+  const updateTopUpValues = (newValues) => {
+    setTopUpValues((prevTopUpValues) => {
+      return {
+        ...prevTopUpValues,
+        ...newValues,
+      };
+    });
+  };
+
+  function handleSelectTopup(e) {
+    const value = e.target.value;
+    console.log(value);
+    if (value === "1") {
+      updateTopUpValues({
+        depositValue: 3000,
+        buyPoints: 3000,
+        freePoints: 0.15,
+        rangeLeft: 500,
+        rangeRight: 3000,
+        toPay: 3000,
+      });
+      setSliderValue(500);
+    } else if (value === "2") {
+      updateTopUpValues({
+        depositValue: 499,
+        buyPoints: 499,
+        freePoints: 0.1,
+        rangeLeft: 300,
+        rangeRight: 499,
+        toPay: 499,
+      });
+      setSliderValue(300);
+    } else if (value === "3") {
+      updateTopUpValues({
+        depositValue: 299,
+        buyPoints: 299,
+        freePoints: 0.05,
+        rangeLeft: 150,
+        rangeRight: 299,
+        toPay: 299,
+      });
+      setSliderValue(150);
+    } else if (value === "4") {
+      updateTopUpValues({
+        depositValue: 149,
+        buyPoints: 149,
+        freePoints: 0.0,
+        rangeLeft: 50,
+        rangeRight: 149,
+        toPay: 149,
+      });
+      setSliderValue(50);
+    }
+    console.log(topUpValues);
+    setSelectedTopup(value);
+    // console.log(e.target);
+    // console.log(selectTopup);
+  }
+  // useEffect(() => {
+  //   console.log(topUpValues);
+  // }, [topUpValues]);
+
+  function handleStripePayment() {}
 
   return (
     <div className="payments-page">
@@ -420,7 +538,7 @@ function Paymentspage() {
                     </span>
                   </p>
                 </div>
-                <div className="topup-checkboxes">
+                <div className="topup-checkboxes" onChange={handleSelectTopup}>
                   <div className="topup-checkbox-item">
                     <input
                       type="radio"
@@ -475,6 +593,7 @@ function Paymentspage() {
                       id="topup-g4"
                       value="4"
                       name="g"
+                      checked={selectTopup === "4"}
                     ></input>
                     <label for="topup-g4" className="topup-checkbox-item-label">
                       <span>From 50 to 149 points</span>
@@ -491,14 +610,20 @@ function Paymentspage() {
                   <input
                     type="range"
                     className="topup-amount-slider"
-                    step={5}
+                    //
                     onChange={handleSliderValue}
                     value={sliderValue}
+                    min={topUpValues.rangeLeft}
+                    max={topUpValues.rangeRight}
                   ></input>
 
                   <div className="topup-amount-range">
-                    <span className="topup-amount-range-min">300 INR</span>
-                    <span className="topup-amount-range-max">499 INR</span>
+                    <span className="topup-amount-range-min">
+                      {topUpValues.rangeLeft} INR
+                    </span>
+                    <span className="topup-amount-range-max">
+                      {topUpValues.rangeRight} INR
+                    </span>
                   </div>
                   <p className="topup-current-amount">{sliderValue}</p>
                 </div>
@@ -506,14 +631,19 @@ function Paymentspage() {
                 <dl className="topup-amount-calc-box">
                   <dl className="topup-amount-calc-label">Deposit value:</dl>
                   <dd className="topup-amount-calc-value">
-                    <sup>INR</sup>149
+                    <sup>INR</sup>
+                    {sliderValue}
                   </dd>
                   <dl className="topup-amount-calc-label">
                     You will receive on your account:
                   </dl>
                   <dd className="topup-amount-calc-value">
-                    <span className="topup-raw-amount">149 points + </span>
-                    <span className="topup-bonus-amount">0.00 free</span>
+                    <span className="topup-raw-amount">
+                      {sliderValue} points +{" "}
+                    </span>
+                    <span className="topup-bonus-amount">
+                      {(sliderValue * topUpValues.freePoints).toFixed(2)} free
+                    </span>
                   </dd>
                 </dl>
               </div>
@@ -544,7 +674,8 @@ function Paymentspage() {
                   <input type="hidden" id="total-amount"></input>
                   <span className="topup-amount-summary-label">To pay</span>
                   <span className="topup-amount-summary-total">
-                    <sup>INR</sup>149
+                    <sup>INR</sup>
+                    {sliderValue}
                   </span>
                   <a
                     href="/myaccount-payments/fundoperations"
@@ -556,7 +687,8 @@ function Paymentspage() {
                     type="submit"
                     id="paymentSubmit"
                     className="topup-amount-summary-submit topup-submit-btn"
-                    onClick={handleShow}
+                    onClickCapture={handleShow}
+                    onClick={handleToPayAmount}
                   >
                     Next
                   </button>
@@ -631,7 +763,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm2Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm2Errors.firstName}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm2Errors.firstName}
+                    </div>
                   </div>
 
                   <div className="payment-input-box">
@@ -686,7 +820,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm2Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm2Errors.address}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm2Errors.address}
+                    </div>
                   </div>
 
                   <div
@@ -706,7 +842,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm2Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm2Errors.postalCode}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm2Errors.postalCode}
+                    </div>
                   </div>
 
                   <div
@@ -726,7 +864,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm2Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm2Errors.city}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm2Errors.city}
+                    </div>
                   </div>
 
                   <div
@@ -746,7 +886,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm2Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm2Errors.taxId}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm2Errors.taxId}
+                    </div>
                   </div>
 
                   <div
@@ -766,9 +908,15 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm2Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm2Errors.email}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm2Errors.email}
+                    </div>
                   </div>
-                  <button type="submit" className="payment-opt-redirect-btn">
+                  <button
+                    type="submit"
+                    className="payment-opt-redirect-btn"
+                    onClick={handleStripePayment}
+                  >
                     Proceed to payment
                   </button>
                 </form>
@@ -820,7 +968,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm1Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm1Errors.firstName}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm1Errors.firstName}
+                    </div>
                   </div>
 
                   <div className="payment-input-box">
@@ -847,7 +997,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm1Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm1Errors.address}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm1Errors.address}
+                    </div>
                   </div>
 
                   <div className="payment-input-box">
@@ -861,7 +1013,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm1Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm1Errors.postalCode}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm1Errors.postalCode}
+                    </div>
                   </div>
 
                   <div className="payment-input-box">
@@ -875,7 +1029,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm1Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm1Errors.city}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm1Errors.city}
+                    </div>
                   </div>
 
                   <div className="payment-input-box">
@@ -889,7 +1045,9 @@ function Paymentspage() {
                       type="text"
                       onChange={handleModalForm1Change}
                     ></input>
-                    <div className="req-input-error-msg">{modalForm1Errors.email}</div>
+                    <div className="req-input-error-msg">
+                      {modalForm1Errors.email}
+                    </div>
                   </div>
 
                   <div className="payment-input-box">
@@ -904,7 +1062,11 @@ function Paymentspage() {
                       onChange={handleModalForm1Change}
                     ></input>
                   </div>
-                  <button type="submit" className="payment-opt-redirect-btn">
+                  <button
+                    type="submit"
+                    className="payment-opt-redirect-btn"
+                    onClick={handleStripePayment}
+                  >
                     Proceed to payment
                   </button>
                 </form>

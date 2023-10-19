@@ -1,24 +1,15 @@
 import express from "express";
 import pagesController from "../controllers/pagesController.js";
-import authenticateUser from "../middleware/authentication.js";
-import refreshToken from "../middleware/token.js";
+import uploadMiddleware from "../middleware/multerUploader.js";
 
 export var pagesRoutes = express.Router();
 
-pagesRoutes.get(
-  "/myaccount-statistics",
-  authenticateUser,
-  pagesController.statistics
-);
-pagesRoutes.get(
-  "/create-ad-page",
-  authenticateUser,
-  pagesController.createadpage
-);
+pagesRoutes.get("/myaccount-statistics", pagesController.statistics);
+// pagesRoutes.get("/create-ad-page", pagesController.createadpage);
 
 pagesRoutes.post(
   "/create-ad-page",
-  authenticateUser,
+  uploadMiddleware,
   pagesController.createadpage
 );
 

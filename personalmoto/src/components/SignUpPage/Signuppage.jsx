@@ -8,7 +8,7 @@ import { BsFacebook, BsGoogle, BsApple } from "react-icons/bs";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 import Navbar from "../NavBar/Navbar";
-const url = "http://127.0.0.1:5000/api/users/signup";
+import axios from "../../axios/axios.config";
 
 function Signuppage() {
   const navigate = useNavigate();
@@ -30,18 +30,19 @@ function Signuppage() {
     e.preventDefault();
     const { email, password } = signUpValues;
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email, password: password }),
+    const response = await axios.post("/users/signup", {
+      email,
+      password,
     });
-    const data = await res.json();
-    if (res.status === 201) {
-      window.alert("successful registeration");
+
+    const data = response.data;
+
+    if (response.status === 201) {
+      window.alert("Successful registration");
       navigate("/login");
       console.log(data);
     } else {
-      window.alert("invalid registration");
+      window.alert("Invalid registration");
     }
   };
   return (

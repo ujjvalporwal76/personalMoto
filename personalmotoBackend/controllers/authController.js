@@ -5,9 +5,6 @@ import generateTokens from "../utils/generateTokens.js";
 const register = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(email);
-  console.log(password);
-
   if (!email || !password) {
     return res
       .status(401)
@@ -69,10 +66,22 @@ const login = async (req, res) => {
 
     if (user) {
       const validPassword = await bcrypt.compare(password, user.password);
-      console.log(validPassword);
+      // console.log("validpassword:" + validPassword);
       if (validPassword) {
         const { accessToken, refreshToken } = await generateTokens(user);
-
+        console.log(accessToken, refreshToken);
+        res.cookie("accessToken", accessToken, {
+          httpOnly: true,
+          maxAge: 5 * 1000 * 60 * 60,
+          sameSite: "none",
+          secure: "false",
+        });
+        res.cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          maxAge: 5 * 1000 * 60 * 60,
+          sameSite: "none",
+          secure: "false",
+        });
         return res.status(200).json({
           accessToken,
           refreshToken,

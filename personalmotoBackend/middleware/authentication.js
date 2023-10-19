@@ -3,26 +3,24 @@ import UserModel from "../models/UserModule.js";
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const token = req.cookies.accessToken; // Authorization: 'Bearer TOKEN'
-    console.log("auth:" + token);
-    if (!token) {
+    const accessToken = req.cookies.accessToken; // Authorization: 'Bearer TOKEN'
+
+    if (!accessToken) {
       throw new Error("Authentication failed!, Provide valid Token");
     }
-    const decodedToken = Jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
-
-    console.log(decodedToken._id);
+    const decodedToken = Jwt.verify(accessToken, process.env.ACCESS_TOKEN_KEY);
 
     const userData = await UserModel.findOne({
-      _id: decodedToken._id,
+      _id: decodedToken.userId,
     });
     // console.log(userData.email)
     if (!userData) {
       throw new Error("Invalid user");
     }
 
-    req.token = token;
+    req.token = accessToken;
     req.userData = userData;
-    req.userID = userData._id;
+    req.userId = userData._id;
 
     next();
   } catch (err) {

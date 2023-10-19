@@ -1,25 +1,58 @@
-import React, { useState } from "react";
-
-import Products from "./ProductDetails"
+import React, { useEffect, useState } from "react";
+import axios from "../../axios/axios.config";
+import Products from "./ProductDetails";
 
 import offerposter from "../../images/offerposter1.webp";
 import Navbar from "../NavBar/Navbar";
-import Sellercard from "../SellerCard/Sellercard"
-import Productdetailsection from "../ProductDetailSection/ProductdetailSection"
-import Productdescriptionsection from "../ProductDescriptionSection/Productdescriptionsection"
-import Createaccountbanner from "../CreateAccountBanner/Createaccountbanner"
-import Homefooter from "../HomeFooter/Homefooter"
-import Homeproductsection from "../MadeForYouSection/Homeproductsection"
+import Sellercard from "../SellerCard/Sellercard";
+import Productdetailsection from "../ProductDetailSection/ProductdetailSection";
+import Productdescriptionsection from "../ProductDescriptionSection/Productdescriptionsection";
+import Createaccountbanner from "../CreateAccountBanner/Createaccountbanner";
+import Homefooter from "../HomeFooter/Homefooter";
+import Homeproductsection from "../MadeForYouSection/Homeproductsection";
 import { Swiper, SwiperSlide } from "swiper/react";
-import  { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "./Productpage.css";
+import { useParams } from "react-router-dom";
 
 function Productpage() {
+  const productId = useParams();
+  const [productDetails, setProductDetails] = useState({});
   const [thumbsSwiper, setThumbsSwiper] = useState();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    handleProductDetails();
+  }, []);
+
+  const handleProductDetails = async () => {
+    try {
+      const response = await axios.get(`/product/${productId.productId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+          "Access-Control-Allow-Credentials": "true",
+          // "Access-Control-Expose-Headers": "Authorization",
+        },
+        withCredentials: true,
+      });
+
+      const data = response.data;
+      setProductDetails({ ...data });
+      console.log(data);
+      if (!productDetails) {
+        return <div>Loading...</div>;
+      }
+    } catch (error) {
+      console.log(error);
+      alert("no product details");
+    }
+  };
   return (
     <div className="product-page">
       <Navbar />
@@ -82,65 +115,66 @@ function Productpage() {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper"
           >
-            <SwiperSlide>
-              <img src={offerposter} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-            </SwiperSlide>
+            {productDetails.images?.map((imgurl, index) => (
+              <SwiperSlide key={index}>
+                <img src={imgurl} alt="product-img" />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className="product-full-desription-box">
-            <h2 className="product-name">Audi A8 50 TDI MHEV Quattro Tiptr</h2>
-            <section className="product-characteristics">
-              <ul className="product-characteristics-list">
-                <li className="product-characteristics-list-item">
-                  <span>2019</span>
-                </li>
-                <li className="product-characteristics-list-item">
-                  <span>25,000 km</span>
-                </li>
-                <li className="product-characteristics-list-item">
-                  <span>Diesel</span>
-                </li>
-                <li className="product-characteristics-list-item">
-                  <span>1190cc</span>
-                </li>
-              </ul>
-              <div className="product-price">
-                <span className="product-price-currency">INR</span>
-                <span className="product-price-amount">25,98,325</span>
+          <h2 className="product-name">
+            {productDetails.vehicleBrand} {productDetails.vehicleModel}
+          </h2>
+          <section className="product-characteristics">
+            <ul className="product-characteristics-list">
+              <li className="product-characteristics-list-item">
+                <span>{productDetails.productionYear}</span>
+              </li>
+              <li className="product-characteristics-list-item">
+                <span>{productDetails.mileage}</span>
+              </li>
+              <li className="product-characteristics-list-item">
+                <span>{productDetails.fuelType}</span>
+              </li>
+              <li className="product-characteristics-list-item">
+                <span>{productDetails.capacity}</span>
+              </li>
+            </ul>
+            <div className="product-price">
+              <span className="product-price-currency">
+                {productDetails.currency === "Dollar" ? "USD" : "INR"}
+              </span>
+              <span className="product-price-amount">
+                {productDetails.price}
+              </span>
             </div>
-            </section>
-            <Sellercard />
+          </section>
+          <Sellercard
+            sellerName={productDetails.sellerName}
+            telePhone={productDetails.telephone}
+          />
         </div>
       </div>
-      <Productdetailsection />
-      <Productdescriptionsection />
+      <Productdetailsection
+        vin={productDetails.vin}
+        registration={productDetails.registration}
+        vehicleBrand={productDetails.vehicleBrand}
+        vehicleModel={productDetails.vehicleModel}
+        version={productDetails.version}
+        productionYear={productDetails.productionYear}
+        mileage={productDetails.mileage}
+        capacity={productDetails.capacity}
+        fuelType={productDetails.fuelType}
+        power={productDetails.power}
+        gearBox={productDetails.gearBox}
+        bodyType={productDetails.bodyType}
+        doors={productDetails.doors}
+        color={productDetails.color}
+        registrationDate={productDetails.registrationDate}
+        damaged={productDetails.damaged}
+      />
+      <Productdescriptionsection description={productDetails.description} />
       <Homeproductsection />
       <Createaccountbanner />
       <Homefooter />

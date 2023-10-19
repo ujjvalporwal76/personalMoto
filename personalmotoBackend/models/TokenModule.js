@@ -5,9 +5,16 @@ const tokenSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  token: {
+  refreshToken: {
     type: String,
     required: true,
+  },
+  email: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    expires: 1 * 86400, //1d
   },
 });
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import axios from "../../axios/axios.config";
+import useAuth from "../../Hooks/useAuth";
 import "./Loginpage.css";
 
 import loginpagebanner from "../../images/loginpagebanner.jpeg";
@@ -8,9 +9,10 @@ import { BsFacebook, BsGoogle, BsApple } from "react-icons/bs";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 import Navbar from "../NavBar/Navbar";
+// import { date } from "date-fns/locale";
 
-const url = "http://localhost:5000/api/users/login";
 function Loginpage() {
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,23 +26,36 @@ function Loginpage() {
   const handleSendLoginData = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email, password: password }),
-      credentials: "include",
-    });
+    const response = await axios.post(
+      "/users/login",
+      {
+        email,
+        password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
 
-    const data = await res.json();
-    if (res.status === 200) {
+    const data = response.data;
+
+    if (response.status === 200) {
+      // const refreshToken = data.refreshToken;
+      const accessToken = data.accessToken;
+      console.log(accessToken);
+
+      setUser({ email, password, accessToken });
+      console.log(user);
       window.alert("successful login");
-      console.log(data);
+      // console.log(data);
       navigate("/");
-    } else if (!email || !password || res.status === 400) {
+    } else if (!email || !password || response.status > 400) {
       window.alert("wrong credentials");
     }
   };
-
   return (
     <div className="login-page">
       <Navbar />

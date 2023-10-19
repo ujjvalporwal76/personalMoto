@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
+import axios from "../../axios/axios.config";
 import { FcIdea } from "react-icons/fc";
-import { BiErrorCircle, BiRotateRight } from "react-icons/bi";
+import { BiErrorCircle } from "react-icons/bi";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Form } from "react-bootstrap";
@@ -20,6 +21,7 @@ import Gearboxes from "../SearchForm/Gearbox";
 import Versions from "../SearchForm/Version";
 import Colors from "../SearchForm/Color";
 import Currencies from "../SearchForm/Currency";
+
 function createBodytypelist(Bodytype) {
   return <Searchformlistitem key={Bodytype.id} bodytype={Bodytype.bodytype1} />;
 }
@@ -66,7 +68,6 @@ function createColorlist(Color) {
 function createCurrencylist(Currency) {
   return <Searchformlistitem key={Currency.id} currency={Currency.currency} />;
 }
-const url = "http://127.0.0.1:5000/api/pages/create-ad-page";
 
 function Createadpage() {
   const [damageSelect, setDamageSelect] = useState(false);
@@ -83,7 +84,6 @@ function Createadpage() {
   const imageUploadInput = useRef();
   const [selectedImages, setSelectedImages] = useState([]);
   const [isImageSelected, setIsImageSelected] = useState(false);
-  const [rotateValue, setRotateValue] = useState(0);
 
   const [adFormValues, setAdFormValues] = useState({
     productType: "",
@@ -138,37 +138,51 @@ function Createadpage() {
 
   function handleSelectFile(e) {
     const selectedFiles = e.target.files;
-    if (!selectedFiles || !selectedFiles[0]) return null;
+
+    console.log(selectedFiles);
+    // if (!selectedFiles || !selectedFiles[0]) return null;
     setIsImageSelected(true);
     const selectedFilesArray = Array.from(selectedFiles);
-    const imagesArray = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file);
+
+    setSelectedImages((previousImages) =>
+      previousImages.concat(selectedFilesArray)
+    );
+
+    setAdFormValues({
+      ...adFormValues,
+      images: [...selectedFilesArray],
     });
-    setSelectedImages((previousImages) => previousImages.concat(imagesArray));
-    console.log(imagesArray);
   }
 
   //Handling form submit
   const handleAdForm = async (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(adFormValues));
+    const formData = new FormData();
+    Object.entries(adFormValues).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    console.log(adFormValues.images);
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
     console.log("form-submit");
-    const res = await fetch(url, {
-      method: "POST",
+
+    const response = await axios.post("/pages/create-ad-page", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Access-Control-Allow-Credentials": "true",
       },
-      body: JSON.stringify(adFormValues),
-      credentials: "include",
+      withCredentials: true,
     });
-    const data = await res.json();
-    if (res.status === 201) {
+
+    const data = await response.data;
+
+    if (response.status === 201) {
       window.alert("Ad submit Successful");
       console.log(data);
-    } else if (res.status === 401 || !data) {
+    } else if (response.status > 400 || !data) {
       window.alert("Error in submitting ad");
-      // window.open("/login");
     }
   };
 
@@ -225,7 +239,12 @@ function Createadpage() {
       <Navbar />
       <div className="create-ad-section">
         {/* Create-ad-form */}
-        <form className="create-ad-form" onSubmit={handleAdForm} method="POST">
+        <form
+          className="create-ad-form"
+          onSubmit={handleAdForm}
+          method="POST"
+          enctype="multipart/form-data"
+        >
           <div className="create-ad-form-box">
             <section>
               <div className="ad-form-header">
@@ -965,8 +984,6 @@ function Createadpage() {
                                       className="preview-image"
                                       style={{
                                         backgroundImage: `url(${image})`,
-                                        transition: `transform 150ms ease`,
-                                        transform: `rotate(${rotateValue}deg)`,
                                       }}
                                     ></div>
                                     <div className="preview-image-delete-box">
