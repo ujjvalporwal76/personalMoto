@@ -1,44 +1,19 @@
-import UserModel from "../models/UserModule.js";
+import UserModel from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import generateTokens from "../utils/generateTokens.js";
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { userName, email, password } = req.body;
 
-  if (!email || !password) {
-    return res
-      .status(401)
-      .json({ message: "Please provide email and password" });
+  if (!email || !password || !userName) {
+    return res.status(401).json({ message: "Please provide all fields" });
   }
-  // 2- check for existing user in the database
-  //   UserModel.findOne({ email: email })
-  //     .then((userExist) => {
-  //       if (userExist) {
-  //         return res.status(422).json({ message: "Email already exists" });
-  //       }
-  //       const user = new UserModel({
-  //         email: email,
-  //         password: password,
-  //       });
-  //       //3 - save to db
 
-  //       user
-  //         .save()
-  //         .then(() => {
-  //           res.status(201).json({
-  //             message: "user registered",
-  //           });
-  //         })
-  //         .catch(() => res.status(500).json({ message: "unable to register" }));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // });
   try {
     const userExist = await UserModel.findOne({ email: email });
     if (!userExist) {
       let newUser = new UserModel({
+        userName: userName,
         email: email,
         password: password,
       });
@@ -95,4 +70,15 @@ const login = async (req, res) => {
   }
 };
 
-export default { register, login };
+const logout = async (req, res) => {
+  if (req.cookies.accessToken || req.cookies.refreshToken) {
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+
+    return res.status(200).json("user logout");
+  } else {
+    res.redirect("/api/users/login");
+  }
+};
+
+export default { register, login, logout };

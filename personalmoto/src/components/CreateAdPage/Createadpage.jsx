@@ -83,6 +83,7 @@ function Createadpage() {
   const [aside, setAside] = useState(false);
   const imageUploadInput = useRef();
   const [selectedImages, setSelectedImages] = useState([]);
+  const [showImages, setShowImages] = useState([]);
   const [isImageSelected, setIsImageSelected] = useState(false);
 
   const [adFormValues, setAdFormValues] = useState({
@@ -132,42 +133,73 @@ function Createadpage() {
     setAside(!aside);
   }
 
-  function triggerImageUploader() {
+  function triggerImageUploader1() {
     imageUploadInput.current.click();
   }
+  function triggerImageUploader2() {
+    imageUploadInput.current.click();
+  }
+  // function handleSelectFile(e) {
+  //   handleAdFormValues("images");
+  //   const selectedFiles = e.target.files;
 
-  function handleSelectFile(e) {
+  //   console.log(selectedFiles);
+  //   // if (!selectedFiles || !selectedFiles[0]) return null;
+  //   setIsImageSelected(true);
+  //   const selectedFilesArray = Array.from(selectedFiles);
+
+  //   setSelectedImages((previousImages) =>
+  //     previousImages.concat(selectedFilesArray)
+  //   );
+
+  //   setAdFormValues({
+  //     ...adFormValues,
+  //     images: [...selectedFilesArray],
+  //   });
+  // }
+  const handleSelectFile = (e) => {
     const selectedFiles = e.target.files;
-
-    console.log(selectedFiles);
-    // if (!selectedFiles || !selectedFiles[0]) return null;
-    setIsImageSelected(true);
     const selectedFilesArray = Array.from(selectedFiles);
-
+    const blobURLs = selectedFilesArray.map((file) =>
+      URL.createObjectURL(file)
+    );
+    setIsImageSelected(true);
     setSelectedImages((previousImages) =>
       previousImages.concat(selectedFilesArray)
     );
 
-    setAdFormValues({
-      ...adFormValues,
-      images: [...selectedFilesArray],
-    });
-  }
+    setAdFormValues((prevState) => ({
+      ...prevState,
+      images: [...prevState.images, ...selectedFilesArray],
+    }));
+    setShowImages((previousShowImages) => [...previousShowImages, ...blobURLs]);
+    console.log(showImages);
+    console.log(adFormValues.images);
+  };
 
   //Handling form submit
-  const handleAdForm = async (e) => {
+  async function handleAdForm(e) {
     e.preventDefault();
+
     const formData = new FormData();
-    Object.entries(adFormValues).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
 
-    console.log(adFormValues.images);
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+    // Iterate over the adFormValues state variable and append each field to the FormData object
+    for (const key of Object.keys(adFormValues)) {
+      const value = adFormValues[key];
+
+      if (key === "images") {
+        for (const image of value) {
+          formData.append("images", image);
+        }
+      } else {
+        formData.append(key, value);
+      }
     }
-    console.log("form-submit");
 
+    // Console.log the image strings
+    console.log(adFormValues.images);
+
+    // Send the FormData object to the backend
     const response = await axios.post("/pages/create-ad-page", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -176,6 +208,7 @@ function Createadpage() {
       withCredentials: true,
     });
 
+    // Handle the response
     const data = await response.data;
 
     if (response.status === 201) {
@@ -184,7 +217,7 @@ function Createadpage() {
     } else if (response.status > 400 || !data) {
       window.alert("Error in submitting ad");
     }
-  };
+  }
 
   //Handling form Values
   const handleAdFormValues = (prop) => (e) => {
@@ -233,7 +266,25 @@ function Createadpage() {
       setPriceFilled(true);
     }
   };
+  const handleImageDelete = (index) => {
+    // Make a copy of the selectedImages array and remove the selected image
+    const updatedSelectedImages = [...selectedImages];
+    updatedSelectedImages.splice(index, 1);
 
+    // Make a copy of the showImages array and remove the selected image
+    const updatedShowImages = [...showImages];
+    updatedShowImages.splice(index, 1);
+
+    // Update the state with the modified arrays
+    setSelectedImages(updatedSelectedImages);
+    setShowImages(updatedShowImages);
+
+    // Update the adFormValues if needed
+    setAdFormValues((prevState) => ({
+      ...prevState,
+      images: updatedSelectedImages,
+    }));
+  };
   return (
     <div className="create-ad-page">
       <Navbar />
@@ -942,39 +993,51 @@ function Createadpage() {
                               : "media-input-box-i"
                           }
                         >
-                          <div className="media-add-files-box">
-                            <input
-                              type="file"
-                              name="images"
-                              ref={imageUploadInput}
-                              className="image-upload-input"
-                              multiple
-                              accept="image/png, image/jpeg, image/webp, image/jpg"
-                              onChange={handleSelectFile}
-                              onChangeCapture={handleAdFormValues("images")}
-                            ></input>
-                            <button
-                              type="button"
-                              className="media-add-btn"
-                              onClick={triggerImageUploader}
+                          <input
+                            type="file"
+                            name="images"
+                            ref={imageUploadInput}
+                            className="image-upload-input"
+                            multiple
+                            accept="image/png, image/jpeg, image/webp, image/jpg"
+                            onChange={handleSelectFile}
+                          ></input>
+                          {!isImageSelected ? (
+                            ""
+                          ) : (
+                            <p className="media-format-no media-format-main">
+                              The first photo will be the main photo. Drag
+                              photos to different places to change their order.
+                            </p>
+                          )}
+                          {!isImageSelected ? (
+                            <div>
+                              <div className="media-add-files-box">
+                                <button
+                                  type="button"
+                                  className="media-add-btn"
+                                  onClick={triggerImageUploader1}
+                                >
+                                  Add photos
+                                </button>
+                                <p className="media-drop-p">
+                                  or drop files here
+                                </p>
+                              </div>
+                              <p className="media-format-no">
+                                Add up to 40 photos in jpg, png or gif formats.
+                              </p>
+                            </div>
+                          ) : (
+                            <ol
+                              id="preview-image-gallery"
+                              className={
+                                isImageSelected
+                                  ? "preview-image-list"
+                                  : "preview-image-list-hide"
+                              }
                             >
-                              Add photos
-                            </button>
-                            <p className="media-drop-p">or drop files here</p>
-                          </div>
-                          <p className="media-format-no">
-                            Add up to 40 photos in jpg, png or gif formats.
-                          </p>
-                          <ol
-                            id="preview-image-gallery"
-                            className={
-                              isImageSelected
-                                ? "preview-image-list"
-                                : "preview-image-list-hide"
-                            }
-                          >
-                            {selectedImages &&
-                              selectedImages.map((image, index) => {
+                              {showImages.map((image, index) => {
                                 return (
                                   <li
                                     className="preview-image-item"
@@ -990,13 +1053,7 @@ function Createadpage() {
                                       <button
                                         className="preview-image-delete-btn preview-image-btns"
                                         type="button"
-                                        onClick={() =>
-                                          setSelectedImages(
-                                            selectedImages.filter(
-                                              (e) => e !== image
-                                            )
-                                          )
-                                        }
+                                        onClick={() => handleImageDelete(index)}
                                       >
                                         <span className="preview-image-icon-span">
                                           <span className="preview-image-icon">
@@ -1008,7 +1065,15 @@ function Createadpage() {
                                   </li>
                                 );
                               })}
-                          </ol>
+                              <button
+                                type="button"
+                                className="ad-image-add-btn media-add-btn"
+                                onClick={triggerImageUploader2}
+                              >
+                                +
+                              </button>
+                            </ol>
+                          )}
                         </div>
                         <div className="media-drop-box">
                           <img src={cameraimg} alt="camera-img"></img>

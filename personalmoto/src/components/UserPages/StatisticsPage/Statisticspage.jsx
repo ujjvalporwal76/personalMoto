@@ -7,7 +7,7 @@ import { RxCross2 } from "react-icons/rx";
 import { DateRangePicker } from "react-date-range";
 import { addDays, format } from "date-fns";
 import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
-import axios from "../../../axios/axios.config";
+// import axios from "../../../axios/axios.config";
 // import useRefreshToken from "../../../Hooks/useRefreshToken";
 // import axios from "axios";
 import {
@@ -55,7 +55,10 @@ function Statisticspage() {
     },
   ]);
   const refOne = useRef(null);
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    points: 0,
+    userData: {},
+  });
   const [helpBox, setHelpbox] = useState(false);
   const [showStats, setShowStats] = useState("views");
 
@@ -73,9 +76,14 @@ function Statisticspage() {
       });
 
       const data = response.data;
-      setUserData({ ...data });
       console.log(data);
+      setUserData({
+        points: data.points.toFixed(2),
+        userData: data.userData,
+      });
+
       if (response.status === 401) {
+        console.log("Status");
         navigate("/login");
       }
     } catch (error) {
@@ -83,6 +91,7 @@ function Statisticspage() {
       navigate("/login");
     }
   };
+
   useEffect(() => {
     document.addEventListener("click", hideCalendarOnClickOutside, true);
 
@@ -99,7 +108,6 @@ function Statisticspage() {
     // setSelectDate([item.seletion])
 
     setRange([e.selection]);
-    console.log(range);
   }
   function handleOpenCalendar() {
     setOpenCalendar(!openCalendar);
@@ -132,14 +140,14 @@ function Statisticspage() {
       <div className="user-pages-header-section">
         <div className="user-pages-header-box">
           <div className="user-pages-header">
-            <h1>{userData.email}</h1>
+            <h1>{userData.userData.email}</h1>
             {/* <button onClick={() => refresh()}>refresh</button> */}
             <div className="user-wallet-topup">
               <div className="user-wallet-box">
                 <div className="user-wallet">
                   <div className="user-wallet-funds-box">
                     <span className="user-wallet-funds">
-                      Funds for Personalmoto: 0 points
+                      Funds for Personalmoto: {userData.points} points
                     </span>
                   </div>
                   <div className="user-wallet-topup topup-dropdown">

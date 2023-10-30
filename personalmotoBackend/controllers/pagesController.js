@@ -1,12 +1,126 @@
-import AdsModel from "../models/AdsModule.js";
-import UserAdsModel from "../models/UserAdsModule.js";
-import UserModel from "../models/UserModule.js";
+import AdsModel from "../models/AdsModel.js";
+import UserAdsModel from "../models/UserAdsModel.js";
+import UserModel from "../models/UserModel.js";
+import PointsModel from "../models/PointsModel.js";
 
 const statistics = async (req, res) => {
   const userData = req.userData;
-  res.send(userData);
+  const userId = req.userId;
+  try {
+    const foundPoints = await PointsModel.findOne({ userId: userId });
+    if (foundPoints) {
+      let points = foundPoints.points;
+      console.log(points);
+      return res
+        .status(200)
+        .json({ message: "Success", points: points, userData: userData });
+    } else {
+      return res
+        .status(200)
+        .json({ message: "Success", points: 0, userData: userData });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      success: false,
+      error: "No Points Found",
+    });
+  }
 };
 
+const advertisements = async (req, res) => {
+  const userData = req.userData;
+  const userId = req.userId;
+
+  try {
+    const foundPoints = await PointsModel.findOne({ userId: userId });
+    if (foundPoints) {
+      let points = foundPoints.points;
+      console.log(points);
+      return res
+        .status(200)
+        .json({ message: "Success", points: points, userData: userData });
+    } else {
+      return res
+        .status(200)
+        .json({ message: "Success", points: 0, userData: userData });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      success: false,
+      error: "No Points Found",
+    });
+  }
+};
+const payments = async (req, res) => {
+  const userData = req.userData;
+  const userId = req.userId;
+
+  try {
+    const foundPoints = await PointsModel.findOne({ userId: userId });
+    if (foundPoints) {
+      let points = foundPoints.points;
+      console.log(points);
+      return res
+        .status(200)
+        .json({ message: "Success", points: points, userData: userData });
+    } else {
+      return res
+        .status(200)
+        .json({ message: "Success", points: 0, userData: userData });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      success: false,
+      error: "No Points Found",
+    });
+  }
+};
+const news = async (req, res) => {
+  const userData = req.userData;
+
+  const userId = req.userId;
+
+  try {
+    const foundPoints = await PointsModel.findOne({ userId: userId });
+    if (foundPoints) {
+      let points = foundPoints.points;
+      console.log(points);
+      return res
+        .status(200)
+        .json({ message: "Success", points: points, userData: userData });
+    } else {
+      return res
+        .status(200)
+        .json({ message: "Success", points: 0, userData: userData });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      success: false,
+      error: "No Points Found",
+    });
+  }
+};
+const settings = async (req, res) => {
+  const userData = req.userData;
+  const userId = req.userId;
+
+  const foundPoints = await PointsModel.findOne({ userId: userId });
+  if (foundPoints) {
+    let points = foundPoints.points;
+    console.log(points);
+    return res
+      .status(200)
+      .json({ message: "Success", points: points, userData: userData });
+  } else {
+    return res
+      .status(200)
+      .json({ message: "Success", points: 0, userData: userData });
+  }
+};
 const createadpage = async (req, res) => {
   if (!req.userData) {
     return res.status(401).json("not logged in for ad");
@@ -43,9 +157,15 @@ const createadpage = async (req, res) => {
     telephone,
     freeVerificationCheck,
   } = req.body;
-  const images = req.images;
+  const images = req.files.map((file) => {
+    return file.filename;
+  });
   console.log(req.body);
-  console.log(req.images);
+  console.log(
+    req.files.map((file) => {
+      return file.filename;
+    })
+  );
   try {
     const userExist = await UserModel.findOne({ _id: req.userId });
 
@@ -56,7 +176,7 @@ const createadpage = async (req, res) => {
       const newAd = new AdsModel({
         userId: req.userData._id,
         email: req.userData.email,
-        adtype: "type1",
+        adtype: "standard",
         productType,
         damaged,
         imported,
@@ -187,4 +307,12 @@ const createadpage = async (req, res) => {
   }
 };
 
-export default { statistics, createadpage };
+export default {
+  statistics,
+  createadpage,
+  payments,
+  news,
+  payments,
+  settings,
+  advertisements,
+};

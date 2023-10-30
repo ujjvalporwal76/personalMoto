@@ -1,5 +1,5 @@
 import Jwt from "jsonwebtoken";
-import TokenModel from "../models/TokenModule.js";
+import TokenModel from "../models/TokenModel.js";
 
 const generateTokens = async (user) => {
   try {
@@ -9,7 +9,7 @@ const generateTokens = async (user) => {
     });
 
     const refreshToken = Jwt.sign(payload, process.env.REFRESH_TOKEN_KEY, {
-      expiresIn: "1h",
+      expiresIn: "2h",
     });
 
     const userToken = await TokenModel.findOne({ userId: user._id });

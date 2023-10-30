@@ -1,31 +1,80 @@
-import React from "react";
-import offerProduct from "./offer";
+import React, { useEffect, useState } from "react";
+import axios from "../../axios/axios.config";
 import "./Offercard.css";
 
 function Offercard() {
+  const [productDetails, setProductDetails] = useState([]);
+  const [offerProduct, setOfferProduct] = useState({});
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    handleAllProducts();
+  }, []);
+
+  const handleAllProducts = async () => {
+    try {
+      const response = await axios.get("/allproducts", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Credentials": "true",
+        },
+        withCredentials: true,
+      });
+
+      const data = response.data;
+      setProductDetails(data);
+      const offerProduct = getOfferProduct(data);
+      setOfferProduct(offerProduct);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getOfferProduct = (productDetails) => {
+    const offerProduct = productDetails.find(
+      (Product) => Product.adtype === "toprated"
+    );
+    console.log(offerProduct);
+    return offerProduct;
+  };
+
+  // Render content only when offerProduct is available
   return (
     <div className="container offer-card-container">
-      <a className="offercard-link" href="#">
-        <div className="card">
-          <img
-            src={offerProduct[0].imgUrl}
-            className="card-img-top"
-            alt="product-img"
-          />
-          <div className="card-body">
-            <h2 className="card-title offer-product-name">{offerProduct[0].name}</h2>
-            <section className="product-characteristics">
+      <a className="offercard-link" href={`/product/${offerProduct._id}`}>
+        {offerProduct.title && (
+          <div className="card">
+            <img
+              src={`http://localhost:5000/Images/${offerProduct.images[0]}`}
+              className="card-img-top"
+              alt="product-img"
+            />
+            <div className="card-body">
+              <h2 className="card-title offer-product-name">
+                {offerProduct.title}
+              </h2>
+              <section className="product-characteristics">
                 <ul className="product-characteristics-list">
-                    <li className="product-characteristics-list-item"><span>{offerProduct[0].year}</span></li>
-                    <li className="product-characteristics-list-item"><span>{offerProduct[0].distanceTravelled}</span></li>
-                    <li className="product-characteristics-list-item"><span>{offerProduct[0].fuelType}</span></li>
-                    <li className="product-characteristics-list-item"><span>{offerProduct[0].power}</span></li>
+                  <li className="product-characteristics-list-item">
+                    <span>{offerProduct.productionYear}</span>
+                  </li>
+                  <li className="product-characteristics-list-item">
+                    <span>{offerProduct.mileage}</span>
+                  </li>
+                  <li className="product-characteristics-list-item">
+                    <span>{offerProduct.fuelType}</span>
+                  </li>
+                  <li className="product-characteristics-list-item">
+                    <span>{offerProduct.power}</span>
+                  </li>
                 </ul>
-            </section>
+              </section>
+            </div>
           </div>
-        </div>
+        )}
         <div className="offer-show-container">
-            <h2 className="offer-show-heading">Offer of the day</h2>
+          <h2 className="offer-show-heading">Offer of the day</h2>
         </div>
       </a>
     </div>

@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./Logoutpage.css";
-
+import useAuth from "../../Hooks/useAuth";
 const handleLoginRedirect = () => {
   window.location.href = "/login";
 };
 const url = "http://localhost:5000/api/users/logout";
 function Logoutpage() {
+  const { setUser } = useAuth();
   const navigate = useNavigate();
   const handleLogoutUser = async () => {
     try {
@@ -21,7 +22,8 @@ function Logoutpage() {
       });
       if (res) {
         console.log("Successfully logged out");
-        localStorage.removeItem("refreshToken");
+
+        setUser(null);
         //navigating to login page after logout
         navigate("/login");
       }

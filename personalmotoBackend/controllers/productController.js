@@ -1,4 +1,4 @@
-import AdsModel from "../models/AdsModule.js";
+import AdsModel from "../models/AdsModel.js";
 import mongoose from "mongoose";
 
 const productDetailsShow = async (req, res) => {
@@ -17,4 +17,16 @@ const productDetailsShow = async (req, res) => {
   }
 };
 
-export default { productDetailsShow };
+const allProductDetails = async (req, res) => {
+  try {
+    const adsList = await AdsModel.find();
+    if (!adsList) {
+      throw new Error("No products");
+    }
+    res.status(200).send(adsList);
+  } catch (err) {
+    console.log("Error in fetching all products", err);
+    res.status(404).send();
+  }
+};
+export default { productDetailsShow, allProductDetails };

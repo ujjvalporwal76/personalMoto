@@ -1,58 +1,55 @@
-.offer-card-container{
-    margin-right: 50px;
-    margin-top: 70px;
-    width: 40%;
-    position: relative;
+.offer-card-container {
+  margin-right: 50px;
+  margin-top: 70px;
+  width: 40%;
+  position: relative;
 }
 
-
-.offercard-link
-{
-    text-decoration: none;
+.offercard-link {
+  text-decoration: none;
 }
 
-.card{
-    margin: 20px
+.card {
+  margin: 20px;
 }
-.offer-product-name{
-    font-size:22px ;
-    font-weight: 700;
-    line-height: 1.18rem;
+.offer-product-name {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.18rem;
 }
-.offer-card-container .offer-show-container{
-    position: absolute;
-    bottom: 20%;
-    left: 7%;
-    background-color: #00A49F;
-    color: #fff;
-    border-radius: 3px;
-}
-
-.offer-card-container .offer-show-container .offer-show-heading{
-    margin: 5px;
-    padding: 5px;
-    font-size: 1.5rem;
+.offer-card-container .offer-show-container {
+  position: absolute;
+  bottom: 30%;
+  left: 7%;
+  background-color: #00a49f;
+  color: #fff;
+  border-radius: 3px;
 }
 
-.product-characteristics ul{
-    display: flex;
-    list-style-type:none;
-    text-align: center;
-}
-.product-characteristics-list-item{
-    display: inline-block;
-    position: relative;
-    padding-right: 16px;
-}
-.product-characteristics-list-item:not(:last-of-type):after{
-    display: block;
-    position: absolute;
-    content: "";
-    width: 3px;
-    height: 3px;
-    background: #020309;
-    border-radius: 50%;
-    top: 50%;
-    right: 8px;
+.offer-card-container .offer-show-container .offer-show-heading {
+  margin: 5px;
+  padding: 5px;
+  font-size: 1.5rem;
 }
 
+.product-characteristics ul {
+  display: flex;
+  list-style-type: none;
+  text-align: center;
+}
+.product-characteristics-list-item {
+  display: inline-block;
+  position: relative;
+  padding-right: 16px;
+}
+.product-characteristics-list-item:not(:last-of-type):after {
+  display: block;
+  position: absolute;
+  content: "";
+  width: 3px;
+  height: 3px;
+  background: #020309;
+  border-radius: 50%;
+  top: 50%;
+  right: 8px;
+}

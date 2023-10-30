@@ -10,7 +10,14 @@ import authenticateUser from "./middleware/authentication.js";
 import tokenRouter from "./routes/tokenRoute.js";
 import paymentRoute from "./routes/paymentRoute.js";
 import productRoute from "./routes/productRoute.js";
+import updateRoute from "./routes/updateRoute.js";
 const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true, //access-control-allow-credentials:true
@@ -19,17 +26,16 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use("/api/users", authRoute);
 app.use("/api/product", productRoute);
+app.use("/api/allproducts", productRoute);
 app.use("/api/refresh", tokenRouter);
 app.use(authenticateUser);
 app.use("/api/pages", pagesRoutes);
-
 app.use("/api/pay", paymentRoute);
+app.use("/api/update", updateRoute);
+
 connectToDatabase().then(() => console.log("Connected to MongoDB"));
 
 app.listen(5000, () => {

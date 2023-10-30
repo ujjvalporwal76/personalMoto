@@ -3,16 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "../../axios/axios.config";
 import useAuth from "../../Hooks/useAuth";
 import "./Loginpage.css";
-
 import loginpagebanner from "../../images/loginpagebanner.jpeg";
 import { BsFacebook, BsGoogle, BsApple } from "react-icons/bs";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
-
+import toast from "react-hot-toast";
 import Navbar from "../NavBar/Navbar";
 // import { date } from "date-fns/locale";
 
 function Loginpage() {
   const { user, setUser } = useAuth();
+  const { setIsLogin } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,40 +25,51 @@ function Loginpage() {
 
   const handleSendLoginData = async (e) => {
     e.preventDefault();
-
-    const response = await axios.post(
-      "/users/login",
-      {
-        email,
-        password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const response = await axios.post(
+        "/users/login",
+        {
+          email,
+          password,
         },
-        withCredentials: true,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const data = response.data;
+
+      if (response.status === 200) {
+        toast.success("You are logged in Successfully");
+        // const refreshToken = data.refreshToken;
+
+        const accessToken = data.accessToken;
+        console.log(accessToken);
+
+        setUser({ email, password, accessToken });
+        setIsLogin(true);
+        console.log(user);
+
+        // console.log(data);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 10000);
+      } else if (!email || !password || response.status > 400) {
+        toast.error("Invalid email or password");
       }
-    );
-
-    const data = response.data;
-
-    if (response.status === 200) {
-      // const refreshToken = data.refreshToken;
-      const accessToken = data.accessToken;
-      console.log(accessToken);
-
-      setUser({ email, password, accessToken });
-      console.log(user);
-      window.alert("successful login");
-      // console.log(data);
-      navigate("/");
-    } else if (!email || !password || response.status > 400) {
-      window.alert("wrong credentials");
+    } catch (error) {
+      console.log(error);
+      toast.error("Invalid email or password");
     }
   };
   return (
     <div className="login-page">
       <Navbar />
+
       <div className="login-page-content">
         <div className="login-page-left-content">
           <div className="login-page-heading">
@@ -162,6 +173,7 @@ function Loginpage() {
             </div>
           </div>
         </div>
+
         <div className="login-page-right-content">
           <img src={loginpagebanner} alt="login-banner"></img>
         </div>

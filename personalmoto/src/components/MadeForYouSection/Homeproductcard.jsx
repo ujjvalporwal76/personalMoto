@@ -1,11 +1,10 @@
 import React from "react";
-import './Homeproductcard.css'
-
+import "./Homeproductcard.css";
 
 function Homeproductcard(props) {
   return (
     <div className="container home-product-card-container">
-      <a className="product-card-link" href="#">
+      <a className="product-card-link" href={`/product/${props.id}`}>
         <div className="card home-product-card">
           <img
             src={props.image}
@@ -13,9 +12,7 @@ function Homeproductcard(props) {
             alt="product-img"
           />
           <div className="card-body">
-            <h2 className="card-title product-name">
-              {props.name}
-            </h2>
+            <h2 className="card-title product-name">{props.name}</h2>
             <section className="product-characteristics">
               <ul className="product-characteristics-list">
                 <li className="home-product-characteristics-list-item">
@@ -33,8 +30,8 @@ function Homeproductcard(props) {
               </ul>
             </section>
             <div className="product-price">
-                <span className="home-product-price-currency">INR</span>
-                <span className="home-product-price-amount">{props.price}</span>
+              <span className="home-product-price-currency">PLN</span>
+              <span className="home-product-price-amount">{props.price}</span>
             </div>
           </div>
         </div>

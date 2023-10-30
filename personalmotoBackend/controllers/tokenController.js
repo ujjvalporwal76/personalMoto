@@ -1,5 +1,5 @@
 import Jwt from "jsonwebtoken";
-import TokenModel from "../models/TokenModule.js";
+import TokenModel from "../models/TokenModel.js";
 
 const handleRefreshToken = async (req, res) => {
   const refreshToken = req.cookies.refreshToken;

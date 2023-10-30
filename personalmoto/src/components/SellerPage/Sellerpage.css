@@ -138,8 +138,8 @@
   margin: 0px -8px;
 }
 
-.car-select-form-outer{
-    align-items: flex-end;
+.car-select-form-outer {
+  align-items: flex-end;
 }
 
 .car-select-form-box {
@@ -226,9 +226,8 @@
   color: var(--buttonColor);
   width: 100%;
 }
-.car-select-form-btn:hover:not(:active)
-{
-    border: 3px solid #0071CE;
+.car-select-form-btn:hover:not(:active) {
+  border: 3px solid #0071ce;
 }
 .car-select-btn-text {
   justify-content: center;
@@ -264,205 +263,204 @@
   height: 210px;
 }
 /*------------------------------------------ MODAL CSS------------------------------------ */
-.modal{
-    --bs-modal-width: 700px;
+.modal {
+  --bs-modal-width: 700px;
 }
 
-.car-select-form-modal{
-    -webkit-box-align: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    inset: 0px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-    padding: 16px;
-    position: fixed;
-    /* z-index: 1040; */
+.car-select-form-modal {
+  -webkit-box-align: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  inset: 0px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  padding: 16px;
+  position: fixed;
+  /* z-index: 1040; */
 }
-.car-select-modal-content{
-    padding: 24px 24px 0px;
-    color: rgb(2, 3, 9);
-    overflow-y: auto;
-    flex: 1 1 100%;
+.car-select-modal-content {
+  padding: 24px 24px 0px;
+  color: rgb(2, 3, 9);
+  overflow-y: auto;
+  flex: 1 1 100%;
 }
-.car-select-modal-close{
-    border-bottom: 0;
+.car-select-modal-close {
+  border-bottom: 0;
 }
-.car-select-form-steps{
-    line-height: 16px;
-    font-size: 12px;
-    color: rgb(2, 3, 9);
-    /* margin: 0px 0px 4px; */
+.car-select-form-steps {
+  line-height: 16px;
+  font-size: 12px;
+  color: rgb(2, 3, 9);
+  /* margin: 0px 0px 4px; */
 }
-.car-form-progress-bar{
-    display: flex;
-    flex-flow: row;
-    width: 100%;
-    margin-bottom: 16px;
+.car-form-progress-bar {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  margin-bottom: 16px;
 }
-.progress-bar{
-    background: rgb(220, 221, 224);
-    border-radius: 2px;
-    flex: 1 1 0%;
-    height: 4px;
-    margin-right: 8px;
-    overflow: hidden;
-    position: relative;
+.progress-bar {
+  background: rgb(220, 221, 224);
+  border-radius: 2px;
+  flex: 1 1 0%;
+  height: 4px;
+  margin-right: 8px;
+  overflow: hidden;
+  position: relative;
 }
-.progress-bar:last-child{
-    margin-right: 0;
+.progress-bar:last-child {
+  margin-right: 0;
 }
-.car-form-modal-heading{
-    font-size: 32px;
-    line-height: 34px;
-    font-weight: 700;
-    text-align: left;
-    color: rgb(2, 3, 9);
-    margin: 0px 0px 16px;
+.car-form-modal-heading {
+  font-size: 32px;
+  line-height: 34px;
+  font-weight: 700;
+  text-align: left;
+  color: rgb(2, 3, 9);
+  margin: 0px 0px 16px;
 }
-.car-select-input{
-    font-size: 16px;
-    color: rgb(2, 3, 9);
-    background-color: rgb(235, 236, 239);
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-image: initial;
-    border-bottom: 2px solid rgb(235, 236, 239);
-    border-radius: 4px;
-    line-height: 20px;
-    outline: 0px;
-    padding: 14px 48px 14px 16px;
-    width: 100%;
+.car-select-input {
+  font-size: 16px;
+  color: rgb(2, 3, 9);
+  background-color: rgb(235, 236, 239);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-image: initial;
+  border-bottom: 2px solid rgb(235, 236, 239);
+  border-radius: 4px;
+  line-height: 20px;
+  outline: 0px;
+  padding: 14px 48px 14px 16px;
+  width: 100%;
 }
-.car-select-input-unit{
-    color: rgb(161, 162, 165);
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    margin: 16px;
+.car-select-input-unit {
+  color: rgb(161, 162, 165);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 16px;
 }
-.car-seller-category{
-    border-radius: 4px;
-    display: flex;
-    overflow: hidden;
+.car-seller-category {
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
 }
-.car-seller-category-btn-active{
-    margin: 0px;
-    padding: 12px 8px;
-    font-weight: 700;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-    flex-basis: 100%;
-    position: relative;
-    background: rgb(0, 113, 206);
-    color: rgb(255, 255, 255);
+.car-seller-category-btn-active {
+  margin: 0px;
+  padding: 12px 8px;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  flex-basis: 100%;
+  position: relative;
+  background: rgb(0, 113, 206);
+  color: rgb(255, 255, 255);
 }
-.car-seller-category-btn{
-    margin: 0px;
-    padding: 12px 8px;
-    color: rgb(2, 3, 9);
-    font-weight: 700;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-    flex-basis: 100%;
-    position: relative;
-    background-color: rgb(235, 236, 239);
-}
-
-.form-required-info{
-    font-size: 14px;
-    line-height: 18px;
-    color: rgb(2, 3, 9);
-    margin: 8px 0px 0px;
-}
-.modal-footer{
-    border-top: 0;
-    margin: 15px;
+.car-seller-category-btn {
+  margin: 0px;
+  padding: 12px 8px;
+  color: rgb(2, 3, 9);
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  flex-basis: 100%;
+  position: relative;
+  background-color: rgb(235, 236, 239);
 }
 
-.car-form-submit-btn-box{
-    display: flex;
-    width: 100%;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
+.form-required-info {
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(2, 3, 9);
+  margin: 8px 0px 0px;
 }
-.car-form-submit-btn-box{
-    margin: auto;
-}
-.car-form-submit-btn-box > button{
-    width: 100%;
-}
-.car-form-submit-btn{
-    --displayUnderline: none;
-    border: none;
-    border-radius: 4px;
-    box-sizing: border-box;
-    cursor: pointer;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    height: 48px;
-    letter-spacing: 0.7px;
-    line-height: 20px;
-    padding-left: 32px;
-    padding-right: 32px;
-    position: relative;
-    text-align: center;
-    white-space: nowrap;
-    width: auto;
-    --textColor: #FFFFFF;
-    --bgColor: #0071CE;
-    --borderColor: #0071CE;
-    --outlineColor: #BDE0FF;
-    background: var(--bgColor);
-    color: var(--textColor);
-}
-.car-form-submit-btn:hover:not(:active)
-{
-    --textColor: #0071CE;
-    background: rgb(255, 255, 255);
-    box-shadow: inset 0 0 0 5px var(--borderColor);
-    color: var(--textColor);
+.modal-footer {
+  border-top: 0;
+  margin: 15px;
 }
 
-.blog-ad-section{
-    background-color: #F7F8FA;
+.car-form-submit-btn-box {
+  display: flex;
+  width: 100%;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
 }
-.blog-ad-box{
-    padding-top: 48px;
-    padding-bottom: 48px;
-    margin: 0 auto;
-    padding-left: 16px;
-    padding-right: 16px;
+.car-form-submit-btn-box {
+  margin: auto;
 }
-.blog-ad-heading{
-    font-size: 32px;
-    line-height: 34px;
-    font-weight: 700;
-    color: #020309;
-    margin: 0;
+.car-form-submit-btn-box > button {
+  width: 100%;
 }
-.blog-ad-redirect-box{
-    -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-    -webkit-box-pack: end;
-    justify-content: end;
+.car-form-submit-btn {
+  --displayUnderline: none;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  height: 48px;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+  padding-left: 32px;
+  padding-right: 32px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: auto;
+  --textColor: #ffffff;
+  --bgColor: #0071ce;
+  --borderColor: #0071ce;
+  --outlineColor: #bde0ff;
+  background: var(--bgColor);
+  color: var(--textColor);
 }
-.blog-ad-redirect-link:hover{
-    text-decoration: underline;
+.car-form-submit-btn:hover:not(:active) {
+  --textColor: #0071ce;
+  background: rgb(255, 255, 255);
+  box-shadow: inset 0 0 0 5px var(--borderColor);
+  color: var(--textColor);
+}
 
+.blog-ad-section {
+  background-color: #f7f8fa;
+}
+.blog-ad-box {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.blog-ad-heading {
+  font-size: 32px;
+  line-height: 34px;
+  font-weight: 700;
+  color: #020309;
+  margin: 0;
+}
+.blog-ad-redirect-box {
+  -webkit-box-align: center;
+  align-items: center;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: end;
+}
+.blog-ad-redirect-link:hover {
+  text-decoration: underline;
 }
 
-.blog-ad-list{
+.blog-ad-list {
   overflow-x: auto;
   display: flex;
   gap: 8px;
@@ -470,112 +468,101 @@
   justify-content: space-between;
   margin-top: 32px;
 }
-.blog-ad-list-item{
+.blog-ad-list-item {
   display: flex;
   flex-shrink: 0;
   max-width: 90%;
 }
 
-.car-checklist-section{
-    border-top:3px solid grey; 
-    border-bottom:3px solid grey;
-    padding-top: 48px;
-    padding-bottom: 48px;
-    margin: 0 auto;
-    padding-left: 16px;
-    padding-right: 16px;
+.car-checklist-section {
+  border-top: 3px solid grey;
+  border-bottom: 3px solid grey;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
 }
-.car-checklist-heading{
-    font-size: 32px;
-    line-height: 34px;
-    font-weight: 700;
-    color: #020309;
-    margin: 0;
+.car-checklist-heading {
+  font-size: 32px;
+  line-height: 34px;
+  font-weight: 700;
+  color: #020309;
+  margin: 0;
 }
-.car-checklist-box{
-    margin-top: 48px;
-    display: flex;
-    justify-content: space-between;
-    -webkit-box-pack: justify;
+.car-checklist-box {
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  -webkit-box-pack: justify;
 }
-.car-checklist-item{
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    margin-bottom: 32px;
-}
-
-.car-checklist-icon{
-    display: flex;
-    width: 50px;
-    height: 50px;
-}
-.car-checklist-item-name{
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 400;
-    color: #020309;
-    margin: 0;
-    margin-left: 8px;
+.car-checklist-item {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-bottom: 32px;
 }
 
-.blog-ad-link{
+.car-checklist-icon {
+  display: flex;
+  width: 50px;
+  height: 50px;
+}
+.car-checklist-item-name {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #020309;
+  margin: 0;
+  margin-left: 8px;
+}
+
+.blog-ad-link {
   display: flex;
   flex-direction: column;
 }
-.blog-ad-img{
+.blog-ad-img {
   border-radius: 4px;
-    object-fit: cover;
-    width: 100%;
-    height: 200px;
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
 }
-.blog-ad-name-box{
+.blog-ad-name-box {
   background-color: rgb(255, 255, 255);
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    padding: 16px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 16px;
 }
-.blog-ad-name{
+.blog-ad-name {
   font-size: 16px;
-    line-height: 20px;
-    font-weight: 700;
-    color: rgb(2, 3, 9);
-    margin: 0px;
+  line-height: 20px;
+  font-weight: 700;
+  color: rgb(2, 3, 9);
+  margin: 0px;
 }
 
-.blog-reading-time-para{
+.blog-reading-time-para {
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
   color: rgb(102, 103, 108);
   margin: 8px 0px 0px;
 }
-.blog-reading-time-icon-box{
+.blog-reading-time-icon-box {
   -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-}
-.blog-reading-time-icon{
+  align-items: center;
   display: flex;
 }
-.blog-reading-time{
+.blog-reading-time-icon {
+  display: flex;
+}
+.blog-reading-time {
   margin-left: 4px;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 @media (min-width: 768px) {
   .seller-ad-box {
@@ -718,48 +705,48 @@
   }
 }
 
-@media screen and (min-width: 576px){
-    .car-form-modal-heading{
-        text-align: center;
-    }
+@media screen and (min-width: 576px) {
+  .car-form-modal-heading {
+    text-align: center;
+  }
 }
-@media (min-width: 576px){
-    .car-form-submit-btn-box{
-        width: auto;
-    }
-}
-
-@media (min-width: 1024px){
-    .car-checklist-section{
-        max-width: 1180px;
-    }
-}
-@media (min-width: 1024px){
-    .car-checklist-box{
-        max-width: 1180px;
-        flex-direction: row;
-    }
-}
-@media (min-width: 1024px){
-    .list-right{
-        margin-top: 0;
-    }
+@media (min-width: 576px) {
+  .car-form-submit-btn-box {
+    width: auto;
+  }
 }
 
-@media (min-width: 1024px){
-    .blog-ad-box{
-        max-width: 1180px;
-    }
+@media (min-width: 1024px) {
+  .car-checklist-section {
+    max-width: 1180px;
+  }
+}
+@media (min-width: 1024px) {
+  .car-checklist-box {
+    max-width: 1180px;
+    flex-direction: row;
+  }
+}
+@media (min-width: 1024px) {
+  .list-right {
+    margin-top: 0;
+  }
 }
 
-@media (min-width: 1024px){
-  .blog-ad-list{
+@media (min-width: 1024px) {
+  .blog-ad-box {
+    max-width: 1180px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-ad-list {
     overflow-x: hidden;
   }
 }
 
-@media (min-width: 1024px){
-  .blog-ad-list-item{
+@media (min-width: 1024px) {
+  .blog-ad-list-item {
     flex-shrink: 1;
     width: 100%;
     display: flex;

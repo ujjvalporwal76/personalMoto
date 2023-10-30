@@ -14,14 +14,5 @@ authRoute.post("/signup", userControllers.register);
 
 authRoute.post("/login", userControllers.login);
 
-authRoute.get("/logout", (req, res) => {
-  if (req.cookies.accessToken || req.cookies.refreshToken) {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
-    res.redirect("/");
-    return res.status(200).json("user logout");
-  } else {
-    res.redirect("/api/users/login");
-  }
-});
+authRoute.get("/logout", userControllers.logout);
 export default authRoute;

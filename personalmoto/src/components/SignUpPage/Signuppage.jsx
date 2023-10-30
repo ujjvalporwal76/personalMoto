@@ -13,6 +13,7 @@ import axios from "../../axios/axios.config";
 function Signuppage() {
   const navigate = useNavigate();
   const [signUpValues, setSignUpValues] = useState({
+    userName: "",
     email: "",
     password: "",
   });
@@ -28,9 +29,10 @@ function Signuppage() {
 
   const handleSendSignUpData = async (e) => {
     e.preventDefault();
-    const { email, password } = signUpValues;
+    const { userName, email, password } = signUpValues;
 
     const response = await axios.post("/users/signup", {
+      userName,
       email,
       password,
     });
@@ -98,6 +100,21 @@ function Signuppage() {
                   onSubmit={handleSendSignUpData}
                   autoComplete="off"
                 >
+                  <div className="login-email-box">
+                    <div>
+                      <label className="login-email-label">Username</label>
+                      <div className="login-email-input-box">
+                        <input
+                          className="login-email-input"
+                          name="username"
+                          type="text"
+                          placeholder="Username"
+                          onChange={handleSignUpValues("userName")}
+                          value={signUpValues.userName}
+                        ></input>
+                      </div>
+                    </div>
+                  </div>
                   <div className="login-email-box">
                     <div>
                       <label className="login-email-label">Email</label>

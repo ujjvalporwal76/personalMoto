@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 import "../StatisticsPage/Statisticspage.css";
 import "./Newspage.css";
@@ -10,14 +10,49 @@ import Homefooter from "../../HomeFooter/Homefooter";
 
 import Searchformlistitem from "../../SearchForm/Searchformlistitem";
 import NewsFilter1 from "./NewsFilter1";
-import NewsFilter2 from "./NewsFilter2"
+import NewsFilter2 from "./NewsFilter2";
+import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 
 function Newspage() {
+  const axiosPrivate = useAxiosPrivate();
+
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    points: 0,
+    userData: {},
+  });
+  useEffect(() => {
+    userAuthenticate();
+  }, []);
+  const userAuthenticate = async () => {
+    try {
+      const response = await axiosPrivate.get("/pages/myaccount-news", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+          "Access-Control-Allow-Credentials": "true",
+          // "Access-Control-Expose-Headers": "Authorization",
+        },
+        withCredentials: true,
+      });
+
+      const data = response.data;
+      setUserData({ points: data.points.toFixed(2), userData: data.userData });
+      console.log(data);
+      if (response.status === 401) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      navigate("/login");
+    }
+  };
   const [dropdown, setdropdown] = useState(0);
   const path = useLocation();
 
   const [filter1, setFilter1] = useState("");
-  const [filter2, setFilter2] = useState("")
+  const [filter2, setFilter2] = useState("");
   function createFilter1list(filter1) {
     return <Searchformlistitem key={filter1.id} filter1={filter1.filter1} />;
   }
@@ -29,8 +64,7 @@ function Newspage() {
   }
 
   const newsId = useParams();
-  
-  
+
   return (
     <div className="news-page">
       <Navbar />
@@ -43,7 +77,7 @@ function Newspage() {
                 <div className="user-wallet">
                   <div className="user-wallet-funds-box">
                     <span className="user-wallet-funds">
-                      Funds for Personalmoto: 0 points
+                      Funds for Personalmoto: {userData.points} points
                     </span>
                   </div>
                   <div className="user-wallet-topup topup-dropdown">
@@ -118,7 +152,9 @@ function Newspage() {
               <a
                 href="/myaccount-news/selling"
                 className={
-                  (path.pathname === "/myaccount-news/selling") || (path.pathname === "/myaccount-news/buying") || (path.pathname === "/myaccount-news/archived")
+                  path.pathname === "/myaccount-news/selling" ||
+                  path.pathname === "/myaccount-news/buying" ||
+                  path.pathname === "/myaccount-news/archived"
                     ? "myaccount-active-link"
                     : "myaccount-link"
                 }
@@ -140,9 +176,9 @@ function Newspage() {
             </li>
             <li className="col-md-2">
               <a
-                href="/myaccount-settings"
+                href="/myaccount-settings/settings"
                 className={
-                  path.pathname === "/myaccount-settings"
+                  path.pathname === "/myaccount-settings/settings"
                     ? "myaccount-active-link"
                     : "myaccount-link"
                 }
@@ -189,16 +225,13 @@ function Newspage() {
 
       <div
         className={
-          newsId.newsId === "selling"
-            ? "news-catg-page-show"
-            : "news-catg-page"
+          newsId.newsId === "selling" ? "news-catg-page-show" : "news-catg-page"
         }
       >
         <div className="news-content-box">
           <div className="news-content-box-o">
             <div className="news-content-box-i">
               <div className="news-search-box">
-
                 <div className="news-catg-search-box">
                   <label className="news-catg-search-label">Display</label>
                   <div className="news-catg-search-box-o">
@@ -217,7 +250,9 @@ function Newspage() {
                 </div>
 
                 <div className="news-catg-search-box">
-                  <label className="news-catg-search-label">Reason for Contact</label>
+                  <label className="news-catg-search-label">
+                    Reason for Contact
+                  </label>
                   <div className="news-catg-search-box-o">
                     <div className="news-catg-search-box-i">
                       <select
@@ -232,18 +267,22 @@ function Newspage() {
                     </div>
                   </div>
                 </div>
-
-                
               </div>
               <div className="no-result-box">
-                  <div className="no-result-box-o">
-                    <div className="no-result-box-i">
-                    <img src="https://statics.otomoto.pl/optimus-storage/a/common/images/no-conversations-found.png" alt="no-result-img"></img>
+                <div className="no-result-box-o">
+                  <div className="no-result-box-i">
+                    <img
+                      src="https://statics.otomoto.pl/optimus-storage/a/common/images/no-conversations-found.png"
+                      alt="no-result-img"
+                    ></img>
                     <h5 className="no-result-heading">No search results</h5>
-                    <p className="no-result-para">You haven't set any filters. Select filters to see more results.</p>
-                    </div>
+                    <p className="no-result-para">
+                      You haven't set any filters. Select filters to see more
+                      results.
+                    </p>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -251,16 +290,13 @@ function Newspage() {
 
       <div
         className={
-          newsId.newsId === "buying"
-            ? "news-catg-page-show"
-            : "news-catg-page"
+          newsId.newsId === "buying" ? "news-catg-page-show" : "news-catg-page"
         }
       >
         <div className="news-content-box">
           <div className="news-content-box-o">
             <div className="news-content-box-i">
               <div className="news-search-box">
-
                 <div className="news-catg-search-box">
                   <label className="news-catg-search-label">Display</label>
                   <div className="news-catg-search-box-o">
@@ -279,7 +315,9 @@ function Newspage() {
                 </div>
 
                 <div className="news-catg-search-box">
-                  <label className="news-catg-search-label">Reason for Contact</label>
+                  <label className="news-catg-search-label">
+                    Reason for Contact
+                  </label>
                   <div className="news-catg-search-box-o">
                     <div className="news-catg-search-box-i">
                       <select
@@ -294,18 +332,22 @@ function Newspage() {
                     </div>
                   </div>
                 </div>
-
-                
               </div>
               <div className="no-result-box">
-                  <div className="no-result-box-o">
-                    <div className="no-result-box-i">
-                    <img src="https://statics.otomoto.pl/optimus-storage/a/common/images/no-conversations-found.png" alt="no-result-img"></img>
+                <div className="no-result-box-o">
+                  <div className="no-result-box-i">
+                    <img
+                      src="https://statics.otomoto.pl/optimus-storage/a/common/images/no-conversations-found.png"
+                      alt="no-result-img"
+                    ></img>
                     <h5 className="no-result-heading">No search results</h5>
-                    <p className="no-result-para">You haven't set any filters. Select filters to see more results.</p>
-                    </div>
+                    <p className="no-result-para">
+                      You haven't set any filters. Select filters to see more
+                      results.
+                    </p>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -322,7 +364,6 @@ function Newspage() {
           <div className="news-content-box-o">
             <div className="news-content-box-i">
               <div className="news-search-box">
-
                 <div className="news-catg-search-box">
                   <label className="news-catg-search-label">Display</label>
                   <div className="news-catg-search-box-o">
@@ -341,7 +382,9 @@ function Newspage() {
                 </div>
 
                 <div className="news-catg-search-box">
-                  <label className="news-catg-search-label">Reason for Contact</label>
+                  <label className="news-catg-search-label">
+                    Reason for Contact
+                  </label>
                   <div className="news-catg-search-box-o">
                     <div className="news-catg-search-box-i">
                       <select
@@ -356,18 +399,22 @@ function Newspage() {
                     </div>
                   </div>
                 </div>
-
-                
               </div>
               <div className="no-result-box">
-                  <div className="no-result-box-o">
-                    <div className="no-result-box-i">
-                    <img src="https://statics.otomoto.pl/optimus-storage/a/common/images/no-conversations-found.png" alt="no-result-img"></img>
+                <div className="no-result-box-o">
+                  <div className="no-result-box-i">
+                    <img
+                      src="https://statics.otomoto.pl/optimus-storage/a/common/images/no-conversations-found.png"
+                      alt="no-result-img"
+                    ></img>
                     <h5 className="no-result-heading">No search results</h5>
-                    <p className="no-result-para">You haven't set any filters. Select filters to see more results.</p>
-                    </div>
+                    <p className="no-result-para">
+                      You haven't set any filters. Select filters to see more
+                      results.
+                    </p>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>

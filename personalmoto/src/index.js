@@ -20,14 +20,16 @@ import Settingspage from "./components/UserPages/SettingsPage/Settingspage";
 import Logoutpage from "./components/LogOutPage/Logoutpage";
 import Paymentfail from "./components/PaymentPage/Paymentfail";
 import Paymentpass from "./components/PaymentPage/Paymentpass";
+import Adplanpage from "./components/AdPlanPage/Adplanpage";
 import { ProtectedRoute } from "./ProtectedRoute/Protectroute";
 import { AuthProvider } from "./ContextAPI/AuthProvider";
-
+import { Toaster } from "react-hot-toast";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
     <React.StrictMode>
       <BrowserRouter>
+        <Toaster position="top-center" reverseOrder={false} />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="product/:productId" element={<Productpage />} />
@@ -52,9 +54,13 @@ root.render(
               path="myaccount-payments/:paymentsId"
               element={<Paymentspage />}
             />
-            <Route path="myaccount-settings" element={<Settingspage />} />
+            <Route
+              path="myaccount-settings/:settingsId"
+              element={<Settingspage />}
+            />
             <Route path="payment/fail" element={<Paymentfail />} />
             <Route path="payment/success" element={<Paymentpass />} />
+            <Route path="payment/adplanselect" element={<Adplanpage />} />
           </Route>
           <Route path="logout" element={<Logoutpage />} />
         </Routes>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlinePlus } from "react-icons/ai";
 
 import "../StatisticsPage/Statisticspage.css";
@@ -11,8 +11,45 @@ import Homefooter from "../../HomeFooter/Homefooter";
 
 import AdsCategory from "./Adscategory";
 import Searchformlistitem from "../../SearchForm/Searchformlistitem";
-
+import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 function Advertisementspage() {
+  const axiosPrivate = useAxiosPrivate();
+
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    points: 0,
+    userData: {},
+  });
+  useEffect(() => {
+    userAuthenticate();
+  }, []);
+  const userAuthenticate = async () => {
+    try {
+      const response = await axiosPrivate.get(
+        "/pages/myaccount-advertisements",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            // Authorization: `Bearer ${token}`,
+            "Access-Control-Allow-Credentials": "true",
+            // "Access-Control-Expose-Headers": "Authorization",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const data = response.data;
+      setUserData({ points: data.points.toFixed(2), userData: data.userData });
+      console.log(data);
+      if (response.status === 401) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      navigate("/login");
+    }
+  };
   const [dropdown, setdropdown] = useState(0);
   const path = useLocation();
 
@@ -39,7 +76,7 @@ function Advertisementspage() {
                 <div className="user-wallet">
                   <div className="user-wallet-funds-box">
                     <span className="user-wallet-funds">
-                      Funds for Personalmoto: 0 points
+                      Funds for Personalmoto: {userData.points} points
                     </span>
                   </div>
                   <div className="user-wallet-topup topup-dropdown">
@@ -136,9 +173,9 @@ function Advertisementspage() {
             </li>
             <li className="col-md-2">
               <a
-                href="/myaccount-settings"
+                href="/myaccount-settings/settings"
                 className={
-                  path.pathname === "/myaccount-settings"
+                  path.pathname === "/myaccount-settings/settings"
                     ? "myaccount-active-link"
                     : "myaccount-link"
                 }
@@ -147,12 +184,43 @@ function Advertisementspage() {
               </a>
             </li>
           </ul>
+          <div className="news-catg-tab-box">
+            <a
+              href="/myaccount-news/selling"
+              className={
+                path.pathname === "/myaccount-news/selling"
+                  ? "news-catg-tab-show"
+                  : "news-catg-tab"
+              }
+            >
+              Seller
+            </a>
+            <a
+              href="/myaccount-news/buying"
+              className={
+                path.pathname === "/myaccount-news/buying"
+                  ? "news-catg-tab-show"
+                  : "news-catg-tab"
+              }
+            >
+              Buying
+            </a>
+            <a
+              href="/myaccount-news/archived"
+              className={
+                path.pathname === "/myaccount-news/archived"
+                  ? "news-catg-tab-show"
+                  : "news-catg-tab"
+              }
+            >
+              Archived
+            </a>
+          </div>
         </div>
       </div>
 
       <section className="user-ads-section">
         <div className="user-ads-box">
-
           <div className="ads-catg-search-box">
             <div className="ads-catg-search-box-i">
               <div className="ads-catg-box">
@@ -186,7 +254,6 @@ function Advertisementspage() {
               </div>
             </div>
           </div>
-          
         </div>
 
         <div className="user-ads-show-box">

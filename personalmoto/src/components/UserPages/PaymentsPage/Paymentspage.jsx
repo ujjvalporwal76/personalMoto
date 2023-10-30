@@ -9,9 +9,42 @@ import "./Paymentspage.css";
 import Navbar from "../../NavBar/Navbar";
 import Createaccountbanner from "../../CreateAccountBanner/Createaccountbanner";
 import Homefooter from "../../HomeFooter/Homefooter";
-import axios from "axios";
-const url = "http://localhost:5000/api/pay/topup";
+import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
+
 function Paymentspage() {
+  const axiosPrivate = useAxiosPrivate();
+  const [userData, setUserData] = useState({
+    points: 0,
+    userData: {},
+  });
+
+  useEffect(() => {
+    userAuthenticate();
+  }, []);
+  const userAuthenticate = async () => {
+    try {
+      const response = await axiosPrivate.get("/pages/myaccount-payments", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+          "Access-Control-Allow-Credentials": "true",
+          // "Access-Control-Expose-Headers": "Authorization",
+        },
+        withCredentials: true,
+      });
+
+      const data = response.data;
+      setUserData({ points: data.points.toFixed(2), userData: data.userData });
+      console.log(data);
+      if (response.status === 401) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      navigate("/login");
+    }
+  };
   const navigate = useNavigate();
   const [dropdown, setdropdown] = useState(0);
   const path = useLocation();
@@ -85,7 +118,7 @@ function Paymentspage() {
     e.preventDefault();
     setModalForm1Errors(modalForm1Validate(modalForm1Values));
     setIsModalForm1Submit(true);
-    const response = await axios.post(url, modalForm1Values, {
+    const response = await axiosPrivate.post("/pay/topup", modalForm1Values, {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Credentials": "true",
@@ -97,10 +130,13 @@ function Paymentspage() {
 
     console.log(data);
     if (response.status === 201) {
-      window.alert("payment done succefully");
+      // window.alert("payment done succefully");
       window.location = data.url;
+      // window.open(data.url, "_blank");
+      navigate("/myaccount-payments/topupfunds");
       console.log(data);
     } else if (response.status > 400 || !data) {
+      console.log(response.error);
       window.alert("Error in making your payment");
       navigate("/payment/fail");
     }
@@ -109,7 +145,7 @@ function Paymentspage() {
     e.preventDefault();
     setModalForm2Errors(modalForm2Validate(modalForm2Values));
     setIsModalForm2Submit(true);
-    const response = await axios.post(url, modalForm2Values, {
+    const response = await axiosPrivate.post("/pay/topup", modalForm2Values, {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Credentials": "true",
@@ -270,7 +306,7 @@ function Paymentspage() {
                 <div className="user-wallet">
                   <div className="user-wallet-funds-box">
                     <span className="user-wallet-funds">
-                      Funds for Personalmoto: 0 points
+                      Funds for Personalmoto: {userData.points} points
                     </span>
                   </div>
                   <div className="user-wallet-topup topup-dropdown">
@@ -355,7 +391,7 @@ function Paymentspage() {
             </li>
             <li className="col-md-2">
               <a
-                href="/myaccount-payments"
+                href="/myaccount-payments/wallet"
                 className={
                   path.pathname === "/myaccount-payments/wallet" ||
                   path.pathname === "/myaccount-payments/invoices" ||
@@ -370,7 +406,7 @@ function Paymentspage() {
             </li>
             <li className="col-md-2">
               <a
-                href="/myaccount-settings"
+                href="/myaccount-settings/settings"
                 className={
                   path.pathname === "/myaccount-settings"
                     ? "myaccount-active-link"

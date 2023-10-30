@@ -74,35 +74,21 @@ function Productpage() {
             className="mySwiper2"
           >
             <SwiperSlide>
-              <img src={offerposter} />
+              <iframe
+                src="https://www.youtube.com/embed/LGT5ZQr8uwo"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-            </SwiperSlide>
+            {productDetails.images?.map((file, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  src={`http://localhost:5000/Images/${file}`}
+                  alt="product-img"
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className="product-preview-image-slider">
@@ -115,9 +101,18 @@ function Productpage() {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper"
           >
-            {productDetails.images?.map((imgurl, index) => (
+            <SwiperSlide>
+              <img
+                src="https://i.ytimg.com/vi/LGT5ZQr8uwo/default.jpg"
+                alt="product-img"
+              />
+            </SwiperSlide>
+            {productDetails.images?.map((file, index) => (
               <SwiperSlide key={index}>
-                <img src={imgurl} alt="product-img" />
+                <img
+                  src={`http://localhost:5000/Images/${file}`}
+                  alt="product-img"
+                />
               </SwiperSlide>
             ))}
           </Swiper>
