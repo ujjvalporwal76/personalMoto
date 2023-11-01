@@ -39,6 +39,6 @@ app.use("/api/update", updateRoute);
 app.use("/api/plans", planRoute);
 connectToDatabase().then(() => console.log("Connected to MongoDB"));
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+app.listen(process.env.PORT, () => {
+  console.log("Server is running");
 });
