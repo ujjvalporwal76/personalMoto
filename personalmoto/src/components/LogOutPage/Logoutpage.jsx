@@ -3,31 +3,29 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./Logoutpage.css";
 import useAuth from "../../Hooks/useAuth";
+import axios from "../../axios/axios.config";
 const handleLoginRedirect = () => {
   window.location.href = "/login";
 };
-const url = "http://localhost:5000/api/users/logout";
+
 function Logoutpage() {
   const { setUser } = useAuth();
   const navigate = useNavigate();
   const handleLogoutUser = async () => {
     try {
-      const res = await fetch(url, {
-        method: "GET",
+      const res = await axios.get("/users/logout", {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         credentials: "include",
       });
+
       if (res) {
         console.log("Successfully logged out");
 
         setUser(null);
-        //navigating to login page after logout
-        navigate("/login");
-      }
-      if (res.status === 200) {
+        // navigating to login page after logout
         navigate("/login");
       }
     } catch (error) {

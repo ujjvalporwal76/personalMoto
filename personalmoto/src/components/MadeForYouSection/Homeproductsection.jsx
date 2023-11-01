@@ -9,7 +9,7 @@ function createProductCard(Product) {
       <Homeproductcard
         key={Product._id}
         id={Product._id}
-        image={`http://localhost:5000/Images/${Product.images[0]}`}
+        image={`${process.env.REACT_APP_SERVER_URL}/Images/${Product.images[0]}`}
         name={Product.title}
         year={Product.productionYear}
         fuelType={Product.fuelType}

@@ -46,7 +46,7 @@ function Offercard() {
         {offerProduct.title && (
           <div className="card">
             <img
-              src={`http://localhost:5000/Images/${offerProduct.images[0]}`}
+              src={`${process.env.REACT_APP_SERVER_URL}/Images/${offerProduct.images[0]}`}
               className="card-img-top"
               alt="product-img"
             />

@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "./Watchedadspage.css";
 import Navbar from "../NavBar/Navbar";
 import Homefooter from "../HomeFooter/Homefooter";
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+// import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 
 import watchedsearchesnoneimg from "../../images/watchedsearchesnoneimg.svg";
 
 function Watchedsearchpage() {
-  const axiosPrivate = useAxiosPrivate();
+  // const axiosPrivate = useAxiosPrivate();
 
   const [active, setActive] = useState("1");
   const navigate = useNavigate();

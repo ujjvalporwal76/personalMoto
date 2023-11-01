@@ -8,7 +8,6 @@ import { BsFacebook, BsGoogle, BsApple } from "react-icons/bs";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import toast from "react-hot-toast";
 import Navbar from "../NavBar/Navbar";
-// import { date } from "date-fns/locale";
 
 function Loginpage() {
   const { user, setUser } = useAuth();

@@ -6,10 +6,10 @@ import Navbar from "../NavBar/Navbar";
 import Homefooter from "../HomeFooter/Homefooter";
 
 import watchedadnoneimg from "../../images/watchedadnoneimg.svg";
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+// import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 
 function Watchedadspage() {
-  const axiosPrivate = useAxiosPrivate();
+  // const axiosPrivate = useAxiosPrivate();
 
   const [active, setActive] = useState("1");
   const navigate = useNavigate();

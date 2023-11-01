@@ -84,7 +84,7 @@ function Productpage() {
             {productDetails.images?.map((file, index) => (
               <SwiperSlide key={index}>
                 <img
-                  src={`http://localhost:5000/Images/${file}`}
+                  src={`${process.env.REACT_APP_SERVER_URL}/Images/${file}`}
                   alt="product-img"
                 />
               </SwiperSlide>
@@ -110,7 +110,7 @@ function Productpage() {
             {productDetails.images?.map((file, index) => (
               <SwiperSlide key={index}>
                 <img
-                  src={`http://localhost:5000/Images/${file}`}
+                  src={`${process.env.REACT_APP_SERVER_URL}/Images/${file}`}
                   alt="product-img"
                 />
               </SwiperSlide>

@@ -10,7 +10,7 @@ function createProductCard(Product) {
       <Productcard
         key={Product._id}
         productId={Product._id}
-        image={`http://localhost:5000/Images/${Product.images[0]}`}
+        image={`${process.env.REACT_APP_SERVER_URL}/Images/${Product.images[0]}`}
         name={Product.title}
         year={Product.productionYear}
         fuelType={Product.fuelType}
@@ -55,7 +55,7 @@ function Featuresection() {
   return (
     <section className="feature-product-section">
       <div className="feaute-product-header">
-        <h2 className="feauted-product-heading">Featured Offers</h2>
+        <h2 className="feauted-product-heading">Featured Products</h2>
         <div className="show-feature-product-link">
           <a className="feaute-products-link" href="#">
             see all

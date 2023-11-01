@@ -11,6 +11,7 @@ import tokenRouter from "./routes/tokenRoute.js";
 import paymentRoute from "./routes/paymentRoute.js";
 import productRoute from "./routes/productRoute.js";
 import updateRoute from "./routes/updateRoute.js";
+import planRoute from "./routes/planRoute.js";
 const app = express();
 
 app.use(express.json());
@@ -35,7 +36,7 @@ app.use(authenticateUser);
 app.use("/api/pages", pagesRoutes);
 app.use("/api/pay", paymentRoute);
 app.use("/api/update", updateRoute);
-
+app.use("/api/plans", planRoute);
 connectToDatabase().then(() => console.log("Connected to MongoDB"));
 
 app.listen(5000, () => {
