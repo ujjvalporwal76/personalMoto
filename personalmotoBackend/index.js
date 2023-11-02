@@ -30,11 +30,7 @@ app.use(cors(corsOptions));
 
 app.use("/api/users", authRoute);
 app.use("/api/product", productRoute);
-app.use("/api/allproducts", productRoute, (req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://www.personalmoto.pl/");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  next();
-});
+app.use("/api/allproducts", productRoute);
 app.use("/api/refresh", tokenRouter);
 app.use(authenticateUser);
 app.use("/api/pages", pagesRoutes);
