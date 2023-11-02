@@ -22,12 +22,12 @@ app.use(express.static("public"));
 const corsOptions = {
   origin: "https://www.personalmoto.pl/",
   credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
+  // optionSuccessStatus: 200,
   // "Access-Control-Allow-Origin": "*"
   // " Access-Control-Expose-Headers": "Authorization",
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/api/users", authRoute);
 app.use("/api/product", productRoute);
