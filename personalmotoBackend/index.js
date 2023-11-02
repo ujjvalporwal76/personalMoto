@@ -23,7 +23,7 @@ const corsOptions = {
   origin: "https://www.personalmoto.pl/",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
-  "Access-Control-Allow-Origin": "*",
+  // "Access-Control-Allow-Origin": "*"
   // " Access-Control-Expose-Headers": "Authorization",
 };
 
