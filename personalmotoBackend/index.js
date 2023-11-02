@@ -20,10 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://www.personalmoto.pl/",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
-  " Access-Control-Expose-Headers": "Authorization",
+  // " Access-Control-Expose-Headers": "Authorization",
 };
 
 app.use(cors(corsOptions));
