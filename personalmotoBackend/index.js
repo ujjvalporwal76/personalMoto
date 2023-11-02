@@ -27,7 +27,7 @@ const corsOptions = {
   // " Access-Control-Expose-Headers": "Authorization",
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/api/users", authRoute);
 app.use("/api/product", productRoute);
