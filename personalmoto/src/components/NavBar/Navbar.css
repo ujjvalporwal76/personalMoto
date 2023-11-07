@@ -129,7 +129,9 @@
   }
 
   .navbar-brand {
-    width: 25%;
+    margin-left: 0px;
+    margin-right: 20px;
+    width: 120px;
     /* Center the logo within the navbar */
   }
   .navbar-brand img {
