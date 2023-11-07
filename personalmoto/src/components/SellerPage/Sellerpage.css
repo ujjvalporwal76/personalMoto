@@ -715,6 +715,17 @@
     width: auto;
   }
 }
+@media (max-width: 992px) {
+  .car-feature-img-box {
+    display: none;
+  }
+  .car-select-form-box {
+    flex-basis: 100%;
+  }
+  h2 {
+    font-size: 20px !important;
+  }
+}
 
 @media (min-width: 1024px) {
   .car-checklist-section {

@@ -174,7 +174,8 @@ strong {
   padding: 0 0 20px 65px;
   position: relative;
 }
-.payments-steps-step::before, .payments-steps-step::after {
+.payments-steps-step::before,
+.payments-steps-step::after {
   content: " ";
   display: table;
 }
@@ -274,7 +275,8 @@ input[type="radio"] + .topup-checkbox-item-label sub {
   line-height: 40px;
 }
 
-sub, sup {
+sub,
+sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
@@ -299,108 +301,107 @@ sup {
 input[type="radio"]:checked + .topup-checkbox-item-label .wallet-icon {
   opacity: 1;
 }
-.topup-amount-slider-box{
-    float: left;
-    margin: 50px 0;
+.topup-amount-slider-box {
+  float: left;
+  margin: 50px 0;
 }
 
-.topup-amount-slider{
-    background: #fff;
-    border-bottom: 3px solid #00bffd;
-    border-left: none;
-    border-right: none;
-    border-radius: 10px;
-    border-top: 3px solid #00bffd;
-    display: block;
-    position: relative;
-    height: 12px;
-    width: 100%;
+.topup-amount-slider {
+  background: #fff;
+  border-bottom: 3px solid #00bffd;
+  border-left: none;
+  border-right: none;
+  border-radius: 10px;
+  border-top: 3px solid #00bffd;
+  display: block;
+  position: relative;
+  height: 12px;
+  width: 100%;
 }
-.topup-amount-range{
-    position: relative;
+.topup-amount-range {
+  position: relative;
 }
 
-.topup-amount-range-min, .topup-amount-range-max{
-    color: #142355;
-    display: block;
-    font-size: 16px;
-    font-weight: 600;
-    position: absolute;
-    top: 35px;
+.topup-amount-range-min,
+.topup-amount-range-max {
+  color: #142355;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  position: absolute;
+  top: 35px;
 }
-.topup-amount-range-min{
-    left: 0;
+.topup-amount-range-min {
+  left: 0;
 }
-.topup-amount-range-max{
-    right: 0;
+.topup-amount-range-max {
+  right: 0;
 }
-.topup-current-amount{
+.topup-current-amount {
   color: #142355;
   font-size: 36px;
   font-weight: 900;
   margin-left: -23px;
   margin-top: -50px;
-  
 }
 dl {
   margin-top: 0;
   margin-bottom: 20px;
 }
-.topup-amount-calc-box{
+.topup-amount-calc-box {
   float: left;
-    margin-top: 30px;
+  margin-top: 30px;
 }
-.topup-amount-calc-label{
+.topup-amount-calc-label {
   color: #404040;
   font-size: 16px;
   font-weight: 600;
   margin: 0;
 }
-.topup-amount-calc-value{
+.topup-amount-calc-value {
   color: #142355;
   font-weight: 900;
 }
 
-.payment-method-label
-{
+.payment-method-label {
   display: block;
   font-weight: 900;
   padding: 25px 0;
 }
-.topup-payment-method{
+.topup-payment-method {
   display: flex;
   align-items: center;
 }
-.topup-payment-method input[type=radio]{
+.topup-payment-method input[type="radio"] {
   color: #0071ce;
   border: 2px solid black;
   visibility: visible;
   left: auto;
 }
-.payment-method-icon{
+.payment-method-icon {
   height: 27px;
   width: 72px;
   margin-left: 20px;
 }
-.payment-method-icon img{
+.payment-method-icon img {
   width: 100%;
   height: 100%;
 }
-.topup-amount-summary-box{
+.topup-amount-summary-box {
   background: #f4f8e7;
-    font-size: 18px;
-    padding: 20px;
-    position: relative;
-    display: inline-block;
+  font-size: 18px;
+  padding: 20px;
+  position: relative;
+  display: inline-block;
 }
-.topup-amount-summary-label{
+.topup-amount-summary-label {
   display: block;
-    float: left;
-    width: 40%;
-    margin: 10px 0 0;
-    font-size: 16px;
+  float: left;
+  width: 40%;
+  margin: 10px 0 0;
+  font-size: 16px;
 }
-.topup-amount-summary-total{
+.topup-amount-summary-total {
   display: block;
   color: #142355;
   float: right;
@@ -411,38 +412,37 @@ dl {
   width: 55%;
 }
 
-.topup-amount-cancel-link{
+.topup-amount-cancel-link {
   color: #002539;
-    display: block;
-    float: left;
-    margin: 45px 0 0;
-    font-size: 16px;
+  display: block;
+  float: left;
+  margin: 45px 0 0;
+  font-size: 16px;
 }
-.topup-submit-btn{
+.topup-submit-btn {
   clear: right;
-  
-    float: right;
-    height: auto;
-    padding: 5px 28px;
-    background: #c82814;
-    box-shadow: 0 1px 2px #af4d41;
-    border: none;
-    border-radius: none !important;
-    color: #fff;
-    cursor: pointer;
-    
-    font-size: 14px;
-    font-weight: 600;
-    height: 36px;
-    line-height: 36px;
-    padding: 0 20px;
-    text-align: center;
-    transition: background-color .3s ease;
-    white-space: nowrap;
-  
+
+  float: right;
+  height: auto;
+  padding: 5px 28px;
+  background: #c82814;
+  box-shadow: 0 1px 2px #af4d41;
+  border: none;
+  border-radius: none !important;
+  color: #fff;
+  cursor: pointer;
+
+  font-size: 14px;
+  font-weight: 600;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 20px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
-.payment-modal-header{
+.payment-modal-header {
   background: rgb(255, 255, 255);
   border-bottom: 1px solid rgb(235, 236, 239);
   display: flex;
@@ -454,23 +454,24 @@ dl {
   min-height: initial;
   height: 56px;
 }
-.modal-content{
+.modal-content {
   border: none;
-    border-radius: 1px;
-    box-shadow: 0 0 5px rgba(20,35,85,.35);
-    background-clip: padding-box;
-    outline: 0;
-    position: relative;
-    background-color: #fff;
+  border-radius: 1px;
+  box-shadow: 0 0 5px rgba(20, 35, 85, 0.35);
+  background-clip: padding-box;
+  outline: 0;
+  position: relative;
+  background-color: #fff;
 }
-.payment-modal-content{
+.payment-modal-content {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.payment-modal-heading{
-  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+.payment-modal-heading {
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   font-size: 22px;
   line-height: 26px;
   font-weight: 600;
@@ -478,52 +479,53 @@ dl {
   font-style: normal;
 }
 
-.payment-modal-tip{
-  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
-    letter-spacing: 0.16px;
-    font-style: normal;
+.payment-modal-tip {
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  font-style: normal;
 }
-.payment-modal-form{
+.payment-modal-form {
   display: flex;
   flex-wrap: wrap;
   margin-top: 24px;
 }
-.payment-type-sel-box{
+.payment-type-sel-box {
   display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+  flex-wrap: wrap;
+  width: 100%;
 }
-.payment-type-sel-box :first-child{
+.payment-type-sel-box :first-child {
   margin-right: 16px;
 }
 
-.payment-type-sel-box div{
+.payment-type-sel-box div {
   margin-bottom: 16px;
   align-items: center;
 }
-.type-sel-label{
+.type-sel-label {
   cursor: pointer;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    display: flex;
-    margin-left: 10px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  margin-left: 10px;
 }
-.payment-modal-form input[type=radio]{
+.payment-modal-form input[type="radio"] {
   visibility: visible;
   left: auto;
   min-width: 24px;
-    min-height: 24px;
-    height: 24px;
-    width: 24px;
-    margin-left: 16px;
-    
+  min-height: 24px;
+  height: 24px;
+  width: 24px;
+  margin-left: 16px;
 }
-.type-sel-label-text{
-  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+.type-sel-label-text {
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
@@ -534,20 +536,21 @@ dl {
   align-self: center;
   margin: 0 0 0 8px;
 }
-.payment-modal-form > .payment-input-box{
+.payment-modal-form > .payment-input-box {
   margin-bottom: 16px;
   width: calc(50% - 8px);
   margin-right: 8px;
 }
-.payment-modal-form > .payment-input-box:nth-child(4){
+.payment-modal-form > .payment-input-box:nth-child(4) {
   width: 100%;
 }
-.payment-input-box .payment-input-label{
-  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+.payment-input-box .payment-input-label {
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   font-size: 14px;
   line-height: 18px;
   font-weight: 600;
-  letter-spacing: .16px;
+  letter-spacing: 0.16px;
   font-style: normal;
   display: inline-block;
   width: 100%;
@@ -555,85 +558,93 @@ dl {
   margin: 0;
   margin-bottom: 4px;
 }
-.payment-input-box .payment-input{
+.payment-input-box .payment-input {
   min-height: 36px;
   height: 36px;
   padding: 0 8px;
-  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
-    letter-spacing: normal;
-    font-style: normal;
-    display: inline-block;
-    border: 1px solid #bfc0c3;
-    border-radius: 4px;
-    box-shadow: none;
-    box-sizing: border-box;
-    text-overflow: ellipsis;
-    width: 100%;
-    margin: 0;
-    color: #020309;
-    background-color: #fff;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: normal;
+  font-style: normal;
+  display: inline-block;
+  border: 1px solid #bfc0c3;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin: 0;
+  color: #020309;
+  background-color: #fff;
 }
-.payment-input-box input[type=text]:focus{
-     border-color: #0071ce;
+.payment-input-box input[type="text"]:focus {
+  border-color: #0071ce;
   outline: none;
 }
-.req-input-box input[type=text]:focus{
+.req-input-box input[type="text"]:focus {
   border-color: #c82814;
 }
-.req-input-error-hide{ 
+.req-input-error-hide {
   display: none;
 }
-.req-input-error-msg{
+.req-input-error-msg {
   color: #c82814;
-  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 400;
-    letter-spacing: normal;
-    font-style: italic;
-    display: inline-block;
-    width: 100%;
-    margin: 0;
-    margin-top: 4px;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: normal;
+  font-style: italic;
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  margin-top: 4px;
 }
-.payment-opt-redirect-btn{
+.payment-opt-redirect-btn {
   background-color: #c82814;
   color: #fff;
   border: 0;
-  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 600;
-    letter-spacing: normal;
-    font-style: normal;
-    min-height: 44px;
-    height: 44px;
-    padding: 0 16px;
-    border-radius: 4px;
-    box-sizing: border-box;
-    display: inline-block;
-    display: inline-flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-    transition: all .3s ease;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: normal;
+  font-style: normal;
+  min-height: 44px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
-.payment-opt-redirect-btn:hover{
+.payment-opt-redirect-btn:hover {
   background-color: #ee6554;
-    color: #fff;
+  color: #fff;
 }
-.payment-modal-form > button{
+.payment-modal-form > button {
   margin-top: 16px;
   width: 100%;
   height: 44px;
   max-height: calc(12 * calc(24px + 8px));
+}
+@media screen and (width <768px) {
+  .payments-catg-tab-box {
+    display: none;
+  }
 }
 @media (min-width: 768px) {
   .payments-steps-step-chain {
@@ -664,19 +675,18 @@ dl {
   }
 }
 
-@media (min-width: 768px){
-  .topup-payment-method{
+@media (min-width: 768px) {
+  .topup-payment-method {
     float: left;
     margin: 0 50px 30px -10px;
     width: 64%;
   }
 }
 
-@media (min-width: 768px){
-  .modal-content{
-    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
-    box-shadow: 0 5px 15px rgba(0,0,0,.5);
-
+@media (min-width: 768px) {
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
 }
 @media (min-width: 1025px) {
@@ -703,24 +713,22 @@ dl {
   }
 }
 
-@media (min-width:1025px){
-  .topup-current-amount{
+@media (min-width: 1025px) {
+  .topup-current-amount {
     font-size: 36px;
     margin-left: -35px;
     margin-top: -70px;
   }
 }
 
-
-@media (min-width: 1025px)
-{
-  .topup-amount-calc-value{
+@media (min-width: 1025px) {
+  .topup-amount-calc-value {
     font-size: 24px;
   }
 }
 
-@media (min-width: 1025px){
-  .payment-modal-header{
+@media (min-width: 1025px) {
+  .payment-modal-header {
     height: 44px;
   }
 }

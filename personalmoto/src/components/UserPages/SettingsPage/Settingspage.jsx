@@ -51,12 +51,12 @@ function Settingspage() {
 
       const data = response.data;
       setUserData({ points: data.points.toFixed(2), userData: data.userData });
-      console.log(data);
+      // console.log(data);
       if (response.status === 401) {
         navigate("/login");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       navigate("/login");
     }
   };
@@ -87,9 +87,9 @@ function Settingspage() {
   const handlePasswordForm = async (e) => {
     e.preventDefault();
     const Match = await handlePasswordMatch();
-    console.log(isMatch);
+    // console.log(isMatch);
     if (Match) {
-      console.log("match");
+      // console.log("match");
       try {
         const response = await axiosPrivate.post(
           "/update/updatepassword",
@@ -107,7 +107,7 @@ function Settingspage() {
         // const data = await response.data;
 
         if (response.status === 201) {
-          console.log("Password updated");
+          // console.log("Password updated");
           // console.log(data);
           toast.success("Password is Updated Successfully");
           setTimeout(() => {
@@ -125,7 +125,7 @@ function Settingspage() {
           // }
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         // Handle unexpected errors
         toast.error("Invalid Old Password or User not found");
       }
@@ -157,7 +157,7 @@ function Settingspage() {
       );
 
       // const data = await response.data
-      console.log(response);
+      // console.log(response);
       if (response.status === 201) {
         toast.success("Contact Information updated successfully");
         setTimeout(() => {
@@ -165,10 +165,10 @@ function Settingspage() {
         }, 2000);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Error in updating contact info");
     }
-    console.log("submit form");
+    // console.log("submit form");
   };
   return (
     <div className="settings-page">

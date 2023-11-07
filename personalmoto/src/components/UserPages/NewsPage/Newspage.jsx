@@ -39,12 +39,12 @@ function Newspage() {
 
       const data = response.data;
       setUserData({ points: data.points.toFixed(2), userData: data.userData });
-      console.log(data);
+      // console.log(data);
       if (response.status === 401) {
         navigate("/login");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       navigate("/login");
     }
   };

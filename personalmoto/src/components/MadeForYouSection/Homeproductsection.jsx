@@ -3,6 +3,7 @@ import "./Homeproductsection.css";
 import MadeforyouProducts from "./Madeforyouproduct";
 import Homeproductcard from "./Homeproductcard";
 import axios from "../../axios/axios.config";
+import toast from "react-hot-toast";
 function createProductCard(Product) {
   if (Product.adtype === "standard")
     return (
@@ -40,14 +41,14 @@ function Homeproductsection() {
 
       const data = response.data;
       setProductDetails(data);
-      console.log(data);
+      // console.log(data);
 
       if (!productDetails) {
         return <div>Loading...</div>;
       }
     } catch (error) {
-      console.log(error);
-      // toast.error("No product");
+      // console.log(error);
+      toast.error("No product");
     }
   };
   return (

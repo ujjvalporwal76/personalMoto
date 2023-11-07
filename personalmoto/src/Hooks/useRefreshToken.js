@@ -9,15 +9,15 @@ const useRefreshToken = () => {
       withCredentials: true,
     });
     const accessToken = res.data.accessToken;
-    console.log(accessToken);
+    // console.log(accessToken);
     // Update the user object with the new access token
 
     // setUser(accessToken);
     setUser((prev) => {
-      console.log(prev);
+      // console.log(prev);
       return { ...prev, accessToken };
     });
-    console.log(user);
+    // console.log(user);
     // Return the access token
     return accessToken;
   };

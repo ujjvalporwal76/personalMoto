@@ -46,11 +46,11 @@ function Loginpage() {
         // const refreshToken = data.refreshToken;
 
         const accessToken = data.accessToken;
-        console.log(accessToken);
+        // console.log(accessToken);
 
         setUser({ email, password, accessToken });
         setIsLogin(true);
-        console.log(user);
+        // console.log(user);
 
         // console.log(data);
 
@@ -61,7 +61,7 @@ function Loginpage() {
         toast.error("Invalid email or password");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Invalid email or password");
     }
   };

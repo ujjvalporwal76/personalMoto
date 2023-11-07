@@ -1,114 +1,139 @@
-body {
-  margin: 0;
-}
-
+/* Common styles for the navbar */
 .navbar {
-  align-content: center;
   box-shadow: 0 0 10px 0 rgb(180, 178, 178);
   position: fixed;
   z-index: 1000;
   width: 100%;
-}
-.nav-items {
-  justify-content: end;
-}
-
-.btn {
-  justify-content: center;
-  margin: 0 5px;
-  padding: 5px;
-}
-.nav-item .btn:hover {
-  background-color: white;
-  color: blue;
-  border: 3px solid blue;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff; /* Background color for the navbar */
 }
 
-.nav-link:hover {
-  color: blue;
+/* Styles for the brand/logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  margin-left: 16px; /* Adjust the margin as needed */
 }
 
 .navbar-brand img {
   width: 50%;
-  height: 100%;
-  margin: auto 2px;
-}
-.nav-item h5 {
-  padding: 20px 28px 8px;
-  margin: 0;
-  border-top: 1px solid #f2f3f6;
-  font-size: 14px;
-  color: #002539;
-  font-weight: 600;
-  line-height: 1.2em;
-}
-.dropdown-menu {
-  padding: 25px 28px 12px;
-  font-size: 13px;
-  line-height: 18px;
-}
-.dropdown-menu-item {
-  margin: 7px 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 8px;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-@media (min-width: 320px) {
-  .navbar-brand {
-    width: 80%;
-    height: 100%;
-    margin: auto 2px;
-  }
-}
-@media (min-width: 576px) {
-  .navbar-brand {
-    width: 70%;
-    height: 100%;
-    margin: auto 2px;
-  }
-}
-@media (min-width: 768px) {
-  .navbar-brand {
-    width: 70%;
-    height: 100%;
-    margin: auto 2px;
-  }
-}
-@media (min-width: 1024px) {
-  .navbar-brand {
-    width: 50%;
-    height: 100%;
-    margin: auto 2px;
-  }
+  height: auto; /* Maintain the aspect ratio */
+  margin-right: 8px; /* Adjust the margin as needed */
 }
 
-@media (min-width: 576px) {
-  .nav-item {
-    margin: 10px;
-  }
+/* Styles for the menu items and button */
+.nav-items {
+  display: flex;
+  align-items: center;
 }
-@media (min-width: 992px) {
+
+.nav-item {
+  margin: 0 8px; /* Adjust the margin as needed */
+}
+
+.nav-link {
+  color: #002539;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2em;
+  text-decoration: none;
+}
+
+.btn {
+  padding: 5px 15px; /* Adjust the padding as needed */
+  background-color: #fff;
+  color: #002539;
+  border: 3px solid transparent;
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #002539;
+  color: #fff;
+  border-color: #002539;
+  text-decoration: none;
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  padding: 16px; /* Adjust the padding as needed */
+  font-size: 14px; /* Match the font size with the other menu items */
+  line-height: 1.2em;
+}
+
+.dropdown-menu-item {
+  margin: 8px 0; /* Adjust the margin as needed */
+  display: flex;
+  align-items: center;
+}
+.navbar-collapse {
+  flex-grow: 0;
+  transition: all ease-in-out 0.3s;
+}
+/* Media query for responsiveness */
+
+@media (width <= 992px) {
   .navbar {
-    display: grid;
-    grid-template-columns: 2fr;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    height: auto; /* Allow the navbar to expand as needed */
+  }
+
+  .nav-items {
+    margin-top: 16px; /* Add some spacing below the logo */
+  }
+
+  .navbar-brand {
+    width: 50%;
+    margin-left: 150px;
+    margin-right: 100px; /* Center the logo within the navbar */
+  }
+  .navbar-brand img {
+    margin: auto;
   }
 }
-@media (min-width: 992px) {
-  .nav-item {
-    margin: 10px;
-  }
-}
-@media (min-width: 1024px) {
+@media (width<=637px) {
   .navbar {
-    display: grid;
-    grid-template-columns: 2fr;
-    height: 70px;
+    flex-direction: column;
+    align-items: center;
+    height: auto; /* Allow the navbar to expand as needed */
+  }
+
+  .nav-items {
+    margin-top: 16px; /* Add some spacing below the logo */
+  }
+
+  .navbar-brand {
+    width: 40%;
+    /* Center the logo within the navbar */
+  }
+  .navbar-brand img {
+    margin: auto;
+    width: 100%;
+  }
+}
+@media (width<=576px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    height: auto; /* Allow the navbar to expand as needed */
+  }
+
+  .nav-items {
+    margin-top: 16px; /* Add some spacing below the logo */
+  }
+
+  .navbar-brand {
+    width: 25%;
+    /* Center the logo within the navbar */
+  }
+  .navbar-brand img {
+    margin: auto;
+    width: 100%;
   }
 }

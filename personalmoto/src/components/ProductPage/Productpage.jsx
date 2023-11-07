@@ -18,7 +18,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "./Productpage.css";
 import { useParams } from "react-router-dom";
-
+import toast from "react-hot-toast";
 function Productpage() {
   const productId = useParams();
   const [productDetails, setProductDetails] = useState({});
@@ -44,13 +44,13 @@ function Productpage() {
 
       const data = response.data;
       setProductDetails({ ...data });
-      console.log(data);
+      // console.log(data);
       if (!productDetails) {
         return <div>Loading...</div>;
       }
     } catch (error) {
-      console.log(error);
-      alert("no product details");
+      // console.log(error);
+      toast.error("No product details");
     }
   };
   return (
@@ -138,7 +138,7 @@ function Productpage() {
             </ul>
             <div className="product-price">
               <span className="product-price-currency">
-                {productDetails.currency === "Dollar" ? "USD" : "INR"}
+                {productDetails.currency === "Dollar" ? "PLN" : "PLN"}
               </span>
               <span className="product-price-amount">
                 {productDetails.price}

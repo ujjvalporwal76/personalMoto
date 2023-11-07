@@ -170,3 +170,8 @@
   height: 100%;
   display: block;
 }
+@media screen and (width <768px) {
+  .settings-catg-tab-box {
+    display: none;
+  }
+}

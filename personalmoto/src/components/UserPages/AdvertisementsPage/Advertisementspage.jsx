@@ -41,12 +41,12 @@ function Advertisementspage() {
 
       const data = response.data;
       setUserData({ points: data.points.toFixed(2), userData: data.userData });
-      console.log(data);
+      // console.log(data);
       if (response.status === 401) {
         navigate("/login");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       navigate("/login");
     }
   };
@@ -139,7 +139,8 @@ function Advertisementspage() {
               <a
                 href="/myaccount-advertisements"
                 className={
-                  path.pathname === "/myaccount-advertisements"
+                  path.pathname === "/myaccount-advertisements/active" ||
+                  "/myaccount-advertisements/pending"
                     ? "myaccount-active-link"
                     : "myaccount-link"
                 }
@@ -186,34 +187,24 @@ function Advertisementspage() {
           </ul>
           <div className="news-catg-tab-box">
             <a
-              href="/myaccount-news/selling"
+              href="/myaccount-advertisements/active"
               className={
-                path.pathname === "/myaccount-news/selling"
-                  ? "news-catg-tab-show"
-                  : "news-catg-tab"
+                path.pathname === "/myaccount-advertisements/active"
+                  ? "ads-catg-tab-show"
+                  : "ads-catg-tab"
               }
             >
-              Seller
+              Active
             </a>
             <a
-              href="/myaccount-news/buying"
+              href="/myaccount-advertisements/pending"
               className={
-                path.pathname === "/myaccount-news/buying"
-                  ? "news-catg-tab-show"
-                  : "news-catg-tab"
+                path.pathname === "/myaccount-advertisements/pending"
+                  ? "ads-catg-tab-show"
+                  : "ads-catg-tab"
               }
             >
-              Buying
-            </a>
-            <a
-              href="/myaccount-news/archived"
-              className={
-                path.pathname === "/myaccount-news/archived"
-                  ? "news-catg-tab-show"
-                  : "news-catg-tab"
-              }
-            >
-              Archived
+              Pending
             </a>
           </div>
         </div>

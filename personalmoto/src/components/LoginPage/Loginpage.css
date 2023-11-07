@@ -317,3 +317,16 @@
     padding: 0 32px;
   }
 }
+
+@media (width<1024px) {
+  .login-page-content {
+    align-items: center;
+    justify-content: center;
+  }
+  .login-page-right-content {
+    display: none !important;
+  }
+  .login-page-heading h1 {
+    font-size: 26px;
+  }
+}

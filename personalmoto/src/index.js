@@ -46,7 +46,7 @@ root.render(
 
             <Route path="myaccount-statistics" element={<Statisticspage />} />
             <Route
-              path="myaccount-advertisements"
+              path="myaccount-advertisements/:adsId"
               element={<Advertisementspage />}
             />
             <Route path="myaccount-news/:newsId" element={<Newspage />} />

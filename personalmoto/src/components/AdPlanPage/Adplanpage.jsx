@@ -19,7 +19,7 @@ function Adplanpage() {
       plan: plan.plan,
       pointsPerDay: plan.pointsPerDay,
     });
-    console.log(chosenPlan);
+    // console.log(chosenPlan);
   };
   const sendChosenPlanData = async () => {
     const response = await axios.post("/plans/confirm", chosenPlan, {
@@ -31,7 +31,7 @@ function Adplanpage() {
     });
 
     const data = response.data;
-    console.log(data);
+    // console.log(data);
     if (response.status === 201) {
       toast.success("Your Plan is confirmed");
     } else {

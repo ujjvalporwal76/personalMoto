@@ -1,5 +1,19 @@
 .home-product-row {
-    display: flex;
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+  overflow-x: auto; /* Enable horizontal scroll */
+  scroll-behavior: smooth;
+  white-space: nowrap; /* Prevent wrapping */
+  padding: 10px 0; /* Optional padding for spacing */
+}
+
+.home-product-row::-webkit-scrollbar-thumb {
+  background-color: grey; /* Color of the thumb */
+  border-radius: 15px; /* Rounded edges */
+}
+
+.home-product-row::-webkit-scrollbar-track {
+  background-color: transparent; /* Color of the track */
 }
 
 .home-product-heading {
@@ -13,7 +27,7 @@
 .home-product-section {
   justify-content: center;
   position: relative;
-  margin: 100px 30px;
+  margin: 50px 30px;
 
   padding: 10px;
 }
@@ -22,6 +36,7 @@
   display: flex;
   -webkit-box-pack: justify;
   justify-content: space-between;
+  align-items: center;
 }
 
 .show-home-product-link {

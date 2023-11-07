@@ -42,13 +42,13 @@ function Featuresection() {
 
       const data = response.data;
       setProductDetails(data);
-      console.log(data);
+      // console.log(data);
 
       if (!productDetails) {
         return <div>Loading...</div>;
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("No product");
     }
   };
@@ -62,7 +62,9 @@ function Featuresection() {
           </a>
         </div>
       </div>
-      <div>{productDetails?.map(createProductCard)}</div>
+      <div className="feature-product-row">
+        {productDetails?.map(createProductCard)}
+      </div>
     </section>
   );
 }

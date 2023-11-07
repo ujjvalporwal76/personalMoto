@@ -80,3 +80,11 @@
     width: 840px;
   }
 }
+
+@media (width< 576px) {
+  .details-heading {
+    color: #040711;
+    font-size: 22px;
+    padding: 0 0 16px;
+  }
+}

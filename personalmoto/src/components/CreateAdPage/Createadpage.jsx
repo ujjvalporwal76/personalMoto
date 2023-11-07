@@ -21,7 +21,7 @@ import Gearboxes from "../SearchForm/Gearbox";
 import Versions from "../SearchForm/Version";
 import Colors from "../SearchForm/Color";
 import Currencies from "../SearchForm/Currency";
-
+import toast from "react-hot-toast";
 function createBodytypelist(Bodytype) {
   return <Searchformlistitem key={Bodytype.id} bodytype={Bodytype.bodytype1} />;
 }
@@ -173,8 +173,8 @@ function Createadpage() {
       images: [...prevState.images, ...selectedFilesArray],
     }));
     setShowImages((previousShowImages) => [...previousShowImages, ...blobURLs]);
-    console.log(showImages);
-    console.log(adFormValues.images);
+    // console.log(showImages);
+    // console.log(adFormValues.images);
   };
 
   //Handling form submit
@@ -197,7 +197,7 @@ function Createadpage() {
     }
 
     // Console.log the image strings
-    console.log(adFormValues.images);
+    // console.log(adFormValues.images);
 
     // Send the FormData object to the backend
     const response = await axios.post("/pages/create-ad-page", formData, {
@@ -212,10 +212,10 @@ function Createadpage() {
     const data = await response.data;
 
     if (response.status === 201) {
-      window.alert("Ad submit Successful");
-      console.log(data);
+      toast.success("Your ad is saved successfully");
+      // console.log(data);
     } else if (response.status > 400 || !data) {
-      window.alert("Error in submitting ad");
+      toast.error("Something went wrong in submitting your ad");
     }
   }
 
@@ -230,7 +230,7 @@ function Createadpage() {
         ...adFormValues,
         [prop]: selectedImages,
       });
-      console.log("image", adFormValues.images);
+      // console.log("image", adFormValues.images);
     }
     if (prop === "showRegistrationCheck" || prop === "freeVerificationCheck") {
       // Update the adFormValues state variable with the selected value.

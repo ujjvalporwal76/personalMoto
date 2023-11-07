@@ -55,7 +55,7 @@ const Test = () => {
   };
 
   return (
-    <div>
+    <div className="search-form-main-box">
       <h1 className="search-form-box-heading">What are you looking for?</h1>
       <div className="search-form-box">
         <div className="search-form-category">
@@ -148,33 +148,32 @@ const Test = () => {
               {Years.map(createYearlist)}
             </select>
           </div>
-</div>
-          <div className="search-form-category">
-            <p className="search-form-category-name">Mileage Range</p>
-            <div className="search-form-category-box">
-              <select
-                id="mileageFrom"
-                value={mileageFrom}
-                onChange={(e) => setMileageFrom(e.target.value)}
-                className="search-form-category-dropdown"
-              >
-                <option value="">From</option>
-                {Mileages.map(createMileagelist)}
-              </select>
-              <select
-                id="mileageTo"
-                value={mileageTo}
-                onChange={(e) => setMileageTo(e.target.value)}
-                className="search-form-category-dropdown"
-              >
-                <option value="">Down</option>
-                {Mileages.map(createMileagelist)}
-              </select>
-            </div>
+        </div>
+        <div className="search-form-category">
+          <p className="search-form-category-name">Mileage Range</p>
+          <div className="search-form-category-box">
+            <select
+              id="mileageFrom"
+              value={mileageFrom}
+              onChange={(e) => setMileageFrom(e.target.value)}
+              className="search-form-category-dropdown"
+            >
+              <option value="">From</option>
+              {Mileages.map(createMileagelist)}
+            </select>
+            <select
+              id="mileageTo"
+              value={mileageTo}
+              onChange={(e) => setMileageTo(e.target.value)}
+              className="search-form-category-dropdown"
+            >
+              <option value="">Down</option>
+              {Mileages.map(createMileagelist)}
+            </select>
           </div>
-          
-          <Button className="search-form-submit-btn">Show Results</Button>
-        
+        </div>
+
+        <Button className="search-form-submit-btn">Show Results</Button>
       </div>
     </div>
   );

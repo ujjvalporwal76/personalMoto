@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineCheck } from "react-icons/ai";
-import {RiPagesLine} from "react-icons/ri"
+import { RiPagesLine } from "react-icons/ri";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ProgressBar } from "react-bootstrap";
@@ -21,7 +21,7 @@ import vehicleregistration from "../../images/vehicleregistrationPL.svg";
 import Years from "../SearchForm/Year";
 import Bodytypes from "../SearchForm/Bodytype";
 import VehicleBrands from "../SearchForm/Vehiclebrand";
-import VehicleModels from "../SearchForm/Vehiclemodel"
+import VehicleModels from "../SearchForm/Vehiclemodel";
 import Fueltypes from "../SearchForm/Fueltype";
 
 function createBodytypelist(Bodytype) {
@@ -39,14 +39,17 @@ function createFuelTypelist(Fueltype) {
   return <Searchformlistitem key={Fueltype.id} fueltype={Fueltype.fuelType} />;
 }
 function createVehicleModellist(Vehiclemodel) {
-  return <Searchformlistitem key={Vehiclemodel.id} vehiclemodel={Vehiclemodel.vehicleModel} />;
+  return (
+    <Searchformlistitem
+      key={Vehiclemodel.id}
+      vehiclemodel={Vehiclemodel.vehicleModel}
+    />
+  );
 }
 
 function createYearlist(Year) {
   return <Searchformlistitem key={Year.id} year={Year.year} />;
 }
-
-
 
 function Sellerpage() {
   const [yearFrom, setYearFrom] = useState("");
@@ -58,7 +61,6 @@ function Sellerpage() {
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
 
   const [active, setActive] = useState("1");
 
@@ -66,13 +68,9 @@ function Sellerpage() {
     setActive(event.target.id);
   };
 
-  function handleadpage(){
-    
-    navigate("/create-ad-page")
+  function handleadpage() {
+    navigate("/create-ad-page");
   }
-
-  
-
 
   return (
     <div className="seller-page">
@@ -95,8 +93,12 @@ function Sellerpage() {
                 <p className="seller-post-ad-slogan">
                   Advertise your vehicle or part and sell within 2-4 weeks.
                 </p>
-                <button type="button" className="seller-post-ad-btn" onClick={handleadpage}>
-                  <span className="seller-post-ad-btn-name" >Create an ad</span>
+                <button
+                  type="button"
+                  className="seller-post-ad-btn"
+                  onClick={handleadpage}
+                >
+                  <span className="seller-post-ad-btn-name">Create an ad</span>
                 </button>
                 <ul className="seller-ad-features">
                   <li className="seller-ad-feature-item">
@@ -394,7 +396,7 @@ function Sellerpage() {
           </Modal.Body>
           <Modal.Footer>
             <div className="car-form-submit-btn-box">
-              <button className="car-form-submit-btn">
+              <button className="car-form-submit-btn" onClick={handleadpage}>
                 Take advantage of our free quote
               </button>
             </div>
@@ -404,19 +406,36 @@ function Sellerpage() {
 
       <article className="blog-ad-section">
         <div className="blog-ad-box">
-          <h2 className="blog-ad-heading">Find inspiration with articles and videos on our blog</h2>
+          <h2 className="blog-ad-heading">
+            Find inspiration with articles and videos on our blog
+          </h2>
           <div className="blog-ad-redirect-box">
-            <a href="/blog-page" target="_blank" className="blog-ad-redirect-link">Find more resources</a>
+            <a
+              href="/blog-page"
+              target="_blank"
+              className="blog-ad-redirect-link"
+            >
+              Find more resources
+            </a>
           </div>
           <ul className="blog-ad-list">
             <li className="blog-ad-list-item">
-              <a href='#' target="_blank" className="blog-ad-link">
-                <img src="https://motopedia.otomoto.pl/_next/image?url=https%3A%2F%2Fapimotopedia.wpengine.com%2Fwp-content%2Fuploads%2F2023%2F03%2FIMG_7708.jpg&w=992&q=70" alt="blog-img" className="blog-ad-img"></img>
+              <a href="#" target="_blank" className="blog-ad-link">
+                <img
+                  src="https://motopedia.otomoto.pl/_next/image?url=https%3A%2F%2Fapimotopedia.wpengine.com%2Fwp-content%2Fuploads%2F2023%2F03%2FIMG_7708.jpg&w=992&q=70"
+                  alt="blog-img"
+                  className="blog-ad-img"
+                ></img>
                 <div className="blog-ad-name-box">
-                  <p className="blog-ad-name">Check how to sell effectively on Personalmoto</p>
+                  <p className="blog-ad-name">
+                    Check how to sell effectively on Personalmoto
+                  </p>
                   <p className="blog-reading-time-para">
                     <div className="blog-reading-time-icon-box">
-                      <RiPagesLine size={16} className="blog-reading-time-icon"/>
+                      <RiPagesLine
+                        size={16}
+                        className="blog-reading-time-icon"
+                      />
                       <span className="blog-reading-time">3 min</span>
                     </div>
                   </p>
@@ -424,13 +443,22 @@ function Sellerpage() {
               </a>
             </li>
             <li className="blog-ad-list-item">
-              <a href='#' target="_blank" className="blog-ad-link">
-                <img src="https://motopedia.otomoto.pl/_next/image?url=https%3A%2F%2Fapimotopedia.wpengine.com%2Fwp-content%2Fuploads%2F2023%2F03%2FIMG_7708.jpg&w=992&q=70" alt="blog-img" className="blog-ad-img"></img>
+              <a href="#" target="_blank" className="blog-ad-link">
+                <img
+                  src="https://motopedia.otomoto.pl/_next/image?url=https%3A%2F%2Fapimotopedia.wpengine.com%2Fwp-content%2Fuploads%2F2023%2F03%2FIMG_7708.jpg&w=992&q=70"
+                  alt="blog-img"
+                  className="blog-ad-img"
+                ></img>
                 <div className="blog-ad-name-box">
-                  <p className="blog-ad-name">Check how to sell effectively on Personalmoto</p>
+                  <p className="blog-ad-name">
+                    Check how to sell effectively on Personalmoto
+                  </p>
                   <p className="blog-reading-time-para">
                     <div className="blog-reading-time-icon-box">
-                      <RiPagesLine size={16} className="blog-reading-time-icon"/>
+                      <RiPagesLine
+                        size={16}
+                        className="blog-reading-time-icon"
+                      />
                       <span className="blog-reading-time">3 min</span>
                     </div>
                   </p>
@@ -438,13 +466,22 @@ function Sellerpage() {
               </a>
             </li>
             <li className="blog-ad-list-item">
-              <a href='#' target="_blank" className="blog-ad-link">
-                <img src="https://motopedia.otomoto.pl/_next/image?url=https%3A%2F%2Fapimotopedia.wpengine.com%2Fwp-content%2Fuploads%2F2023%2F03%2FIMG_7708.jpg&w=992&q=70" alt="blog-img" className="blog-ad-img"></img>
+              <a href="#" target="_blank" className="blog-ad-link">
+                <img
+                  src="https://motopedia.otomoto.pl/_next/image?url=https%3A%2F%2Fapimotopedia.wpengine.com%2Fwp-content%2Fuploads%2F2023%2F03%2FIMG_7708.jpg&w=992&q=70"
+                  alt="blog-img"
+                  className="blog-ad-img"
+                ></img>
                 <div className="blog-ad-name-box">
-                  <p className="blog-ad-name">Check how to sell effectively on Personalmoto</p>
+                  <p className="blog-ad-name">
+                    Check how to sell effectively on Personalmoto
+                  </p>
                   <p className="blog-reading-time-para">
                     <div className="blog-reading-time-icon-box">
-                      <RiPagesLine size={16} className="blog-reading-time-icon"/>
+                      <RiPagesLine
+                        size={16}
+                        className="blog-reading-time-icon"
+                      />
                       <span className="blog-reading-time">3 min</span>
                     </div>
                   </p>
@@ -491,10 +528,9 @@ function Sellerpage() {
                 3. Take your registration certificate
               </p>
             </li>
-            </ul>
+          </ul>
 
-
-            <ul className="car-checklist-list list-right">
+          <ul className="car-checklist-list list-right">
             <li className="car-checklist-item">
               <img
                 className="car-checklist-icon"
@@ -525,8 +561,7 @@ function Sellerpage() {
                 6. Take your registration certificate
               </p>
             </li>
-            </ul>
-          
+          </ul>
         </div>
       </article>
 
@@ -548,10 +583,13 @@ function Sellerpage() {
                 <p className="seller-post-ad-slogan">
                   Advertise your vehicle or part and sell within 2-4 weeks.
                 </p>
-                <button type="button" className="seller-post-ad-btn" onClick={handleadpage}>
+                <button
+                  type="button"
+                  className="seller-post-ad-btn"
+                  onClick={handleadpage}
+                >
                   <span className="seller-post-ad-btn-name">Create an ad</span>
                 </button>
-                
               </div>
             </div>
           </article>

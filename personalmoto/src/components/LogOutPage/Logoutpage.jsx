@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import "./Logoutpage.css";
 import useAuth from "../../Hooks/useAuth";
 import axios from "../../axios/axios.config";
+import toast from "react-hot-toast";
 const handleLoginRedirect = () => {
   window.location.href = "/login";
 };
@@ -22,14 +23,15 @@ function Logoutpage() {
       });
 
       if (res) {
-        console.log("Successfully logged out");
+        // console.log("Successfully logged out");
 
         setUser(null);
         // navigating to login page after logout
         navigate("/login");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      toast.error("Some Error Occured");
     }
   };
   useEffect(() => {

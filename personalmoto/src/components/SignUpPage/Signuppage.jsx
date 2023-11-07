@@ -31,10 +31,12 @@ function Signuppage() {
     e.preventDefault();
     const { userName, email, password } = signUpValues;
 
-    const response = await axios.post("/users/signup", {
-      userName,
-      email,
-      password,
+    const response = await axios.post("/users/signup", signUpValues, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": "true",
+      },
+      withCredentials: true,
     });
 
     const data = response.data;
@@ -42,7 +44,7 @@ function Signuppage() {
     if (response.status === 201) {
       window.alert("Successful registration");
       navigate("/login");
-      console.log(data);
+      // console.log(data);
     } else {
       window.alert("Invalid registration");
     }
@@ -53,7 +55,7 @@ function Signuppage() {
       <div className="login-page-content">
         <div className="login-page-left-content">
           <div className="login-page-heading">
-            <h1>Log in to continue</h1>
+            <h1>Create an account</h1>
           </div>
           <div className="login-box">
             <div className="login-social-options">

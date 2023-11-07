@@ -1,8 +1,24 @@
+.offer-product-section {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  white-space: nowrap; /* Prevent wrapping */
+}
 .offer-card-container {
   margin-right: 50px;
   margin-top: 70px;
-  width: 40%;
+  width: 50%;
   position: relative;
+}
+
+.offer-card-row {
+  display: flex;
+  align-items: center;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #000 #ccc;
 }
 
 .offercard-link {
@@ -12,14 +28,16 @@
 .card {
   margin: 20px;
 }
+
 .offer-product-name {
   font-size: 22px;
   font-weight: 700;
   line-height: 1.18rem;
 }
+
 .offer-card-container .offer-show-container {
   position: absolute;
-  bottom: 30%;
+  bottom: 25%;
   left: 7%;
   background-color: #00a49f;
   color: #fff;
@@ -37,12 +55,16 @@
   list-style-type: none;
   text-align: center;
 }
-.product-characteristics-list-item {
+
+.offer-product-characteristics-list-item {
+  font-size: 14px;
+  font-weight: 300;
   display: inline-block;
   position: relative;
   padding-right: 16px;
 }
-.product-characteristics-list-item:not(:last-of-type):after {
+
+.offer-product-characteristics-list-item:not(:last-of-type):after {
   display: block;
   position: absolute;
   content: "";
@@ -52,4 +74,72 @@
   border-radius: 50%;
   top: 50%;
   right: 8px;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1100px) {
+  .offer-card-container .offer-show-container .offer-show-heading {
+    margin: 3px;
+    padding: 3px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .offer-product-name {
+    font-size: 20px;
+    line-height: 1rem;
+  }
+}
+@media (width<992px) {
+  .offer-card-container {
+    width: 100%; /* Take up the full width on smaller screens */
+  }
+}
+@media (max-width: 992px) {
+  .offer-product-section {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (width<768px) {
+  .offer-card-container {
+    width: 100%; /* Take up the full width on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .offer-product-section {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .offer-product-name {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .offer-card-container .offer-show-container .offer-show-heading {
+    margin: 3px;
+    padding: 3px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .offer-product-name {
+    font-size: 12px;
+  }
+
+  .offer-product-characteristics-list-item {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .offer-product-characteristics-list-item {
+    font-size: 10px;
+  }
 }

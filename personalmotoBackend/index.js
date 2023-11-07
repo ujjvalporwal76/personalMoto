@@ -21,6 +21,7 @@ app.use(express.static("public"));
 
 const corsOptions = {
   origin: "https://www.personalmoto.pl",
+  // origin: "http://localhost:3000",
   credentials: true, //access-control-allow-credentials:true
   // optionSuccessStatus: 200,
   // "Access-Control-Allow-Origin": "*"

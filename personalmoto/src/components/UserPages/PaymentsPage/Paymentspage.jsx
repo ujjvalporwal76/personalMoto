@@ -36,12 +36,12 @@ function Paymentspage() {
 
       const data = response.data;
       setUserData({ points: data.points.toFixed(2), userData: data.userData });
-      console.log(data);
+      // console.log(data);
       if (response.status === 401) {
         navigate("/login");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       navigate("/login");
     }
   };
@@ -128,15 +128,15 @@ function Paymentspage() {
 
     const data = await response.data;
 
-    console.log(data);
+    // console.log(data);
     if (response.status === 201) {
       // window.alert("payment done succefully");
       window.location = data.url;
       // window.open(data.url, "_blank");
       navigate("/myaccount-payments/topupfunds");
-      console.log(data);
+      // console.log(data);
     } else if (response.status > 400 || !data) {
-      console.log(response.error);
+      // console.log(response.error);
       window.alert("Error in making your payment");
       navigate("/payment/fail");
     }
@@ -154,11 +154,11 @@ function Paymentspage() {
     });
 
     const data = await response.data;
-    console.log(data);
+    // console.log(data);
     if (response.status === 201) {
       window.alert("payment done succefully");
       navigate("/payment/success");
-      console.log(data);
+      // console.log(data);
     } else if (response.status > 400 || !data) {
       window.alert("Error in making your payment");
       navigate("/payment/fail");
@@ -168,13 +168,13 @@ function Paymentspage() {
   useEffect(() => {
     // console.log(modalForm1Errors);
     if (Object.keys(modalForm1Errors).length === 0 && isModalForm1Submit) {
-      console.log(modalForm1Values);
+      // console.log(modalForm1Values);
     }
   });
   useEffect(() => {
     // console.log(modalForm2Errors);
     if (Object.keys(modalForm2Errors).length === 0 && isModalForm2Submit) {
-      console.log(modalForm2Values);
+      // console.log(modalForm2Values);
     }
   });
 
@@ -241,7 +241,7 @@ function Paymentspage() {
 
   function handleSelectTopup(e) {
     const value = e.target.value;
-    console.log(value);
+    // console.log(value);
     if (value === "1") {
       updateTopUpValues({
         depositValue: 3000,
@@ -283,7 +283,7 @@ function Paymentspage() {
       });
       setSliderValue(50);
     }
-    console.log(topUpValues);
+    // console.log(topUpValues);
     setSelectedTopup(value);
     // console.log(e.target);
     // console.log(selectTopup);

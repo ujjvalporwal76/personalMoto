@@ -19,7 +19,7 @@ function Home() {
       <Searchform />
       <img src={banner} className="banner-img"></img>
       {/* <img src={offerposter} className='offer-img1'></img> */}
-      <img src={offerposter1} className="offer-img2"></img>
+      {/* <img src={offerposter1} className="offer-img2"></img> */}
       <Offercard />
       <Featuresection />
       <Homeproductsection />

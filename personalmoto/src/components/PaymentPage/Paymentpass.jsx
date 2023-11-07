@@ -18,7 +18,7 @@ function Paymentpass() {
 
     const paid = urlSearchParams.get("paid");
     const email = urlSearchParams.get("email");
-    console.log(paid, email, transactionId);
+    // console.log(paid, email, transactionId);
 
     // Handle points if needed
     handlePoints(transactionId, email, paid);
@@ -31,7 +31,7 @@ function Paymentpass() {
   const handlePoints = async (transactionId, email, paid) => {
     try {
       if (!email || !paid) {
-        console.log("no value in paid");
+        // console.log("no value in paid");
         return;
       }
 
@@ -48,17 +48,17 @@ function Paymentpass() {
       );
       const data = res.data;
       if (res.status === 201) {
-        console.log("points added");
-        console.log(data);
+        // console.log("points added");
+        // console.log(data);
         toast.success("Points added successfully");
       }
       if (res.status === 409) {
-        console.log("points added");
-        console.log(data);
+        // console.log("points added");
+        // console.log(data);
         toast.success("Points was already added for this transaction");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("points couldn't credit");
     }
   };
