@@ -33,9 +33,9 @@ function Offercard() {
 
   const getOfferProduct = (productDetails) => {
     const offerProduct = productDetails.find(
-      (Product) => Product.adtype === "toprated"
+      (Product) => Product.adtype === "top" && Product.status === "Active"
     );
-    // console.log(offerProduct);
+    console.log(offerProduct);
     return offerProduct;
   };
 
@@ -85,7 +85,7 @@ function Offercard() {
           {offerProduct.title && (
             <div className="card">
               <img
-                src={`${process.env.REACT_APP_SERVER_URL}/Images/${offerProduct.images[0]}`}
+                src={`${process.env.REACT_APP_SERVER_URL}/Images/${offerProduct.images[1]}`}
                 className="card-img-top"
                 alt="product-img"
               />
@@ -116,9 +116,9 @@ function Offercard() {
             <h2 className="offer-show-heading">Offer of the day</h2>
           </div>
         </a>
-      </div>
+      </div> */}
 
-      <div className="container offer-card-container">
+      {/* <div className="container offer-card-container">
         <a className="offercard-link" href={`/product/${offerProduct._id}`}>
           {offerProduct.title && (
             <div className="card">

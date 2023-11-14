@@ -7,7 +7,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Form } from "react-bootstrap";
 import cameraimg from "../../images/cameraimg.svg";
 import "./Createadpage.css";
-
 import Navbar from "../NavBar/Navbar";
 import Searchformlistitem from "../SearchForm/Searchformlistitem";
 
@@ -22,6 +21,7 @@ import Versions from "../SearchForm/Version";
 import Colors from "../SearchForm/Color";
 import Currencies from "../SearchForm/Currency";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 function createBodytypelist(Bodytype) {
   return <Searchformlistitem key={Bodytype.id} bodytype={Bodytype.bodytype1} />;
 }
@@ -70,6 +70,7 @@ function createCurrencylist(Currency) {
 }
 
 function Createadpage() {
+  const navigate = useNavigate();
   const [damageSelect, setDamageSelect] = useState(false);
   const [importSelect, setImportSelect] = useState(false);
   const [priceSelect, setPriceSelect] = useState(false);
@@ -200,22 +201,27 @@ function Createadpage() {
     // console.log(adFormValues.images);
 
     // Send the FormData object to the backend
-    const response = await axios.post("/pages/create-ad-page", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Access-Control-Allow-Credentials": "true",
-      },
-      withCredentials: true,
-    });
+    try {
+      const response = await axios.post("/pages/create-ad-page", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Credentials": "true",
+        },
+        withCredentials: true,
+      });
 
-    // Handle the response
-    const data = await response.data;
+      // Handle the response
+      const data = await response.data;
 
-    if (response.status === 201) {
-      toast.success("Your ad is saved successfully");
-      // console.log(data);
-    } else if (response.status > 400 || !data) {
-      toast.error("Something went wrong in submitting your ad");
+      if (response.status === 201) {
+        toast.success("Your ad is saved successfully");
+        console.log(data.adId);
+        navigate(`payment/adplanselect/${data.adId}`);
+        // console.log(data);
+      }
+    } catch (error) {
+      toast.error("An error occurred while saving your ad or you logged out");
+      // console.log(error);
     }
   }
 
@@ -285,6 +291,7 @@ function Createadpage() {
       images: updatedSelectedImages,
     }));
   };
+
   return (
     <div className="create-ad-page">
       <Navbar />
@@ -1416,9 +1423,9 @@ function Createadpage() {
 
           <div className="create-ad-footer-box">
             <footer className="create-ad-footer">
-              <p className="footer-field-count">
+              {/* <p className="footer-field-count">
                 <b>11</b>/17 Mandatory fields completed
-              </p>
+              </p> */}
               <div className="footer-btns-box">
                 <button
                   type="submit"
@@ -1427,13 +1434,13 @@ function Createadpage() {
                 >
                   Add an announcement
                 </button>
-                <button
+                {/* <button
                   type="button"
                   id="ad-form-draft-btn"
                   className="create-ad-draft-btn"
                 >
                   <span>Save your draft</span>
-                </button>
+                </button> */}
               </div>
             </footer>
           </div>

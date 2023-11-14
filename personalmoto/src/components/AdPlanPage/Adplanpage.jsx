@@ -6,39 +6,51 @@ import { Col, Row, Card, Button, Flex } from "antd";
 import Homefooter from "../HomeFooter/Homefooter";
 import axios from "../../axios/axios.config";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 function Adplanpage() {
+  const adId = useParams();
+  console.log(adId.adId);
   const [chosenPlan, setChosenPlan] = useState({
+    adId: adId.adId,
     column: "",
-    plan: "",
-    pointsPerDay: 0,
+    plan: 1,
+    pointsPerDay: 1,
+    totalPoints: 1,
   });
   const handleChoosePlan = (plan) => {
     setChosenPlan({
+      adId: adId.adId,
       column: plan.column,
       plan: plan.plan,
       pointsPerDay: plan.pointsPerDay,
+      totalPoints: parseFloat((plan.plan * plan.pointsPerDay).toFixed(2)),
     });
     // console.log(chosenPlan);
   };
   const sendChosenPlanData = async () => {
-    const response = await axios.post("/plans/confirm", chosenPlan, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": "true",
-      },
-      withCredentials: true,
-    });
+    try {
+      const response = await axios.post("/plans/confirm", chosenPlan, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": "true",
+        },
+        withCredentials: true,
+      });
 
-    const data = response.data;
-    // console.log(data);
-    if (response.status === 201) {
-      toast.success("Your Plan is confirmed");
-    } else {
-      toast.error("Failed");
+      const data = response.data;
+      console.log(data);
+      if (response.status === 201) {
+        toast.success("Your Plan is confirmed");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Not Enough Points!");
     }
-    // handle the response from the backend
   };
+
+  // handle the response from the backend
+
   return (
     <div className="plan-page">
       <Navbar />
@@ -53,7 +65,7 @@ function Adplanpage() {
           <h3 className="select-plan-heading">Top of the list Plans</h3>
           <Card
             className={
-              chosenPlan.column === "top" && chosenPlan.plan === "7"
+              chosenPlan.column === "top" && chosenPlan.plan === 7
                 ? "ant-card-selected"
                 : ""
             }
@@ -75,7 +87,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "top",
-                      plan: "7",
+                      plan: 7,
                       pointsPerDay: 3.0,
                     })
                   }
@@ -87,7 +99,7 @@ function Adplanpage() {
           </Card>
           <Card
             className={
-              chosenPlan.column === "top" && chosenPlan.plan === "15"
+              chosenPlan.column === "top" && chosenPlan.plan === 15
                 ? "ant-card-selected"
                 : ""
             }
@@ -100,7 +112,7 @@ function Adplanpage() {
 
               <div className="plan-price-box">
                 <span className="plan-price">2.70 points/day</span>
-                <p className="plan-price-total">37.50 points total</p>
+                <p className="plan-price-total">40.50 points total</p>
               </div>
               <div className="plan-choose-btn-box">
                 <Button
@@ -109,7 +121,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "top",
-                      plan: "15",
+                      plan: 15,
                       pointsPerDay: 2.7,
                     })
                   }
@@ -121,7 +133,7 @@ function Adplanpage() {
           </Card>
           <Card
             className={
-              chosenPlan.column === "top" && chosenPlan.plan === "30"
+              chosenPlan.column === "top" && chosenPlan.plan === 30
                 ? "ant-card-selected"
                 : ""
             }
@@ -143,7 +155,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "top",
-                      plan: "30",
+                      plan: 30,
                       pointsPerDay: 2.5,
                     })
                   }
@@ -165,7 +177,7 @@ function Adplanpage() {
           <h3 className="select-plan-heading">Featured list Plans</h3>
           <Card
             className={
-              chosenPlan.column === "featured" && chosenPlan.plan === "7"
+              chosenPlan.column === "featured" && chosenPlan.plan === 7
                 ? "ant-card-selected"
                 : ""
             }
@@ -187,7 +199,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "featured",
-                      plan: "7",
+                      plan: 7,
                       pointsPerDay: 2.8,
                     })
                   }
@@ -199,7 +211,7 @@ function Adplanpage() {
           </Card>
           <Card
             className={
-              chosenPlan.column === "featured" && chosenPlan.plan === "15"
+              chosenPlan.column === "featured" && chosenPlan.plan === 15
                 ? "ant-card-selected"
                 : ""
             }
@@ -221,7 +233,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "featured",
-                      plan: "15",
+                      plan: 15,
                       pointsPerDay: 2.5,
                     })
                   }
@@ -233,7 +245,7 @@ function Adplanpage() {
           </Card>
           <Card
             className={
-              chosenPlan.column === "featured" && chosenPlan.plan === "30"
+              chosenPlan.column === "featured" && chosenPlan.plan === 30
                 ? "ant-card-selected"
                 : ""
             }
@@ -255,7 +267,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "featured",
-                      plan: "30",
+                      plan: 30,
                       pointsPerDay: 2.0,
                     })
                   }
@@ -277,7 +289,7 @@ function Adplanpage() {
           <h3 className="select-plan-heading">Standard list Plans</h3>
           <Card
             className={
-              chosenPlan.column === "standard" && chosenPlan.plan === "7"
+              chosenPlan.column === "standard" && chosenPlan.plan === 7
                 ? "ant-card-selected"
                 : ""
             }
@@ -299,7 +311,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "standard",
-                      plan: "7",
+                      plan: 7,
                       pointsPerDay: 2.5,
                     })
                   }
@@ -311,7 +323,7 @@ function Adplanpage() {
           </Card>
           <Card
             className={
-              chosenPlan.column === "standard" && chosenPlan.plan === "15"
+              chosenPlan.column === "standard" && chosenPlan.plan === 15
                 ? "ant-card-selected"
                 : ""
             }
@@ -333,7 +345,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "standard",
-                      plan: "15",
+                      plan: 15,
                       pointsPerDay: 2.0,
                     })
                   }
@@ -345,7 +357,7 @@ function Adplanpage() {
           </Card>
           <Card
             className={
-              chosenPlan.column === "standard" && chosenPlan.plan === "30"
+              chosenPlan.column === "standard" && chosenPlan.plan === 30
                 ? "ant-card-selected"
                 : ""
             }
@@ -367,7 +379,7 @@ function Adplanpage() {
                   onClick={() =>
                     handleChoosePlan({
                       column: "standard",
-                      plan: "30",
+                      plan: 30,
                       pointsPerDay: 1.5,
                     })
                   }

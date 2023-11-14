@@ -12,6 +12,7 @@ import paymentRoute from "./routes/paymentRoute.js";
 import productRoute from "./routes/productRoute.js";
 import updateRoute from "./routes/updateRoute.js";
 import planRoute from "./routes/planRoute.js";
+import AdPlanAndPointsCron from "./utils/cron.js";
 const app = express();
 
 app.use(express.json());
@@ -39,8 +40,9 @@ app.use("/api/pages", pagesRoutes);
 app.use("/api/pay", paymentRoute);
 app.use("/api/update", updateRoute);
 app.use("/api/plans", planRoute);
-connectToDatabase().then(() => console.log("Connected to MongoDB"));
 
+connectToDatabase().then(() => console.log("Connected to MongoDB"));
+AdPlanAndPointsCron;
 app.listen(process.env.PORT, () => {
   console.log("Server is running");
 });

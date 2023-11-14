@@ -125,7 +125,7 @@ const createadpage = async (req, res) => {
   if (!req.userData) {
     return res.status(401).json("not logged in for ad");
   }
-
+  let adId;
   const {
     productType,
     damaged,
@@ -176,7 +176,7 @@ const createadpage = async (req, res) => {
       const newAd = new AdsModel({
         userId: req.userData._id,
         email: req.userData.email,
-        adtype: "standard",
+        status: "Pending",
         productType,
         damaged,
         imported,
@@ -208,7 +208,8 @@ const createadpage = async (req, res) => {
         freeVerificationCheck,
         images,
       });
-
+      adId = newAd._id;
+      console.log(newAd._id);
       await newAd.save();
 
       const userAdExist = await UserAdsModel.findOne({
@@ -220,6 +221,8 @@ const createadpage = async (req, res) => {
         // Check to make sure that the userAdExist variable is not null.
         if (userAdExist.ads) {
           userAdExist.ads.push({
+            adId: adId,
+            status: "Pending",
             productType,
             damaged,
             imported,
@@ -254,13 +257,17 @@ const createadpage = async (req, res) => {
         }
 
         await userAdExist.save();
-        res.status(201).json({ message: "submitted in existed ad" });
+        res
+          .status(201)
+          .json({ message: "submitted in existed ad", adId: adId });
       } else {
         const newUserAd = new UserAdsModel({
           userId: req.userData._id,
           email: req.userData.email,
           ads: [
             {
+              adId: adId,
+              status: "Pending",
               productType,
               damaged,
               imported,
@@ -296,7 +303,7 @@ const createadpage = async (req, res) => {
         });
 
         await newUserAd.save();
-        res.status(201).json("New ad created");
+        res.status(201).json({ message: "New ad created", adId: adId });
       }
     } else {
       throw "User not found";

@@ -42,8 +42,9 @@ function Productpage() {
         withCredentials: true,
       });
 
-      const data = response.data;
+      const data = await response.data;
       setProductDetails({ ...data });
+      console.log(productDetails.ytVideo);
       // console.log(data);
       if (!productDetails) {
         return <div>Loading...</div>;
@@ -74,12 +75,16 @@ function Productpage() {
             className="mySwiper2"
           >
             <SwiperSlide>
-              <iframe
-                src="https://www.youtube.com/embed/LGT5ZQr8uwo"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
+              {productDetails.ytVideo && (
+                <iframe
+                  src={`https://www.youtube.com/embed/${productDetails.ytVideo
+                    .split("v=")
+                    .pop()}`}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              )}
             </SwiperSlide>
             {productDetails.images?.map((file, index) => (
               <SwiperSlide key={index}>

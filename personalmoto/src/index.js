@@ -60,7 +60,10 @@ root.render(
             />
             <Route path="payment/fail" element={<Paymentfail />} />
             <Route path="payment/success" element={<Paymentpass />} />
-            <Route path="payment/adplanselect" element={<Adplanpage />} />
+            <Route
+              path="create-ad-page/payment/adplanselect/:adId"
+              element={<Adplanpage />}
+            />
           </Route>
           <Route path="logout" element={<Logoutpage />} />
         </Routes>

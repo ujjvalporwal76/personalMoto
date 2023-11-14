@@ -5,6 +5,12 @@ const UserAdsSchema = new mongoose.Schema({
   userId: mongoose.Schema.Types.ObjectId,
   ads: [
     {
+      adId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Ad",
+      },
+      adtype: String,
+      status: String,
       productType: String,
       damaged: String,
       imported: String,
@@ -35,6 +41,13 @@ const UserAdsSchema = new mongoose.Schema({
       telephone: String,
       freeVerificationCheck: String,
       images: Array,
+      plan: Number,
+      pointsPerDay: {
+        type: Number,
+        min: 0,
+        precision: 2,
+      },
+      planEndDate: Date,
     },
   ],
 });

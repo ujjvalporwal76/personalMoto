@@ -4,6 +4,7 @@ const AdsSchema = new mongoose.Schema({
   email: String,
   userId: mongoose.Schema.Types.ObjectId,
   adtype: String,
+  status: String,
   productType: String,
   damaged: String,
   imported: String,
@@ -34,6 +35,13 @@ const AdsSchema = new mongoose.Schema({
   telephone: String,
   freeVerificationCheck: String,
   images: Array,
+  plan: Number,
+  pointsPerDay: {
+    type: Number,
+    min: 0,
+    precision: 2,
+  },
+  planEndDate: Date,
 });
 
 AdsSchema.set("timestamps", true);
