@@ -35,7 +35,7 @@ function Offercard() {
     const offerProduct = productDetails.find(
       (Product) => Product.adtype === "top" && Product.status === "Active"
     );
-    console.log(offerProduct);
+    // console.log(offerProduct);
     return offerProduct;
   };
 

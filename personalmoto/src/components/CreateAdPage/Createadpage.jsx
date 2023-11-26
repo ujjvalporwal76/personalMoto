@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "../../axios/axios.config";
 import { FcIdea } from "react-icons/fc";
 import { BiErrorCircle } from "react-icons/bi";
@@ -13,8 +13,9 @@ import Searchformlistitem from "../SearchForm/Searchformlistitem";
 import Bodytypes from "../SearchForm/Bodytype";
 import Fueltypes from "../SearchForm/Fueltype";
 import Years from "../SearchForm/Year";
-import VehicleBrands from "../SearchForm/Vehiclebrand";
-import VehicleModels from "../SearchForm/Vehiclemodel";
+
+import fetchVehicleBrands from "../SearchForm/Vehiclebrand";
+import fetchVehicleModels from "../SearchForm/Vehiclemodel";
 import Doors from "../SearchForm/Door";
 import Gearboxes from "../SearchForm/Gearbox";
 import Versions from "../SearchForm/Version";
@@ -33,7 +34,7 @@ function createVehicleBrandlist(Vehiclebrand) {
   return (
     <Searchformlistitem
       key={Vehiclebrand.id}
-      vehiclebrand={Vehiclebrand.vehicleBrand}
+      vehiclebrand={Vehiclebrand.name}
     />
   );
 }
@@ -49,7 +50,7 @@ function createVehicleModellist(Vehiclemodel) {
   return (
     <Searchformlistitem
       key={Vehiclemodel.id}
-      vehiclemodel={Vehiclemodel.vehicleModel}
+      vehiclemodel={Vehiclemodel.name}
     />
   );
 }
@@ -71,6 +72,40 @@ function createCurrencylist(Currency) {
 
 function Createadpage() {
   const navigate = useNavigate();
+  const [VehicleModels, setVehicleModels] = useState([]);
+  const [VehicleBrands, setVehicleBrands] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchVehicleBrands();
+        // console.log(data);
+        setVehicleBrands(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  useEffect(() => {
+    // You can perform additional actions when VehicleModels changes, if needed
+    // console.log("VehicleModels updated:", VehicleModels);
+  }, [VehicleModels]);
+  const handleVehicleBrandChange = async (e) => {
+    const selectedBrand = e.target.value;
+
+    try {
+      const data = await fetchVehicleModels(selectedBrand);
+      setVehicleModels(data);
+      console.log(VehicleModels);
+      // Do something with the data, e.g., update the state or log it
+      console.log(data);
+    } catch (error) {
+      // Handle errors if needed
+      console.error(error);
+    }
+  };
   const [damageSelect, setDamageSelect] = useState(false);
   const [importSelect, setImportSelect] = useState(false);
   const [priceSelect, setPriceSelect] = useState(false);
@@ -691,6 +726,7 @@ function Createadpage() {
                                     onChange={handleAdFormValues(
                                       "vehicleBrand"
                                     )}
+                                    onChangeCapture={handleVehicleBrandChange}
                                     className="search-form-category-dropdown"
                                   >
                                     <option value="">Choose</option>

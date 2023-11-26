@@ -54,7 +54,7 @@ function Adplanpage() {
   return (
     <div className="plan-page">
       <Navbar />
-      <Row>
+      <Row className="ad-plan-row">
         <Col span={16}>
           <h3 className="ad-plan-heading">
             Choose the package that suits you best

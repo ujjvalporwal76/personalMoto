@@ -1,44 +1,27 @@
-const vehicleModel = [
-  {
-    id: "1",
-    vehicleModel: "Volkswagen",
-  },
-  {
-    id: "2",
-    vehicleModel: "VolBMWkswagen",
-  },
-  {
-    id: "3",
-    vehicleModel: "Audi",
-  },
-  {
-    id: "4",
-    vehicleModel: "Ford",
-  },
-  {
-    id: "5",
-    vehicleModel: "Opel",
-  },
-  {
-    id: "6",
-    vehicleModel: "Toyota",
-  },
-  {
-    id: "7",
-    vehicleModel: "Renault",
-  },
-  {
-    id: "8",
-    vehicleModel: "Skoda",
-  },
-  {
-    id: "9",
-    vehicleModel: "Peugeot",
-  },
-  {
-    id: "10",
-    vehicleModel: "Mercedes",
-  },
-];
+import axios from "axios";
 
-export default vehicleModel;
+const fetchVehicleModels = async (selectedBrand) => {
+  if (!selectedBrand) {
+    console.error("No selectedBrand provided.");
+    return []; // or handle the case in your application logic
+  }
+  const options = {
+    method: "GET",
+    url: `${process.env.REACT_APP_API_URL}/carapi/models/${selectedBrand}`,
+    headers: {
+      Authorization:
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXJhcGkuYXBwIiwic3ViIjoiZGU3Y2Y1NTctMDM2OS00ZWViLTkyNDgtNTFjMzM4ZThhNDA0IiwiYXVkIjoiZGU3Y2Y1NTctMDM2OS00ZWViLTkyNDgtNTFjMzM4ZThhNDA0IiwiZXhwIjoxNzAxMTg1ODcwLCJpYXQiOjE3MDA1ODEwNzAsImp0aSI6IjJiNTVkNjZjLTI4NjMtNDhlNi04NzBjLTcxZTQ0NjM2YzdlMSIsInVzZXIiOnsic3Vic2NyaWJlZCI6ZmFsc2UsInN1YnNjcmlwdGlvbiI6bnVsbCwicmF0ZV9saW1pdF90eXBlIjoiaGFyZCJ9fQ.gpijYupRiS_7oVEEBKWeFKU21R_X88xRbQzPaCMrV6s",
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    const data = response.data.data;
+    // console.log(response.data.data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export default fetchVehicleModels;

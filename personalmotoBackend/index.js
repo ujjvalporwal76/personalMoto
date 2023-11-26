@@ -12,7 +12,9 @@ import paymentRoute from "./routes/paymentRoute.js";
 import productRoute from "./routes/productRoute.js";
 import updateRoute from "./routes/updateRoute.js";
 import planRoute from "./routes/planRoute.js";
+import carApiRoute from "./routes/carapiRoute.js";
 import AdPlanAndPointsCron from "./utils/cron.js";
+import searchRoute from "./routes/searchRoute.js";
 const app = express();
 
 app.use(express.json());
@@ -21,8 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const corsOptions = {
-  origin: "https://www.personalmoto.pl",
-  // origin: "http://localhost:3000",
+  // origin: "https://www.personalmoto.pl",
+  origin: "http://localhost:3000",
   credentials: true, //access-control-allow-credentials:true
   // optionSuccessStatus: 200,
   // "Access-Control-Allow-Origin": "*"
@@ -30,7 +32,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.use("/api/carapi", carApiRoute);
+app.use("/api/search", searchRoute);
 app.use("/api/users", authRoute);
 app.use("/api/product", productRoute);
 app.use("/api/allproducts", productRoute);

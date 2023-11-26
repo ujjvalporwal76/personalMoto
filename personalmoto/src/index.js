@@ -24,6 +24,8 @@ import Adplanpage from "./components/AdPlanPage/Adplanpage";
 import { ProtectedRoute } from "./ProtectedRoute/Protectroute";
 import { AuthProvider } from "./ContextAPI/AuthProvider";
 import { Toaster } from "react-hot-toast";
+
+import Searchresultpage from "./components/SearchResult/Searchresultpage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
@@ -33,10 +35,12 @@ root.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="product/:productId" element={<Productpage />} />
+          <Route path="search" element={<Searchresultpage />} />
           <Route path="signup" element={<Signuppage />} />
           <Route path="login" element={<Loginpage />} />
           <Route path="start-selling" element={<Sellerpage />} />
           <Route path="create-ad-page" element={<Createadpage />} />
+          <Route path="/category/:categoryName" element={<App />} />
           <Route element={<ProtectedRoute />}>
             <Route path="watched-page-ads" element={<Watchedadspage />} />
             <Route

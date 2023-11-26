@@ -48,6 +48,38 @@ fieldset {
   fill: #020309;
   font-weight: 600;
 }
+.category-nav-item-detail:hover {
+  color: #0071ce;
+}
+.category-nav-item-detail-active {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f8fd;
+  padding: 8px 0;
+  font-size: 0.75rem;
+  color: #66676c;
+  fill: #020309;
+  font-weight: 600;
+  background-color: #ffffff;
+  color: #0071ce;
+  fill: #0071ce;
+}
 
 .category-nav-item-name-box {
   text-align: center;
