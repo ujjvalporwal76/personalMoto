@@ -20,8 +20,8 @@ import pricecalculator from "../../images/pricecalculator.svg";
 import vehicleregistration from "../../images/vehicleregistrationPL.svg";
 import Years from "../SearchForm/Year";
 import Bodytypes from "../SearchForm/Bodytype";
-import VehicleBrands from "../SearchForm/Vehiclebrand";
-import VehicleModels from "../SearchForm/Vehiclemodel";
+import fetchVehicleBrands from "./Vehiclebrand";
+import fetchVehicleModels from "./Vehiclemodel";
 import Fueltypes from "../SearchForm/Fueltype";
 
 function createBodytypelist(Bodytype) {
@@ -52,6 +52,8 @@ function createYearlist(Year) {
 }
 
 function Sellerpage() {
+  const [VehicleModels, setVehicleModels] = useState([]);
+  const [VehicleBrands, setVehicleBrands] = useState([]);
   const [yearFrom, setYearFrom] = useState("");
   const [bodyType, setBodyType] = useState("");
   const [vehicleBrand, setVehicleBrand] = useState("");
@@ -71,7 +73,38 @@ function Sellerpage() {
   function handleadpage() {
     navigate("/create-ad-page");
   }
+  useEffect(() => {
+    // You can perform additional actions when VehicleModels changes, if needed
+    // console.log("VehicleModels updated:", VehicleModels);
+  }, [VehicleModels]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchVehicleBrands();
+        setVehicleBrands(data);
+        // console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+    fetchData();
+  }, []);
+  const handleVehicleBrandChange = async (e) => {
+    const selectedBrand = e.target.value;
+    setVehicleBrand(selectedBrand);
+
+    try {
+      const data = await fetchVehicleModels(selectedBrand);
+      setVehicleModels(data);
+      console.log(VehicleModels);
+      // Do something with the data, e.g., update the state or log it
+      console.log(data);
+    } catch (error) {
+      // Handle errors if needed
+      console.error(error);
+    }
+  };
   return (
     <div className="seller-page">
       <Navbar />
@@ -178,7 +211,7 @@ function Sellerpage() {
                       <select
                         id="yearFrom"
                         value={vehicleBrand}
-                        onChange={(e) => setVehicleBrand(e.target.value)}
+                        onChange={handleVehicleBrandChange}
                         className="search-form-category-dropdown"
                       >
                         <option value="">Choose</option>
@@ -268,7 +301,7 @@ function Sellerpage() {
                     <select
                       id="yearFrom"
                       value={vehicleBrand}
-                      onChange={(e) => setYearFrom(e.target.value)}
+                      onChange={handleVehicleBrandChange}
                       className="search-form-category-dropdown"
                     >
                       <option value="">Choose</option>
