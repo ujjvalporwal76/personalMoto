@@ -26,6 +26,10 @@ import { AuthProvider } from "./ContextAPI/AuthProvider";
 import { Toaster } from "react-hot-toast";
 
 import Searchresultpage from "./components/SearchResult/Searchresultpage";
+import Createadpagemotor from "./components/CreateAdPage/Createadpagemotor";
+import Createadpageparts from "./components/CreateAdPage/Createadpageparts";
+import Createadpagetruck from "./components/CreateAdPage/Createadpagetruck";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
@@ -39,8 +43,22 @@ root.render(
           <Route path="signup" element={<Signuppage />} />
           <Route path="login" element={<Loginpage />} />
           <Route path="start-selling" element={<Sellerpage />} />
-          <Route path="create-ad-page" element={<Createadpage />} />
+
+          <Route path="create-ad-page/personal" element={<Createadpage />} />
+          <Route
+            path="create-ad-page/motorcycle"
+            element={<Createadpagemotor />}
+          />
+          <Route
+            path="create-ad-page/parts/:subPart"
+            element={<Createadpageparts />}
+          />
+          <Route
+            path="create-ad-page/trucks/:subTruck"
+            element={<Createadpagetruck />}
+          />
           <Route path="/category/:categoryName" element={<App />} />
+
           <Route element={<ProtectedRoute />}>
             <Route path="watched-page-ads" element={<Watchedadspage />} />
             <Route
@@ -65,7 +83,11 @@ root.render(
             <Route path="payment/fail" element={<Paymentfail />} />
             <Route path="payment/success" element={<Paymentpass />} />
             <Route
-              path="create-ad-page/payment/adplanselect/:adId"
+              path="create-ad-page/:category/:subCategory/payment/adplanselect/:adId"
+              element={<Adplanpage />}
+            />
+            <Route
+              path="create-ad-page/:category/payment/adplanselect/:adId"
               element={<Adplanpage />}
             />
           </Route>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineCheck } from "react-icons/ai";
 import { RiPagesLine } from "react-icons/ri";
@@ -20,8 +20,8 @@ import pricecalculator from "../../images/pricecalculator.svg";
 import vehicleregistration from "../../images/vehicleregistrationPL.svg";
 import Years from "../SearchForm/Year";
 import Bodytypes from "../SearchForm/Bodytype";
-import fetchVehicleBrands from "./Vehiclebrand";
-import fetchVehicleModels from "./Vehiclemodel";
+import fetchVehicleBrands from "../SearchForm/Vehiclebrand";
+import fetchVehicleModels from "../SearchForm/Vehiclemodel";
 import Fueltypes from "../SearchForm/Fueltype";
 
 function createBodytypelist(Bodytype) {
@@ -71,7 +71,7 @@ function Sellerpage() {
   };
 
   function handleadpage() {
-    navigate("/create-ad-page");
+    navigate("/create-ad-page/personal");
   }
   useEffect(() => {
     // You can perform additional actions when VehicleModels changes, if needed

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const AdsSchema = new mongoose.Schema({
   email: String,
   userId: mongoose.Schema.Types.ObjectId,
+  category: String,
   adtype: String,
   status: String,
   productType: String,
@@ -18,7 +19,7 @@ const AdsSchema = new mongoose.Schema({
   vehicleModel: String,
   fuelType: String,
   power: String,
-  capacity: String,
+  displacement: String,
   doors: String,
   gearBox: String,
   version: String,

@@ -6,10 +6,11 @@ import { Col, Row, Card, Button, Flex } from "antd";
 import Homefooter from "../HomeFooter/Homefooter";
 import axios from "../../axios/axios.config";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Adplanpage() {
   const adId = useParams();
+  const navigate = useNavigate();
   console.log(adId.adId);
   const [chosenPlan, setChosenPlan] = useState({
     adId: adId.adId,
@@ -42,6 +43,7 @@ function Adplanpage() {
       console.log(data);
       if (response.status === 201) {
         toast.success("Your Plan is confirmed");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

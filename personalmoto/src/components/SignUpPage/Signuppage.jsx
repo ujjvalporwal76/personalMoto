@@ -9,6 +9,7 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 import Navbar from "../NavBar/Navbar";
 import axios from "../../axios/axios.config";
+import toast from "react-hot-toast";
 
 function Signuppage() {
   const navigate = useNavigate();
@@ -31,22 +32,20 @@ function Signuppage() {
     e.preventDefault();
     const { userName, email, password } = signUpValues;
 
-    const response = await axios.post("/users/signup", signUpValues, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": "true",
-      },
-      withCredentials: true,
-    });
-
-    const data = response.data;
-
-    if (response.status === 201) {
-      window.alert("Successful registration");
-      navigate("/login");
-      // console.log(data);
-    } else {
-      window.alert("Invalid registration");
+    try {
+      const response = await axios.post("/users/signup", signUpValues, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": "true",
+        },
+        withCredentials: true,
+      });
+      if (response.status === 201) {
+        toast.success("Registration Successful");
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error("Invalid Registration or email already exist");
     }
   };
   return (

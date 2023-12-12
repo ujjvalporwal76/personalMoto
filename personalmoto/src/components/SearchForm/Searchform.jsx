@@ -6,7 +6,8 @@ import { BiCategoryAlt } from "react-icons/bi";
 import "./Searchform.css";
 import Test from "./Test";
 import Test1 from "./Test1";
-
+import Test2 from "./Test2";
+import Test3 from "./Test3";
 import { useParams } from "react-router-dom";
 
 function Searchform() {
@@ -70,7 +71,7 @@ function Searchform() {
           </a>
         </li>
         <li className="search-form-category-list-item">
-          <a className="category-nav-item" href="/category/personal-categories">
+          {/* <a className="category-nav-item" href="/category/personal-categories">
             <span
               className={`category-nav-item-detail ${
                 categoryName.categoryName === "personal-categories"
@@ -85,13 +86,52 @@ function Searchform() {
                 <p>Personal Categories</p>
               </div>
             </span>
-          </a>
+          </a> */}
+          <div className="category-nav-item" id="personal-categories">
+            <span
+              className={`category-nav-item-detail ${
+                categoryName.categoryName === "personal-categories"
+                  ? "category-nav-item-detail-active"
+                  : ""
+              }`}
+            >
+              <i>
+                <BiCategoryAlt size={32} />
+              </i>
+              <div>
+                <p>Personal Categories</p>
+              </div>
+              {/* Dropdown menu */}
+              <ul className="dropdown-menu-personal-category">
+                <li>
+                  <a href="/category/delivery">Delivery Vehicles</a>
+                </li>
+                <li>
+                  <a href="/category/trucks">Trucks</a>
+                </li>
+                <li>
+                  <a href="/category/construction">Construction</a>
+                </li>
+                <li>
+                  <a href="/category/trailers">Trailers</a>
+                </li>
+                <li>
+                  <a href="/category/agricultural">Agricultural</a>
+                </li>
+              </ul>
+            </span>
+          </div>
         </li>
       </ul>
       {/* <Test /> */}
       {categoryName.categoryName === "personal" ? <Test /> : ""}
       {categoryName.categoryName === "parts" ? <Test1 /> : ""}
-      {categoryName.categoryName === "motorcycle" ? <Test1 /> : ""}
+      {categoryName.categoryName === "motorcycle" ? <Test2 /> : ""}
+      {categoryName.categoryName === "trucks" ? <Test3 /> : ""}
+      {categoryName.categoryName === "delivery" ? <Test3 /> : ""}
+      {categoryName.categoryName === "construction" ? <Test3 /> : ""}
+      {categoryName.categoryName === "trailers" ? <Test3 /> : ""}
+      {categoryName.categoryName === "agricultural" ? <Test3 /> : ""}
     </article>
   );
 }

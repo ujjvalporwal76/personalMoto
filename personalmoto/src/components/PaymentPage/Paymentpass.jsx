@@ -34,7 +34,7 @@ function Paymentpass() {
         // console.log("no value in paid");
         return;
       }
-
+      console.log(transactionId);
       let res = await axiosPrivate.post(
         "/pay/points",
         { transactionId, email, paid },

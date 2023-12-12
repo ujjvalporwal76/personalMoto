@@ -9,29 +9,23 @@ import cameraimg from "../../images/cameraimg.svg";
 import "./Createadpage.css";
 import Navbar from "../NavBar/Navbar";
 import Searchformlistitem from "../SearchForm/Searchformlistitem";
-
-import Bodytypes from "../SearchForm/Bodytype";
-import Fueltypes from "../SearchForm/Fueltype";
-import Years from "../SearchForm/Year";
-
+import fetchAllBrands from "../SearchForm/Allbrand";
+import fetchMotorBrands from "../SearchForm/Motorbrand";
 import fetchVehicleBrands from "../SearchForm/Vehiclebrand";
-import fetchVehicleModels from "../SearchForm/Vehiclemodel";
-import Doors from "../SearchForm/Door";
-import Gearboxes from "../SearchForm/Gearbox";
-import Versions from "../SearchForm/Version";
-import Colors from "../SearchForm/Color";
+import fetchTruckBrands from "../SearchForm/Truckbrand";
 import Currencies from "../SearchForm/Currency";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-function createBodytypelist(Bodytype) {
-  return <Searchformlistitem key={Bodytype.id} bodytype={Bodytype.bodytype1} />;
-}
-function createYearlist(Year) {
-  return <Searchformlistitem key={Year.id} year={Year.year} />;
-}
-
 function createVehicleBrandlist(Vehiclebrand) {
+  return (
+    <Searchformlistitem
+      key={Vehiclebrand.MakeId}
+      vehiclebrand={Vehiclebrand.MakeName}
+    />
+  );
+}
+function createVehicleBrandlist1(Vehiclebrand) {
   return (
     <Searchformlistitem
       key={Vehiclebrand.id}
@@ -39,50 +33,37 @@ function createVehicleBrandlist(Vehiclebrand) {
     />
   );
 }
-
-function createDoorslist(Door) {
-  return <Searchformlistitem key={Door.id} door={Door.doors} />;
-}
-
-function createFuelTypelist(Fueltype) {
-  return <Searchformlistitem key={Fueltype.id} fueltype={Fueltype.fuelType} />;
-}
-function createVehicleModellist(Vehiclemodel) {
+function createVehicleBrandlist2(Vehiclebrand) {
   return (
     <Searchformlistitem
-      key={Vehiclemodel.id}
-      vehiclemodel={Vehiclemodel.name}
+      key={Vehiclebrand.Make_ID}
+      vehiclebrand={Vehiclebrand.Make_Name}
     />
   );
-}
-function createGearboxlist(Gearbox) {
-  return <Searchformlistitem key={Gearbox.id} gearbox={Gearbox.gearbox} />;
-}
-
-function createVersionlist(Version) {
-  return <Searchformlistitem key={Version.id} version={Version.version} />;
-}
-
-function createColorlist(Color) {
-  return <Searchformlistitem key={Color.id} color={Color.color} />;
 }
 
 function createCurrencylist(Currency) {
   return <Searchformlistitem key={Currency.id} currency={Currency.currency} />;
 }
 
-function Createadpage() {
+function Createadpageparts() {
   const navigate = useNavigate();
-
-  const [VehicleModels, setVehicleModels] = useState([]);
+  const [AllBrands, setAllBrands] = useState([]);
   const [VehicleBrands, setVehicleBrands] = useState([]);
-
+  const [MotorBrands, setMotorBrands] = useState([]);
+  const [TruckBrands, setTruckBrands] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchVehicleBrands();
+        const brand = await fetchAllBrands();
+        setAllBrands(brand);
+        const brand1 = await fetchMotorBrands();
+        setMotorBrands(brand1);
+        const brand2 = await fetchVehicleBrands();
+        setVehicleBrands(brand2);
+        const brand3 = await fetchTruckBrands();
+        setTruckBrands(brand3);
         // console.log(data);
-        setVehicleBrands(data);
       } catch (error) {
         console.error(error);
       }
@@ -90,32 +71,26 @@ function Createadpage() {
 
     fetchData();
   }, []);
-  useEffect(() => {
-    // You can perform additional actions when VehicleModels changes, if needed
-    // console.log("VehicleModels updated:", VehicleModels);
-  }, [VehicleModels]);
-  const handleVehicleBrandChange = async (e) => {
-    const selectedBrand = e.target.value;
 
-    try {
-      const data = await fetchVehicleModels(selectedBrand);
-      setVehicleModels(data);
-      console.log(VehicleModels);
-      // Do something with the data, e.g., update the state or log it
-      console.log(data);
-    } catch (error) {
-      // Handle errors if needed
-      console.error(error);
-    }
-  };
+  // const handleMotorBrandChange = async (e) => {
+  //   const selectedBrand = e.target.value;
+
+  //   try {
+  //     // const data = await fetchMotorModels(selectedBrand);
+  //     // setMotorModels(data);
+  //     // console.log(MotorModels);
+  //     // Do something with the data, e.g., update the state or log it
+  //     // console.log(data);
+  //     console.log("try");
+  //   } catch (error) {
+  //     // Handle errors if needed
+  //     console.error(error);
+  //   }
+  // };
   const [damageSelect, setDamageSelect] = useState(false);
-  const [importSelect, setImportSelect] = useState(false);
+
   const [priceSelect, setPriceSelect] = useState(false);
 
-  const [vinFilled, setVinFilled] = useState(true);
-  const [mileageFilled, setMileageFilled] = useState(true);
-  const [powerFilled, setPowerFilled] = useState(true);
-  const [displacementFilled, setdisplacementFilled] = useState(true);
   const [priceFilled, setPriceFilled] = useState(true);
 
   const [aside, setAside] = useState(false);
@@ -126,25 +101,12 @@ function Createadpage() {
 
   const [adFormValues, setAdFormValues] = useState({
     productType: "",
-    damaged: "NO",
-    imported: "NO",
-    category: "Car",
-    vin: "",
-    mileage: "",
-    registration: "",
-    registrationDate: "",
-    showRegistrationCheck: false,
-    productionYear: "",
+    partName: "",
+    category: "Part",
+    manufacturerName: "",
+    manufacturerReference: "",
+    delivery: "",
     vehicleBrand: "",
-    vehicleModel: "",
-    fuelType: "",
-    power: "",
-    displacement: "",
-    doors: "",
-    gearBox: "",
-    version: "",
-    bodyType: "",
-    color: "",
     ytVideo: "",
     title: "",
     description: "",
@@ -154,17 +116,11 @@ function Createadpage() {
     sellerName: "",
     postalCode: "",
     telephone: "",
-    freeVerificationCheck: false,
+
     images: [],
   });
-
   // let style = {transform : `rotate(90deg)`};
-  function handledamageselect() {
-    setDamageSelect(!damageSelect);
-  }
-  function handleimportselect() {
-    setImportSelect(!importSelect);
-  }
+
   function handlePriceSelect() {
     setPriceSelect(!priceSelect);
   }
@@ -312,6 +268,7 @@ function Createadpage() {
         }
 
         // Redirect to the determined URL
+
         navigate(redirectTo);
 
         break;
@@ -336,27 +293,7 @@ function Createadpage() {
         [prop]: e.target.checked,
       }));
     }
-    if (adFormValues.vin.length < 17) {
-      setVinFilled(false);
-    } else {
-      setVinFilled(true);
-    }
-    if (adFormValues.mileage.length < 1) {
-      setMileageFilled(false);
-    } else {
-      setMileageFilled(true);
-    }
-    if (adFormValues.power.length < 1) {
-      setPowerFilled(false);
-    } else {
-      setPowerFilled(true);
-    }
 
-    if (adFormValues.displacement.length < 3) {
-      setdisplacementFilled(false);
-    } else {
-      setdisplacementFilled(true);
-    }
     if (adFormValues.price.length < 1) {
       setPriceFilled(false);
     } else {
@@ -397,7 +334,7 @@ function Createadpage() {
           <div className="create-ad-form-box">
             <section>
               <div className="ad-form-header">
-                <h1 className="ad-form-heading">Create an Personal/Car ad</h1>
+                <h1 className="ad-form-heading">Create an Parts ad</h1>
                 <div className="ad-form-category-box">
                   <div className="ad-form-category">
                     <select
@@ -477,116 +414,6 @@ function Createadpage() {
                   </div>
                   {/* Main Feature */}
 
-                  <div>
-                    <div className="vehicle-details-fill-box">
-                      <div className="vehicle-details-fill-header">
-                        <h5 className="vehicle-details-fill-heading">
-                          Main Features
-                        </h5>
-                      </div>
-                      <div className="vehicle-feature-select vehicle-main-feature-data">
-                        <div className="vehicle-feature-select-box-o">
-                          <div className="vehicle-feature-select-box-i">
-                            <div className="vehicle-feature-select-name vehicle-feature-select-box">
-                              Damaged
-                            </div>
-                            <div className="vehicle-feature-select-opt vehicle-feature-select-box">
-                              <div
-                                id="damage-data"
-                                className="vehicle-feature-opt-box"
-                              >
-                                <div
-                                  className={
-                                    damageSelect
-                                      ? "vehicle-feature-opt"
-                                      : "vehicle-feature-opt-sel"
-                                  }
-                                >
-                                  <input
-                                    type="button"
-                                    className="vehicle-feature-opt-btn"
-                                    onClick={handledamageselect}
-                                    onClickCapture={handleAdFormValues(
-                                      "damaged"
-                                    )}
-                                    value="NO"
-                                  ></input>
-                                </div>
-                                <div
-                                  className={
-                                    !damageSelect
-                                      ? "vehicle-feature-opt"
-                                      : "vehicle-feature-opt-sel"
-                                  }
-                                >
-                                  <input
-                                    type="button"
-                                    className="vehicle-feature-opt-btn"
-                                    onClick={handledamageselect}
-                                    onClickCapture={handleAdFormValues(
-                                      "damaged"
-                                    )}
-                                    value="YES"
-                                  ></input>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="vehicle-feature-select vehicle-main-feature-data">
-                        <div className="vehicle-feature-select-box-o">
-                          <div className="vehicle-feature-select-box-i">
-                            <div className="vehicle-feature-select-name vehicle-feature-select-box">
-                              Imported*
-                            </div>
-                            <div className="vehicle-feature-select-opt vehicle-feature-select-box">
-                              <div
-                                id="damage-data"
-                                className="vehicle-feature-opt-box"
-                              >
-                                <div
-                                  className={
-                                    importSelect
-                                      ? "vehicle-feature-opt"
-                                      : "vehicle-feature-opt-sel"
-                                  }
-                                >
-                                  <input
-                                    type="button"
-                                    className="vehicle-feature-opt-btn"
-                                    onClick={handleimportselect}
-                                    onClickCapture={handleAdFormValues(
-                                      "imported"
-                                    )}
-                                    value="NO"
-                                  ></input>
-                                </div>
-                                <div
-                                  className={
-                                    !importSelect
-                                      ? "vehicle-feature-opt"
-                                      : "vehicle-feature-opt-sel"
-                                  }
-                                >
-                                  <input
-                                    type="button"
-                                    className="vehicle-feature-opt-btn"
-                                    onClick={handleimportselect}
-                                    onClickCapture={handleAdFormValues(
-                                      "imported"
-                                    )}
-                                    value="YES"
-                                  ></input>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Basic Information */}
 
                   <div>
@@ -596,127 +423,56 @@ function Createadpage() {
                           Basic Information
                         </h5>
                       </div>
-                      <div className="basic-info-tip-box">
-                        <FcIdea className="basic-info-tip-icon" />
-                        <p className="basic-info-tip">
-                          Enter your VIN and we will automatically complete the
-                          information for you, if possible.
-                        </p>
-                      </div>
                       <div className="info-input-box">
                         <div>
                           <div className="info-input-box-o">
-                            <div id="vin" className="info-input-box-n">
-                              <label className="info-input-label">VIN*</label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <input
-                                    autoComplete="off"
-                                    type="text"
-                                    // maxLength={17}
-                                    placeholder="e.g. 1FTPW14V88FC22108"
-                                    required
-                                    name="vin"
-                                    className={
-                                      vinFilled
-                                        ? "info-input-f"
-                                        : "info-input-nf"
-                                    }
-                                    onChange={handleAdFormValues("vin")}
-                                    value={adFormValues.vin}
-                                  ></input>
-                                  <BiErrorCircle
-                                    className={
-                                      vinFilled
-                                        ? "info-input-icon-f"
-                                        : "info-input-icon-nf"
-                                    }
-                                  />
-                                </div>
-                              </div>
-                              <p
-                                className={
-                                  vinFilled
-                                    ? "info-input-warning-f"
-                                    : "info-input-warning-nf"
-                                }
-                              >
-                                Complete this field. The VIN number should
-                                consist of 17 characters.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="mileage" className="info-input-box-n">
+                            <div id="partName" className="info-input-box-n">
                               <label className="info-input-label">
-                                Mileage*
+                                Parts category/name
                               </label>
                               <div className="info-input-box-i">
                                 <div className="info-input-box-u">
                                   <input
                                     autoComplete="off"
                                     type="text"
-                                    placeholder="e.g. 100,000 km"
                                     required
-                                    name="mileage"
+                                    name="partName"
                                     min={1}
                                     max={3000000}
-                                    className={
-                                      mileageFilled
-                                        ? "info-input-f"
-                                        : "info-input-nf"
-                                    }
-                                    onChange={handleAdFormValues("mileage")}
-                                    value={adFormValues.mileage}
+                                    className="info-input-f"
+                                    onChange={handleAdFormValues("partName")}
+                                    value={adFormValues.partName}
                                   ></input>
-                                  <BiErrorCircle
-                                    className={
-                                      mileageFilled
-                                        ? "info-input-icon-f"
-                                        : "info-input-icon-nf"
-                                    }
-                                  />
                                 </div>
                               </div>
-                              <p
-                                className={
-                                  mileageFilled
-                                    ? "info-input-warning-f"
-                                    : "info-input-warning-nf"
-                                }
-                              >
-                                Complete this field.
-                              </p>
                             </div>
                           </div>
                         </div>
                       </div>
-
                       <div className="info-input-box">
                         <div>
                           <div className="info-input-box-o">
-                            <div id="registration" className="info-input-box-n">
+                            <div
+                              id="manufacturerName"
+                              className="info-input-box-n"
+                            >
                               <label className="info-input-label">
-                                Vehicle registration number
+                                Parts Manufacturer
                               </label>
                               <div className="info-input-box-i">
                                 <div className="info-input-box-u">
                                   <input
                                     autoComplete="off"
                                     type="text"
-                                    placeholder="e.g. WA6642E"
                                     required
-                                    name="registration"
+                                    name="manufacturerName"
+                                    min={1}
+                                    max={3000000}
                                     className="info-input-f"
                                     onChange={handleAdFormValues(
-                                      "registration"
+                                      "manufacturerName"
                                     )}
-                                    value={adFormValues.registration}
+                                    value={adFormValues.manufacturerName}
                                   ></input>
                                 </div>
                               </div>
@@ -728,27 +484,52 @@ function Createadpage() {
                       <div className="info-input-box">
                         <div>
                           <div className="info-input-box-o">
-                            <div id="date" className="info-input-box-n">
+                            <div
+                              id="manufacturerReference"
+                              className="info-input-box-n"
+                            >
                               <label className="info-input-label">
-                                Date of first registration in the vehicle's
-                                history
+                                Manufacturer's reference number
                               </label>
-                              <div className="info-input-date-box">
-                                <div className="info-input-box-i">
-                                  <div className="info-input-box-u">
-                                    <input
-                                      autoComplete="off"
-                                      type="text"
-                                      placeholder="DD/MM/YYYY"
-                                      required
-                                      name="date"
-                                      className="info-input-f"
-                                      onChange={handleAdFormValues(
-                                        "registrationDate"
-                                      )}
-                                      value={adFormValues.registrationDate}
-                                    ></input>
-                                  </div>
+                              <div className="info-input-box-i">
+                                <div className="info-input-box-u">
+                                  <input
+                                    autoComplete="off"
+                                    type="text"
+                                    required
+                                    name="manufacturerReference"
+                                    className="info-input-f"
+                                    onChange={handleAdFormValues(
+                                      "manufacturerRefrence"
+                                    )}
+                                    value={adFormValues.manufacturerReference}
+                                  ></input>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="info-input-box">
+                        <div>
+                          <div className="info-input-box-o">
+                            <div id="delivery" className="info-input-box-n">
+                              <label className="info-input-label">
+                                Delivery
+                              </label>
+                              <div className="info-input-box-i">
+                                <div className="info-input-box-u">
+                                  <select
+                                    id="delivery"
+                                    value={adFormValues.delivery}
+                                    onChange={handleAdFormValues("delivery")}
+                                    className="search-form-category-dropdown"
+                                  >
+                                    <option value="">Choose</option>
+                                    <option value="NO">NO</option>
+                                    <option value="YES">YES</option>
+                                  </select>
                                 </div>
                               </div>
                             </div>
@@ -791,339 +572,239 @@ function Createadpage() {
                         </p>
                       </div>
 
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div
-                              id="productionYear"
-                              className="info-input-box-n"
-                            >
-                              <label className="info-input-label">
-                                Year of Production *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="productionYear"
-                                    value={adFormValues.productionYear}
-                                    onChange={handleAdFormValues(
-                                      "productionYear"
-                                    )}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {Years.map(createYearlist)}
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="vehicleBrand" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Vehicle Brand *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="vehicleBrand"
-                                    value={adFormValues.vehicleBrand}
-                                    onChange={handleAdFormValues(
-                                      "vehicleBrand"
-                                    )}
-                                    onChangeCapture={handleVehicleBrandChange}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {VehicleBrands.map(createVehicleBrandlist)}
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="vehicleModel" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Vehicle Model *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="vehicleModel"
-                                    value={adFormValues.vehicleModel}
-                                    onChange={handleAdFormValues(
-                                      "vehicleModel"
-                                    )}
-                                    className="search-form-category-dropdown"
-                                    disabled={!adFormValues.vehicleBrand}
-                                  >
-                                    <option value="">Choose</option>
-                                    {VehicleModels.map(createVehicleModellist)}
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="fuelType" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Fuel Type *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="fuelType"
-                                    value={adFormValues.fuelType}
-                                    onChange={handleAdFormValues("fuelType")}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {Fueltypes.map(createFuelTypelist)}
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="power" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Power *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <input
-                                    autoComplete="off"
-                                    type="text"
-                                    placeholder="e.g. 100,000 km"
-                                    required
-                                    name="engine_power"
-                                    min={1}
-                                    max={1500}
-                                    className={
-                                      powerFilled
-                                        ? "info-input-f"
-                                        : "info-input-nf"
-                                    }
-                                    onChange={handleAdFormValues("power")}
-                                    value={adFormValues.power}
-                                  ></input>
-                                  <BiErrorCircle
-                                    className={
-                                      powerFilled
-                                        ? "info-input-icon-f"
-                                        : "info-input-icon-nf"
-                                    }
-                                  />
-                                </div>
-                              </div>
-                              <p
-                                className={
-                                  powerFilled
-                                    ? "info-input-warning-f"
-                                    : "info-input-warning-nf"
-                                }
+                      {adFormValues.productType === "autoparts" ? (
+                        <div className="info-input-box">
+                          <div>
+                            <div className="info-input-box-o">
+                              <div
+                                id="vehicleBrand"
+                                className="info-input-box-n"
                               >
-                                Complete this field.
-                              </p>
+                                <label className="info-input-label">
+                                  Vehicle Brand*
+                                </label>
+                                <div className="info-input-box-i">
+                                  <div className="info-input-box-u">
+                                    <select
+                                      id="vehicleBrand"
+                                      value={adFormValues.vehicleBrand}
+                                      onChange={handleAdFormValues(
+                                        "vehicleBrand"
+                                      )}
+                                      className="search-form-category-dropdown"
+                                    >
+                                      <option value="">Choose</option>
+                                      {VehicleBrands.map(
+                                        createVehicleBrandlist1
+                                      )}
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="displacement" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Displacement *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <input
-                                    autoComplete="off"
-                                    type="text"
-                                    placeholder="e.g. 1,395 cm3"
-                                    required
-                                    name="engine_displacement"
-                                    min={400}
-                                    max={9000}
-                                    className={
-                                      displacementFilled
-                                        ? "info-input-f"
-                                        : "info-input-nf"
-                                    }
-                                    onChange={handleAdFormValues(
-                                      "displacement"
-                                    )}
-                                    value={adFormValues.displacement}
-                                  ></input>
-                                  <BiErrorCircle
-                                    className={
-                                      displacementFilled
-                                        ? "info-input-icon-f"
-                                        : "info-input-icon-nf"
-                                    }
-                                  />
-                                </div>
-                              </div>
-                              <p
-                                className={
-                                  displacementFilled
-                                    ? "info-input-warning-f"
-                                    : "info-input-warning-nf"
-                                }
+                      ) : (
+                        ""
+                      )}
+                      {adFormValues.productType === "motorcycleparts" ? (
+                        <div className="info-input-box">
+                          <div>
+                            <div className="info-input-box-o">
+                              <div
+                                id="vehicleBrand"
+                                className="info-input-box-n"
                               >
-                                Complete this field.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="doors" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Number of doors *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="Doors"
-                                    value={adFormValues.doors}
-                                    onChange={handleAdFormValues("doors")}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {Doors.map(createDoorslist)}
-                                  </select>
+                                <label className="info-input-label">
+                                  Vehicle Brand *
+                                </label>
+                                <div className="info-input-box-i">
+                                  <div className="info-input-box-u">
+                                    <select
+                                      id="vehicleBrand"
+                                      value={adFormValues.vehicleBrand}
+                                      onChange={handleAdFormValues(
+                                        "vehicleBrand"
+                                      )}
+                                      className="search-form-category-dropdown"
+                                    >
+                                      <option value="">Choose</option>
+                                      {MotorBrands.map(createVehicleBrandlist)}
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="gearbox" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Gearbox *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="Gearboxes"
-                                    value={adFormValues.gearBox}
-                                    onChange={handleAdFormValues("gearBox")}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {Gearboxes.map(createGearboxlist)}
-                                  </select>
+                      ) : (
+                        ""
+                      )}
+                      {adFormValues.productType === "truckparts" ? (
+                        <div className="info-input-box">
+                          <div>
+                            <div className="info-input-box-o">
+                              <div
+                                id="vehicleBrand"
+                                className="info-input-box-n"
+                              >
+                                <label className="info-input-label">
+                                  Vehicle Brand *
+                                </label>
+                                <div className="info-input-box-i">
+                                  <div className="info-input-box-u">
+                                    <select
+                                      id="vehicleBrand"
+                                      value={adFormValues.vehicleBrand}
+                                      onChange={handleAdFormValues(
+                                        "vehicleBrand"
+                                      )}
+                                      className="search-form-category-dropdown"
+                                    >
+                                      <option value="">Choose</option>
+                                      {TruckBrands.map(createVehicleBrandlist)}
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="version" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Version *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="version"
-                                    value={adFormValues.version}
-                                    onChange={handleAdFormValues("version")}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {Versions.map(createVersionlist)}
-                                  </select>
+                      ) : (
+                        ""
+                      )}
+                      {adFormValues.productType === "deliveryparts" ? (
+                        <div className="info-input-box">
+                          <div>
+                            <div className="info-input-box-o">
+                              <div
+                                id="vehicleBrand"
+                                className="info-input-box-n"
+                              >
+                                <label className="info-input-label">
+                                  Vehicle Brand *
+                                </label>
+                                <div className="info-input-box-i">
+                                  <div className="info-input-box-u">
+                                    <select
+                                      id="vehicleBrand"
+                                      value={adFormValues.vehicleBrand}
+                                      onChange={handleAdFormValues(
+                                        "vehicleBrand"
+                                      )}
+                                      className="search-form-category-dropdown"
+                                    >
+                                      <option value="">Choose</option>
+                                      {AllBrands.map(createVehicleBrandlist2)}
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="bodyType" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Body type *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="bodyType"
-                                    value={adFormValues.bodyType}
-                                    onChange={handleAdFormValues("bodyType")}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {Bodytypes.map(createBodytypelist)}
-                                  </select>
+                      ) : (
+                        ""
+                      )}
+                      {adFormValues.productType === "vehicleforparts" ? (
+                        <div className="info-input-box">
+                          <div>
+                            <div className="info-input-box-o">
+                              <div
+                                id="vehicleBrand"
+                                className="info-input-box-n"
+                              >
+                                <label className="info-input-label">
+                                  Vehicle Brand *
+                                </label>
+                                <div className="info-input-box-i">
+                                  <div className="info-input-box-u">
+                                    <select
+                                      id="vehicleBrand"
+                                      value={adFormValues.vehicleBrand}
+                                      onChange={handleAdFormValues(
+                                        "vehicleBrand"
+                                      )}
+                                      className="search-form-category-dropdown"
+                                    >
+                                      <option value="">Choose</option>
+                                      {AllBrands.map(createVehicleBrandlist2)}
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="color" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Color *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="color"
-                                    value={adFormValues.color}
-                                    onChange={handleAdFormValues("color")}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {Colors.map(createColorlist)}
-                                  </select>
+                      ) : (
+                        ""
+                      )}
+                      {adFormValues.productType === "agriculturalparts" ? (
+                        <div className="info-input-box">
+                          <div>
+                            <div className="info-input-box-o">
+                              <div
+                                id="vehicleBrand"
+                                className="info-input-box-n"
+                              >
+                                <label className="info-input-label">
+                                  Vehicle Brand *
+                                </label>
+                                <div className="info-input-box-i">
+                                  <div className="info-input-box-u">
+                                    <select
+                                      id="vehicleBrand"
+                                      value={adFormValues.vehicleBrand}
+                                      onChange={handleAdFormValues(
+                                        "vehicleBrand"
+                                      )}
+                                      className="search-form-category-dropdown"
+                                    >
+                                      <option value="">Choose</option>
+                                      {AllBrands.map(createVehicleBrandlist2)}
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      ) : (
+                        ""
+                      )}
+                      {adFormValues.productType === "constructionparts" ? (
+                        <div className="info-input-box">
+                          <div>
+                            <div className="info-input-box-o">
+                              <div
+                                id="vehicleBrand"
+                                className="info-input-box-n"
+                              >
+                                <label className="info-input-label">
+                                  Vehicle Brand *
+                                </label>
+                                <div className="info-input-box-i">
+                                  <div className="info-input-box-u">
+                                    <select
+                                      id="vehicleBrand"
+                                      value={adFormValues.vehicleBrand}
+                                      onChange={handleAdFormValues(
+                                        "vehicleBrand"
+                                      )}
+                                      className="search-form-category-dropdown"
+                                    >
+                                      <option value="">Choose</option>
+                                      {AllBrands.map(createVehicleBrandlist2)}
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1643,4 +1324,4 @@ function Createadpage() {
   );
 }
 
-export default Createadpage;
+export default Createadpageparts;

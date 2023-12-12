@@ -54,9 +54,7 @@ function Loginpage() {
 
         // console.log(data);
 
-        setTimeout(() => {
-          navigate("/");
-        }, 10000);
+        navigate("/");
       } else if (!email || !password || response.status > 400) {
         toast.error("Invalid email or password");
       }

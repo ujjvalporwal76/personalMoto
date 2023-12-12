@@ -19,6 +19,9 @@ function Searchformlistitem(props) {
       {props.category}
       {props.filter1}
       {props.filter2}
+      {props.engineType}
+      {props.transmissionType}
+      {props.driveType}
     </option>
   );
 }

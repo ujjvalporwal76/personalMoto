@@ -43,8 +43,8 @@ const checkout = async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: `https://www.personalmoto.pl/payment/success?id={CHECKOUT_SESSION_ID}&email=${email}&paid=${toPay}`,
-      cancel_url: "https://www.personalmoto.pl/payment/fail",
+      success_url: `${process.env.CLIENT_URL}/payment/success?id={CHECKOUT_SESSION_ID}&email=${email}&paid=${toPay}`,
+      cancel_url: `${process.env.CLIENT_URL}/payment/fail`,
     });
 
     res.status(201).json({ url: session.url });

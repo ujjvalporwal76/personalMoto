@@ -10,22 +10,21 @@ import "./Createadpage.css";
 import Navbar from "../NavBar/Navbar";
 import Searchformlistitem from "../SearchForm/Searchformlistitem";
 
-import Bodytypes from "../SearchForm/Bodytype";
-import Fueltypes from "../SearchForm/Fueltype";
+import Motorbodytypes from "../SearchForm/Motorbodytypes";
+import Motorenginetypes from "../SearchForm/Motorenginetype";
 import Years from "../SearchForm/Year";
 
-import fetchVehicleBrands from "../SearchForm/Vehiclebrand";
-import fetchVehicleModels from "../SearchForm/Vehiclemodel";
-import Doors from "../SearchForm/Door";
-import Gearboxes from "../SearchForm/Gearbox";
-import Versions from "../SearchForm/Version";
+import Motordrivetypes from "../SearchForm/Motordrivetype";
+
 import Colors from "../SearchForm/Color";
 import Currencies from "../SearchForm/Currency";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import fetchMotorModels from "../SearchForm/Motormodel";
+import fetchMotorBrands from "../SearchForm/Motorbrand";
 
 function createBodytypelist(Bodytype) {
-  return <Searchformlistitem key={Bodytype.id} bodytype={Bodytype.bodytype1} />;
+  return <Searchformlistitem key={Bodytype.id} bodytype={Bodytype.bodyType} />;
 }
 function createYearlist(Year) {
   return <Searchformlistitem key={Year.id} year={Year.year} />;
@@ -34,33 +33,41 @@ function createYearlist(Year) {
 function createVehicleBrandlist(Vehiclebrand) {
   return (
     <Searchformlistitem
-      key={Vehiclebrand.id}
-      vehiclebrand={Vehiclebrand.name}
+      key={Vehiclebrand.MakeId}
+      vehiclebrand={Vehiclebrand.MakeName}
     />
   );
 }
 
-function createDoorslist(Door) {
-  return <Searchformlistitem key={Door.id} door={Door.doors} />;
+function createTransmissionstypelist(Transmissiontype) {
+  return (
+    <Searchformlistitem
+      key={Transmissiontype.id}
+      transmissionType={Transmissiontype.transmissionType}
+    />
+  );
 }
 
-function createFuelTypelist(Fueltype) {
-  return <Searchformlistitem key={Fueltype.id} fueltype={Fueltype.fuelType} />;
+function createEnginetypelist(Enginetype) {
+  return (
+    <Searchformlistitem
+      key={Enginetype.id}
+      engineType={Enginetype.engineType}
+    />
+  );
 }
 function createVehicleModellist(Vehiclemodel) {
   return (
     <Searchformlistitem
-      key={Vehiclemodel.id}
-      vehiclemodel={Vehiclemodel.name}
+      key={Vehiclemodel.Model_ID}
+      vehiclemodel={Vehiclemodel.Model_Name}
     />
   );
 }
-function createGearboxlist(Gearbox) {
-  return <Searchformlistitem key={Gearbox.id} gearbox={Gearbox.gearbox} />;
-}
-
-function createVersionlist(Version) {
-  return <Searchformlistitem key={Version.id} version={Version.version} />;
+function createMotordrivetypes(Drivetype) {
+  return (
+    <Searchformlistitem key={Drivetype.id} driveType={Drivetype.driveType} />
+  );
 }
 
 function createColorlist(Color) {
@@ -71,18 +78,22 @@ function createCurrencylist(Currency) {
   return <Searchformlistitem key={Currency.id} currency={Currency.currency} />;
 }
 
-function Createadpage() {
+function Createadpagemotor() {
   const navigate = useNavigate();
 
-  const [VehicleModels, setVehicleModels] = useState([]);
-  const [VehicleBrands, setVehicleBrands] = useState([]);
+  const [MotorModels, setMotorModels] = useState([]);
+  const [MotorBrands, setMotorBrands] = useState([]);
 
+  useEffect(() => {
+    // You can perform additional actions when VehicleModels changes, if needed
+    // console.log("VehicleModels updated:", VehicleModels);
+  }, [MotorModels]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchVehicleBrands();
+        const data = await fetchMotorBrands();
+        setMotorBrands(data);
         // console.log(data);
-        setVehicleBrands(data);
       } catch (error) {
         console.error(error);
       }
@@ -90,17 +101,14 @@ function Createadpage() {
 
     fetchData();
   }, []);
-  useEffect(() => {
-    // You can perform additional actions when VehicleModels changes, if needed
-    // console.log("VehicleModels updated:", VehicleModels);
-  }, [VehicleModels]);
-  const handleVehicleBrandChange = async (e) => {
+
+  const handleMotorBrandChange = async (e) => {
     const selectedBrand = e.target.value;
 
     try {
-      const data = await fetchVehicleModels(selectedBrand);
-      setVehicleModels(data);
-      console.log(VehicleModels);
+      const data = await fetchMotorModels(selectedBrand);
+      setMotorModels(data);
+      console.log(MotorModels);
       // Do something with the data, e.g., update the state or log it
       console.log(data);
     } catch (error) {
@@ -128,7 +136,7 @@ function Createadpage() {
     productType: "",
     damaged: "NO",
     imported: "NO",
-    category: "Car",
+    category: "Motorcycle",
     vin: "",
     mileage: "",
     registration: "",
@@ -137,12 +145,12 @@ function Createadpage() {
     productionYear: "",
     vehicleBrand: "",
     vehicleModel: "",
-    fuelType: "",
+    engineType: "",
     power: "",
     displacement: "",
-    doors: "",
+    transmissionType: "",
+    driveType: "",
     gearBox: "",
-    version: "",
     bodyType: "",
     color: "",
     ytVideo: "",
@@ -157,7 +165,6 @@ function Createadpage() {
     freeVerificationCheck: false,
     images: [],
   });
-
   // let style = {transform : `rotate(90deg)`};
   function handledamageselect() {
     setDamageSelect(!damageSelect);
@@ -397,7 +404,7 @@ function Createadpage() {
           <div className="create-ad-form-box">
             <section>
               <div className="ad-form-header">
-                <h1 className="ad-form-heading">Create an Personal/Car ad</h1>
+                <h1 className="ad-form-heading">Create an Motorcycle ad</h1>
                 <div className="ad-form-category-box">
                   <div className="ad-form-category">
                     <select
@@ -525,56 +532,6 @@ function Createadpage() {
                                     onClick={handledamageselect}
                                     onClickCapture={handleAdFormValues(
                                       "damaged"
-                                    )}
-                                    value="YES"
-                                  ></input>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="vehicle-feature-select vehicle-main-feature-data">
-                        <div className="vehicle-feature-select-box-o">
-                          <div className="vehicle-feature-select-box-i">
-                            <div className="vehicle-feature-select-name vehicle-feature-select-box">
-                              Imported*
-                            </div>
-                            <div className="vehicle-feature-select-opt vehicle-feature-select-box">
-                              <div
-                                id="damage-data"
-                                className="vehicle-feature-opt-box"
-                              >
-                                <div
-                                  className={
-                                    importSelect
-                                      ? "vehicle-feature-opt"
-                                      : "vehicle-feature-opt-sel"
-                                  }
-                                >
-                                  <input
-                                    type="button"
-                                    className="vehicle-feature-opt-btn"
-                                    onClick={handleimportselect}
-                                    onClickCapture={handleAdFormValues(
-                                      "imported"
-                                    )}
-                                    value="NO"
-                                  ></input>
-                                </div>
-                                <div
-                                  className={
-                                    !importSelect
-                                      ? "vehicle-feature-opt"
-                                      : "vehicle-feature-opt-sel"
-                                  }
-                                >
-                                  <input
-                                    type="button"
-                                    className="vehicle-feature-opt-btn"
-                                    onClick={handleimportselect}
-                                    onClickCapture={handleAdFormValues(
-                                      "imported"
                                     )}
                                     value="YES"
                                   ></input>
@@ -836,11 +793,11 @@ function Createadpage() {
                                     onChange={handleAdFormValues(
                                       "vehicleBrand"
                                     )}
-                                    onChangeCapture={handleVehicleBrandChange}
+                                    onChangeCapture={handleMotorBrandChange}
                                     className="search-form-category-dropdown"
                                   >
                                     <option value="">Choose</option>
-                                    {VehicleBrands.map(createVehicleBrandlist)}
+                                    {MotorBrands.map(createVehicleBrandlist)}
                                   </select>
                                 </div>
                               </div>
@@ -868,7 +825,7 @@ function Createadpage() {
                                     disabled={!adFormValues.vehicleBrand}
                                   >
                                     <option value="">Choose</option>
-                                    {VehicleModels.map(createVehicleModellist)}
+                                    {MotorModels.map(createVehicleModellist)}
                                   </select>
                                 </div>
                               </div>
@@ -880,20 +837,52 @@ function Createadpage() {
                       <div className="info-input-box">
                         <div>
                           <div className="info-input-box-o">
-                            <div id="fuelType" className="info-input-box-n">
+                            <div
+                              id="motorFuelType"
+                              className="info-input-box-n"
+                            >
                               <label className="info-input-label">
                                 Fuel Type *
                               </label>
                               <div className="info-input-box-i">
                                 <div className="info-input-box-u">
                                   <select
-                                    id="fuelType"
+                                    id="motorFuelType"
                                     value={adFormValues.fuelType}
                                     onChange={handleAdFormValues("fuelType")}
                                     className="search-form-category-dropdown"
                                   >
                                     <option value="">Choose</option>
-                                    {Fueltypes.map(createFuelTypelist)}
+                                    <option value="Gas">Gas</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Electric">Electric</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="info-input-box">
+                        <div>
+                          <div className="info-input-box-o">
+                            <div
+                              id="motorEngineType"
+                              className="info-input-box-n"
+                            >
+                              <label className="info-input-label">
+                                Engine Type *
+                              </label>
+                              <div className="info-input-box-i">
+                                <div className="info-input-box-u">
+                                  <select
+                                    id="motorEngineType"
+                                    value={adFormValues.engineType}
+                                    onChange={handleAdFormValues("engineType")}
+                                    className="search-form-category-dropdown"
+                                  >
+                                    <option value="">Choose</option>
+                                    {Motorenginetypes.map(createEnginetypelist)}
                                   </select>
                                 </div>
                               </div>
@@ -1003,45 +992,25 @@ function Createadpage() {
                       <div className="info-input-box">
                         <div>
                           <div className="info-input-box-o">
-                            <div id="doors" className="info-input-box-n">
-                              <label className="info-input-label">
-                                Number of doors *
-                              </label>
-                              <div className="info-input-box-i">
-                                <div className="info-input-box-u">
-                                  <select
-                                    id="Doors"
-                                    value={adFormValues.doors}
-                                    onChange={handleAdFormValues("doors")}
-                                    className="search-form-category-dropdown"
-                                  >
-                                    <option value="">Choose</option>
-                                    {Doors.map(createDoorslist)}
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="info-input-box">
-                        <div>
-                          <div className="info-input-box-o">
-                            <div id="gearbox" className="info-input-box-n">
+                            <div id="motorGearBox" className="info-input-box-n">
                               <label className="info-input-label">
                                 Gearbox *
                               </label>
                               <div className="info-input-box-i">
                                 <div className="info-input-box-u">
                                   <select
-                                    id="Gearboxes"
+                                    id="motorGearBox"
                                     value={adFormValues.gearBox}
                                     onChange={handleAdFormValues("gearBox")}
                                     className="search-form-category-dropdown"
                                   >
                                     <option value="">Choose</option>
-                                    {Gearboxes.map(createGearboxlist)}
+                                    <option value="Automatic">Automatic</option>
+                                    <option value="Stepless">Stepless</option>
+                                    <option value="Manual">Manual</option>
+                                    <option value="Semi-automatic">
+                                      Semi-automatic
+                                    </option>
                                   </select>
                                 </div>
                               </div>
@@ -1053,20 +1022,23 @@ function Createadpage() {
                       <div className="info-input-box">
                         <div>
                           <div className="info-input-box-o">
-                            <div id="version" className="info-input-box-n">
+                            <div
+                              id="motorDriveType"
+                              className="info-input-box-n"
+                            >
                               <label className="info-input-label">
-                                Version *
+                                Drive Type *
                               </label>
                               <div className="info-input-box-i">
                                 <div className="info-input-box-u">
                                   <select
-                                    id="version"
-                                    value={adFormValues.version}
-                                    onChange={handleAdFormValues("version")}
+                                    id="motorDriveType"
+                                    value={adFormValues.driveType}
+                                    onChange={handleAdFormValues("driveType")}
                                     className="search-form-category-dropdown"
                                   >
                                     <option value="">Choose</option>
-                                    {Versions.map(createVersionlist)}
+                                    {Motordrivetypes.map(createMotordrivetypes)}
                                   </select>
                                 </div>
                               </div>
@@ -1078,20 +1050,23 @@ function Createadpage() {
                       <div className="info-input-box">
                         <div>
                           <div className="info-input-box-o">
-                            <div id="bodyType" className="info-input-box-n">
+                            <div
+                              id="motorBodyType"
+                              className="info-input-box-n"
+                            >
                               <label className="info-input-label">
                                 Body type *
                               </label>
                               <div className="info-input-box-i">
                                 <div className="info-input-box-u">
                                   <select
-                                    id="bodyType"
+                                    id="motorBodyType"
                                     value={adFormValues.bodyType}
                                     onChange={handleAdFormValues("bodyType")}
                                     className="search-form-category-dropdown"
                                   >
                                     <option value="">Choose</option>
-                                    {Bodytypes.map(createBodytypelist)}
+                                    {Motorbodytypes.map(createBodytypelist)}
                                   </select>
                                 </div>
                               </div>
@@ -1643,4 +1618,4 @@ function Createadpage() {
   );
 }
 
-export default Createadpage;
+export default Createadpagemotor;

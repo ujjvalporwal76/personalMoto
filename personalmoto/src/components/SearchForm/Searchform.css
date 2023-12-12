@@ -300,6 +300,56 @@ fieldset {
   width: 24px;
 }
 
+.category-nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu-personal-category {
+  display: none;
+}
+.dropdown-menu-personal-category li {
+  list-style: none;
+  height: 34px;
+  display: contents;
+}
+.dropdown-menu-personal-category a {
+  border-bottom: 1px solid #ececef;
+  -webkit-transition: color 0.15s ease, background-color 0.15s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  display: inline-block;
+  padding: 16px 22px;
+  width: 100%;
+  text-align: right;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.dropdown-menu-personal-category a:hover {
+  background-color: #09395f;
+  color: #fff;
+}
+.category-nav-item:hover .dropdown-menu-personal-category {
+  position: absolute;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  bottom: 0;
+  right: -1px;
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+  z-index: 6;
+  background: #fff;
+  border: 1px solid #c9c9c9;
+  box-shadow: 0 5px 8px -1px rgba(52, 65, 108, 0.25);
+  width: 265px;
+}
 /* ------------------------Media Queries------------------------*/
 @media (min-width: 1280px) {
   .product-search-form-section {
